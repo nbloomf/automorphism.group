@@ -47,7 +47,7 @@
 </div>
 <p>Slightly less trivial, the composite of surjective functions is surjective.</p>
 <div class="theorem">
-<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be functions. If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are surjective, then <span class="math inline">\(g \circ f\)</span> is surjective.</p>
+<p><a name='crossref-2'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be functions. If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are surjective, then <span class="math inline">\(g \circ f\)</span> is surjective.</p>
 <div class="proof">
 <p>Let <span class="math inline">\(c \in C\)</span>. Since <span class="math inline">\(g\)</span> is surjective, there is a <span class="math inline">\(b \in B\)</span> such that <span class="math inline">\(g(b) = c\)</span>. Similarly, since <span class="math inline">\(f\)</span> is surjective, there is an <span class="math inline">\(a \in A\)</span> with <span class="math inline">\(f(a) = b\)</span>. Now <span class="math display">\[(g \circ f)(a) = g(f(a)) = g(b) = c.\]</span> Since <span class="math inline">\(c\)</span> was arbitrary in <span class="math inline">\(C\)</span>, <span class="math inline">\(g \circ f\)</span> is surjective as claimed.</p>
 </div>
@@ -57,22 +57,111 @@
 <h2>Injectivity</h2>
 <p>Where surjectivity was dual to totality, well-definedness also has a dual, called <em>injectivity</em>. These are functions which send distinct inputs to distinct outputs.</p>
 <div class="definition">
-<p><a name='crossref-2'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. We say <span class="math inline">\(f\)</span> is <em>injective</em> if whenever <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\(f(a_1) = f(a_2)\)</span>, we have <span class="math inline">\(a_1 = a_2\)</span>.</p>
+<p><a name='crossref-3'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. We say <span class="math inline">\(f\)</span> is <em>injective</em> if whenever <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\(f(a_1) = f(a_2)\)</span>, we have <span class="math inline">\(a_1 = a_2\)</span>.</p>
 </div>
 <p>This property is sometimes called <em>one-to-one</em>, but again I'll prefer injective. (Even <em>two-to-two</em> would be better than one-to-one, since that more accurately reflects what it means.) Showing that a function is injective usually involves setting up an equality <span class="math inline">\(f(x) = f(y)\)</span> for arbitrary <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and showing that <span class="math inline">\(x = y\)</span>.</p>
 <div class="theorem">
-<p><a name='crossref-3'></a> The identity function <span class="math inline">\(\mathsf{id}_A\)</span> is injective.</p>
+<p><a name='crossref-4'></a> The identity function <span class="math inline">\(\mathsf{id}_A\)</span> is injective.</p>
 <div class="proof">
 <p>Let <span class="math inline">\(a_1, a_2 \in A\)</span> with <span class="math inline">\(\mathsf{id}_A(a_1) = \mathsf{id}_A(a_2)\)</span>. Using the definition of <span class="math inline">\(\mathsf{id}_A\)</span>, we have <span class="math display">\[a_1 = \mathsf{id}_A(a_1) = \mathsf{id}_A(a_2) = a_2.\]</span> Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary, <span class="math inline">\(\mathsf{id}_A\)</span> is injective as claimed.</p>
 </div>
 </div>
 <p>The composite of injective functions is again injective.</p>
 <div class="theorem">
-<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be functions. If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are injective, then <span class="math inline">\(g \circ f\)</span> is also injective.</p>
+<p><a name='crossref-5'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be functions. If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are injective, then <span class="math inline">\(g \circ f\)</span> is also injective.</p>
 <div class="proof">
 <p>Let <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((g \circ f)(a_1) = (g \circ f)(a_2)\)</span>. Now <span class="math display">\[g(f(a_1)) = (g \circ f)(a_1) = (g \circ f)(a_2) = g(f(a_2)).\]</span> Since <span class="math inline">\(g\)</span> is injective, we have <span class="math inline">\(f(a_1) = f(a_2)\)</span>, and because <span class="math inline">\(f\)</span> is injective, we have <span class="math inline">\(a_1 = a_2\)</span>. Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary in <span class="math inline">\(A\)</span>, <span class="math inline">\(g \circ f\)</span> is injective as claimed.</p>
 </div>
 </div>
+</section>
+<section class="level2">
+<h2>Bijectivity</h2>
+<p>Functions which are both injective and surjective end up being especially important, so we give them a name.</p>
+<div class="definition">
+<p>A function <span class="math inline">\(f\)</span> is called <em>bijective</em> if it is both injective and surjective.</p>
+</div>
+<p>Bijective functions basically come in two flavors:</p>
+<ul>
+<li>those with signature <span class="math inline">\(A \rightarrow B\)</span> with <span class="math inline">\(B \neq A\)</span>. We can think of these as <em>renamings</em>.</li>
+<li>those with signature <span class="math inline">\(A \rightarrow A\)</span>. These are called <em>permutations</em>, and will get more attention later.</li>
+</ul>
+<p>In any case, what makes bijective functions really interesting is that each one has a corresponding "undo" function, as characterized in the following result.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. If <span class="math inline">\(f\)</span> is bijective, then there is a unique function <span class="math inline">\(g : B \rightarrow A\)</span> such that <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span> and <span class="math inline">\(f \circ g = \mathsf{id}_B\)</span>. We denote this function <span class="math inline">\(f^{-1}\)</span>, pronounced <span class="math inline">\(f\)</span>-<em>inverse</em>.</p>
+<div class="proof">
+<p>Thinking of functions as sets, define a <em>set</em> <span class="math display">\[g = \{ (f(a), a) \mid a \in A \}.\]</span> We need to show four things:</p>
+<ol>
+<li><span class="math inline">\(g\)</span> is a function (which is not at all obvious from the definition);</li>
+<li><span class="math inline">\(g \circ f = \mathsf{id}_A\)</span> and <span class="math inline">\(f \circ g = \mathsf{id}_B\)</span>; and</li>
+<li><span class="math inline">\(g\)</span> is unique among the objects having properties (1) and (2).</li>
+</ol>
+<p>First we show (1): that <span class="math inline">\(g \subseteq B \times A\)</span> is a function. Recall that this has two sub-parts: showing that <span class="math inline">\(g\)</span> is both total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(g\)</span> is total, first let <span class="math inline">\(b \in B\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(a \in A\)</span> such that <span class="math inline">\(b = f(a)\)</span>. By definition, then, we have <span class="math display">\[(b,a) = (f(a),a) \in g.\]</span> Since <span class="math inline">\(b\)</span> is arbitrary, <span class="math inline">\(g\)</span> is total.</li>
+<li>To see that <span class="math inline">\(g\)</span> is well-defined, suppose we have <span class="math inline">\(b \in B\)</span> and <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((b,a_1) \in g\)</span> and <span class="math inline">\((b, a_2) \in g\)</span>. By definition, we then have <span class="math inline">\(f(a_1) = b = f(a_2)\)</span>. Since <span class="math inline">\(f\)</span> is injective, we then have <span class="math inline">\(a_1 = a_2\)</span>. Since <span class="math inline">\(b\)</span>, <span class="math inline">\(a_1\)</span>, and <span class="math inline">\(a_2\)</span> were arbitrary, <span class="math inline">\(g\)</span> is well-defined</li>
+</ul>
+<p>So <span class="math inline">\(g\)</span> is total and well-defined, and thus a function with signature <span class="math inline">\(B \rightarrow A\)</span>. In particular, it now makes sense to use <span class="math inline">\(g(\star)\)</span> notation, and we have <span class="math inline">\(g(f(a)) = a\)</span>.</p>
+<p>Next we show (2). Let <span class="math inline">\(a \in A\)</span>; note that <span class="math display">\[(g \circ f)(a) = g(f(a)) = a = \mathsf{id}_A(a).\]</span> Since <span class="math inline">\(a\)</span> is arbitrary, we have <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span>. Now let <span class="math inline">\(b \in B\)</span>; since <span class="math inline">\(f\)</span> is surjective, we have <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a\)</span>. Now note that <span class="math display">\[(f \circ g)(b) = f(g(b)) = f(g(f(a))) = f(a) = b.\]</span> Since <span class="math inline">\(b\)</span> was arbitrary we have <span class="math inline">\(f \circ g = \mathsf{id}_B\)</span> as claimed.</p>
+<p>Finally we show (3), that <span class="math inline">\(g\)</span> is unique among functions <span class="math inline">\(B \rightarrow A\)</span> that compose with <span class="math inline">\(f\)</span> as in (2). To this end, let <span class="math inline">\(h : B \rightarrow A\)</span> be a function such that <span class="math inline">\(h \circ f = \mathsf{id}_A\)</span> and <span class="math inline">\(f \circ h = \mathsf{id}_B\)</span>. We want to show that <span class="math inline">\(h = g\)</span>, and to do so we'll show each is a subset of the other.</p>
+<p>First suppose <span class="math inline">\((b,a) \in h\)</span>. Now <span class="math display">\[b = \mathsf{id}_B(b) = (f \circ h)(b) = f(h(b)) = f(a),\]</span> so we have <span class="math inline">\((b,a) = (f(a),a) \in g\)</span> by definition, and thus <span class="math inline">\(h \subseteq g\)</span>. Next let <span class="math inline">\((f(a),a) \in g\)</span>. Of course <span class="math inline">\(h(f(a)) = (h \circ f)(a) = \mathsf{id}_A(a) = a\)</span> so that <span class="math inline">\((f(a),a) \in h\)</span> and <span class="math inline">\(g \subseteq h\)</span>. Thus <span class="math inline">\(h = g\)</span> as claimed.</p>
+</div>
+</div>
+<p>This theorem is interesting because it defines <span class="math inline">\(f^{-1}\)</span> using a <em>uniqueness property</em>. We don't just show that <span class="math inline">\(f^{-1}\)</span> exists or that it satisfies some property; we show that it is <em>unique</em> with that property. This gives a handy strategy for showing that a given function <span class="math inline">\(g\)</span> is equal to <span class="math inline">\(f^{-1}\)</span>; just show that <span class="math inline">\(g\)</span> satisfies the <em>properties</em> of the inverse. This is a subtle but very powerful point.</p>
+<p>To see the uniqueness strategy in action, we can try it out on a few concrete examples. First, the inverse of a bijective function is again bijective.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> be a bijective function. Then <span class="math inline">\(f^{-1}\)</span> is also bijective, and moreover <span class="math inline">\((f^{-1})^{-1} = f\)</span>.</p>
+<div class="proof">
+<p>First we show that <span class="math inline">\(f^{-1}\)</span> is bijective -- that is, both injective and surjective. To see that <span class="math inline">\(f^{-1}\)</span> is injective, suppose we have <span class="math inline">\(b_1, b_2 \in B\)</span> such that <span class="math inline">\(f^{-1}(b_1) = f^{-1}(b_2)\)</span>. Then we also have</p>
+<p><span class="math display">\[\begin{eqnarray*}
+b_1
+ &amp; = &amp; \mathsf{id}_B(b_1) \\
+ &amp; = &amp; (f \circ f^{-1})(b_1) \\
+ &amp; = &amp; f(f^{-1}(b_1)) \\
+ &amp; = &amp; f(f^{-1}(b_2)) \\
+ &amp; = &amp; (f \circ f^{-1})(b_2) \\
+ &amp; = &amp; \mathsf{id}_B(b_2) \\
+ &amp; = &amp; b_2.
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_2\)</span> were arbitrary, <span class="math inline">\(f^{-1}\)</span> is injective. To see that <span class="math inline">\(f^{-1}\)</span> is surjective, let <span class="math inline">\(a \in A\)</span>, thinking of <span class="math inline">\(A\)</span> as the codomain of <span class="math inline">\(g\)</span>. Since <span class="math inline">\(f\)</span> is a function of course <span class="math inline">\(f(a)\)</span> exists in <span class="math inline">\(B\)</span> and <span class="math inline">\(f^{-1}(f(a)) = a\)</span>; since <span class="math inline">\(a\)</span> was arbitrary, <span class="math inline">\(f^{-1}\)</span> is surjective, and thus bijective as claimed.</p>
+<p>Now the previous theorem applies. Note that <span class="math inline">\(f : A \rightarrow B\)</span> is a function, and that <span class="math inline">\(f \circ f^{-1} = \mathsf{id}_B\)</span> and <span class="math inline">\(f^{-1} \circ f = \mathsf{id}_A\)</span>. By the uniqueness property of inverse functions, then, we have <span class="math inline">\((f^{-1})^{-1} = f\)</span> as claimed.</p>
+</div>
+</div>
+<p>The identity function is bijective.</p>
+<div class="theorem">
+<p><a name='crossref-6'></a> Let <span class="math inline">\(A\)</span> be a set. Then <span class="math inline">\(\mathsf{id}_A^{-1} = \mathsf{id}_A\)</span>.</p>
+<div class="proof">
+<p>We've already shown that <span class="math inline">\(\mathsf{id}_A\)</span> is <a href="jectivity.html#crossref-1">surjective</a> as well as <a href="jectivity.html#crossref-4">injective</a>, so it is bijective.</p>
+<p>Now note that <span class="math inline">\(\mathsf{id}_A : A \rightarrow A\)</span> and that <span class="math inline">\(\mathsf{id}_A \circ \mathsf{id}_A = \mathsf{id}_A\)</span>. By the uniqueness property of function inverses, we have <span class="math inline">\(\mathsf{id}_A^{-1} = \mathsf{id}_A\)</span>, as claimed.</p>
+</div>
+</div>
+<p>And the composite of bijective functions is bijective.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be bijective functions. Then <span class="math inline">\(g \circ f\)</span> is also bijective, and moreover <span class="math inline">\((g \circ f)^{-1} = f^{-1} \circ g^{-1}\)</span>.</p>
+<div class="proof">
+<p>First we show that <span class="math inline">\(g \circ f\)</span> is bijective. Since <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are both bijective, they are also surjective; we've <a href="jectivity.html#crossref-2">already shown</a> that <span class="math inline">\(g \circ f\)</span> is then also surjective. Likewise <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are injective, and <a href="jectivity.html#crossref-5">so</a> <span class="math inline">\(g \circ f\)</span> is injective. Thus <span class="math inline">\(g \circ f\)</span> is bijective as claimed.</p>
+<p>Now note that <span class="math inline">\(f^{-1} \circ g^{-1} : C \rightarrow A\)</span>. Next, we have</p>
+<p><span class="math display">\[\begin{eqnarray*}
+(g \circ f) \circ (f^{-1} \circ g^{-1})
+ &amp; = &amp; g \circ (f \circ (f^{-1} \circ g^{-1})) \\
+ &amp; = &amp; g \circ ((f \circ f^{-1}) \circ g^{-1}) \\
+ &amp; = &amp; g \circ (\mathsf{id}_B \circ g^{-1}) \\
+ &amp; = &amp; g \circ g^{-1} \\
+ &amp; = &amp; \mathsf{id}_C
+\end{eqnarray*}\]</span></p>
+<p>and similarly</p>
+<p><span class="math display">\[\begin{eqnarray*}
+(f^{-1} \circ g^{-1}) \circ (g \circ f)
+ &amp; = &amp; f^{-1} \circ (g^{-1} \circ (g \circ f)) \\
+ &amp; = &amp; f^{-1} \circ ((g^{-1} \circ g) \circ f) \\
+ &amp; = &amp; f^{-1} \circ (\mathsf{id}_B \circ f) \\
+ &amp; = &amp; f^{-1} \circ f \\
+ &amp; = &amp; \mathsf{id}_A.
+\end{eqnarray*}\]</span></p>
+<p>By the uniqueness property of function inverses, we have <span class="math inline">\((g \circ f)^{-1} = f^{-1} \circ g^{-1}\)</span> as claimed.</p>
+</div>
+</div>
+<p>In some sense, bijective functions are not very interesting as functions; they "only" tell us that two sets are the same "up to a renaming". That may or may not be useful in a given context.</p>
+<p>However, bijective functions turn out to be extremely interesting as computational objects, particularly when the domain and codomain are the same.</p>
 </section>
 </article>
 </body>

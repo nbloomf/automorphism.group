@@ -93,6 +93,8 @@ To summarize, among the subsets of $B \times B$,
 :::::::::::::
 :::::::::::::::
 
+For even moderately larger sets $B$, it quickly becomes infeasible to analyze $B \times B$ like this. To get a handle on sets of functions we'll need to come up with some better tools.
+
 
 
 Composition
@@ -160,6 +162,7 @@ Next we show (2). There is a fourth set $D$ here playing the role of domain for 
 This one's really important: function composition is associative.
 
 ::: theorem :::
+[@thm-composition-assoc]()
 Let $f : A \rightarrow B$, $g : B \rightarrow C$, and $h : C \rightarrow D$ be functions. Then $$h \circ (g \circ f) = (h \circ g) \circ f.$$
 
 ::: proof :::

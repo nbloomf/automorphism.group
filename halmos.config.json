@@ -4,6 +4,7 @@
     [ "index.md"
     , "sec/functions.md"
     , "sec/jectivity.md"
+    , "sec/semigroups.md"
     , "sec/group-basics.md"
     ]
 }

@@ -104,6 +104,7 @@
 </ul>
 </div>
 </div>
+<p>For even moderately larger sets <span class="math inline">\(B\)</span>, it quickly becomes infeasible to analyze <span class="math inline">\(B \times B\)</span> like this. To get a handle on sets of functions we'll need to come up with some better tools.</p>
 </section>
 <section class="level2">
 <h2>Composition</h2>
@@ -156,7 +157,7 @@
 </div>
 <p>This one's really important: function composition is associative.</p>
 <div class="theorem">
-<p>Let <span class="math inline">\(f : A \rightarrow B\)</span>, <span class="math inline">\(g : B \rightarrow C\)</span>, and <span class="math inline">\(h : C \rightarrow D\)</span> be functions. Then <span class="math display">\[h \circ (g \circ f) = (h \circ g) \circ f.\]</span></p>
+<p><a name='crossref-7'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span>, <span class="math inline">\(g : B \rightarrow C\)</span>, and <span class="math inline">\(h : C \rightarrow D\)</span> be functions. Then <span class="math display">\[h \circ (g \circ f) = (h \circ g) \circ f.\]</span></p>
 <div class="proof">
 <p>We usually gloss over this, but it's important to convince ourselves that all the compositions here make sense -- for instance, <span class="math inline">\(g \circ f\)</span> has signature <span class="math inline">\(A \rightarrow C\)</span>, so that <span class="math inline">\(h \circ (g \circ f)\)</span> exists.</p>
 <p>Now to show the claimed equality holds, let <span class="math inline">\(a \in A\)</span>. Now</p>
