@@ -182,7 +182,12 @@ p {
 section > p,
 section > footer,
 section > table,
-section > div.sourceCode
+section > div.sourceCode,
+section > div.axiom,
+section > div.definition,
+section > div.example,
+section > div.theorem,
+section > div.corollary
 {
   width: 55%;
 }
@@ -455,6 +460,7 @@ div.epigraph > blockquote > footer > cite {
 
 div.axiom,
 div.definition,
+div.example,
 div.theorem,
 div.corollary
 {
@@ -467,6 +473,7 @@ div.corollary
 
 div.axiom p:first-of-type,
 div.definition p:first-of-type,
+div.example p:first-of-type,
 div.theorem p:first-of-type,
 div.corollary p:first-of-type
 {
@@ -482,6 +489,13 @@ div.axiom p:first-of-type::before {
 
 div.definition p:first-of-type::before {
   content: "Def'n:\0000a0";
+  font-style: italic;
+  font-size: 1.4rem;
+  color: #888888;
+}
+
+div.example p:first-of-type::before {
+  content: "Example:\0000a0";
   font-style: italic;
   font-size: 1.4rem;
   color: #888888;

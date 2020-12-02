@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Functions</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          Hask: "\\mathsf{Hask}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Functions</h1>
+
+</header>
+<section class="level2">
+<h2>Functions</h2>
+<p>This is one of the most fundamental definitions in algebra. Intutitively, a function is a thing that "transforms" objects of one type into objects of another type.</p>
+<div class="definition">
+<p><a name='crossref-0'></a><a name='crossref-1'></a><a name='crossref-2'></a> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets, with a subset <span class="math inline">\(f \subseteq A \times B\)</span>.</p>
+<ol>
+<li>We say that <span class="math inline">\(f\)</span> is <em>total</em> when for every <span class="math inline">\(a \in A\)</span>, there exists a <span class="math inline">\(b \in B\)</span> such that <span class="math inline">\((a,b) \in f\)</span>.</li>
+<li>We say that <span class="math inline">\(f\)</span> is <em>well-defined</em> when for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(b_1, b_2 \in B\)</span>, if <span class="math inline">\((a,b_1) \in f\)</span> and <span class="math inline">\((a,b_2) \in f\)</span>, then <span class="math inline">\(b_1 = b_2\)</span>.</li>
+<li>We say <span class="math inline">\(f\)</span> is a <em>function</em> if it is both total and well-defined.</li>
+</ol>
+</div>
+<p>We have some special notation for working with functions. Although a function is literally a set, we will usually express the statement "<span class="math inline">\(f \subseteq A \times B\)</span> is a function" using the notation <span class="math inline">\(f : A \rightarrow B\)</span>, pronounced "<span class="math inline">\(f\)</span> maps <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span>". In this notation, <span class="math inline">\(A \rightarrow B\)</span> is called the <em>signature</em> of <span class="math inline">\(f\)</span>.</p>
+<p>The total and well-definedness conditions together imply that for every <span class="math inline">\(a \in A\)</span>, there is a <em>unique</em> <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((a,b) \in f\)</span>. Whenever this kind of thing happens -- an object with some property exists and is unique -- it is often useful to give it a name. We refer to this unique <span class="math inline">\(b\)</span> as <span class="math inline">\(f(a)\)</span>, called the <em>image</em> of <span class="math inline">\(f\)</span> <em>at</em> <span class="math inline">\(a\)</span>.</p>
+<p>Now we'll establish some concrete examples of functions.</p>
+<div class="example">
+<p><a name='crossref-3'></a> Let <span class="math inline">\(A\)</span> be a set. The diagonal subset <span class="math inline">\(\Delta \subseteq A \times A\)</span> given by <span class="math display">\[\Delta = \{(a,a) \mid a \in A\}\]</span> is a function. We call this the <em>identity function</em> on <span class="math inline">\(A\)</span>, and denote it <span class="math inline">\(\mathsf{id}_A\)</span>. By definition, <span class="math inline">\(\mathsf{id}_A(a) = a\)</span> for all <span class="math inline">\(a \in A\)</span>.</p>
+<div class="proof">
+<p>We need to show that <span class="math inline">\(\Delta\)</span> is total and well-defined.</p>
+<ol>
+<li>First we show that <span class="math inline">\(\Delta\)</span> is total. Let <span class="math inline">\(a \in A\)</span>; then we have <span class="math inline">\((a,a) \in \Delta\)</span>, and in particular <span class="math inline">\(a\)</span> itself witnesses the totality of <span class="math inline">\(\Delta\)</span> at <span class="math inline">\(a\)</span>. Since <span class="math inline">\(a\)</span> was arbitrary, <span class="math inline">\(\Delta\)</span> is total.</li>
+<li>Next we show that <span class="math inline">\(\Delta\)</span> is well-defined. To this end, suppose we have <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(b_1, b_2 \in A\)</span> such that <span class="math inline">\((a,b_1) \in \Delta\)</span> and <span class="math inline">\((a,b_2) \in \Delta\)</span>. then we have <span class="math inline">\(b_1 = a = b_2\)</span> as required. So <span class="math inline">\(\Delta\)</span> is well-defined.</li>
+</ol>
+<p>Since <span class="math inline">\(\Delta\)</span> is both total and well-defined, it is a function.</p>
+</div>
+</div>
+<p>The identity function is an atypical example of a function in one respect -- the "input" set and the "output" set are the same. (This is not usually the case.) This is a good time to define "input" set and "output" sets more precisely.</p>
+<div class="definition">
+<p><a name='crossref-4'></a><a name='crossref-5'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. We say that <span class="math inline">\(A\)</span> is the <em>domain</em> of <span class="math inline">\(f\)</span>, denoted <span class="math inline">\(\mathsf{dom}(f)\)</span>, and that <span class="math inline">\(B\)</span> is the <em>codomain</em> of <span class="math inline">\(f\)</span>, denoted <span class="math inline">\(\mathsf{cod}(f)\)</span>.</p>
+</div>
+<p>Another boring but useful class of functions are those which always output the same thing. Such functions are called <em>constant</em>.</p>
+<div class="example">
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets, and fix <span class="math inline">\(b \in B\)</span>. Then the subset <span class="math display">\[K \subseteq A \times B = \{ (a,b) \mid a \in A \}\]</span> is a function. We call this the <em>constant</em> function on <span class="math inline">\(A\)</span> with image <span class="math inline">\(b\)</span>, and denote it <span class="math inline">\(\mathsf{const}_b\)</span>. By definition, <span class="math inline">\(\mathsf{const}_b(a) = b\)</span> for all <span class="math inline">\(a \in A\)</span>.</p>
+<div class="proof">
+<p>We need to show that <span class="math inline">\(K\)</span> is total and well-defined.</p>
+<ol>
+<li>First we show that <span class="math inline">\(K\)</span> is total. Let <span class="math inline">\(a \in A\)</span>; by definition, we have <span class="math inline">\((a,b) \in K\)</span>. Since <span class="math inline">\(a\)</span> was arbitrary, <span class="math inline">\(K\)</span> is total.</li>
+<li>Next we show that <span class="math inline">\(K\)</span> is well-defined. To this end, suppose we have <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(b_1, b_2 \in B\)</span> such that <span class="math inline">\((a,b_1) \in K\)</span> and <span class="math inline">\((a,b_2) \in K\)</span>. Again by definition, we have <span class="math inline">\(b_1 = b = b_2\)</span>.</li>
+</ol>
+<p>Since <span class="math inline">\(K\)</span> is both total and well-defined, it is a function.</p>
+</div>
+</div>
+<p>In the long run we won't often be working with functions as sets; in some sense the set-based machinery behind functions is an implementation detail. However it does pop up from time to time. So for the sake of the exercise, and to get a taste of pain, we'll characterize all of the subsets of a particular <span class="math inline">\(A \times B\)</span> by their totality or well-definedness.</p>
+<div class="example">
+<p>Let <span class="math inline">\(B = \{ \circ, \star \}\)</span>. Determine which subsets of <span class="math inline">\(B \times B\)</span> are total and which are well-defined.</p>
+<div class="proof">
+<p>Note that <span class="math inline">\(B \times B\)</span> contains four elements: <span class="math display">\[B \times B = \{ (\circ,\circ), (\circ,\star), (\star,\circ), (\star,\star) \}.\]</span> Given an arbitrary subset of <span class="math inline">\(B \times B\)</span>, every element is either in or out, so there are <span class="math inline">\(2^4 = 16\)</span> different subsets.</p>
+<ul>
+<li><span class="math inline">\(\{\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\star, b) \in f\)</span>. Vacuously <strong>well defined</strong>, since the antecedent in the definition of well defined, that is, "<span class="math inline">\((a,b_1) \in f\)</span> and <span class="math inline">\((a,b_2) \in f\)</span>", is false.</li>
+<li><span class="math inline">\(\{(\circ,\circ)\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\star, b) \in f\)</span>. <strong>Well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\star)\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\star, b) \in f\)</span>. <strong>Well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\circ,\star)\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\star, b) \in f\)</span>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\circ,b_1) \in f\)</span> and <span class="math inline">\((\circ,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+<li><span class="math inline">\(\{(\star,\circ)\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\circ, b) \in f\)</span>. <strong>Well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\star,\circ)\}\)</span>: <strong>Total</strong> and <strong>well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\star), (\star,\circ)\}\)</span>: <strong>Total</strong> and <strong>well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\circ,\star), (\star,\circ)\}\)</span>: <strong>Total</strong>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\circ,b_1) \in f\)</span> and <span class="math inline">\((\circ,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+<li><span class="math inline">\(\{(\star,\star)\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\circ, b) \in f\)</span>. <strong>Well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\star,\star)\}\)</span>: <strong>Total</strong> and <strong>well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\star), (\star,\star)\}\)</span>: <strong>Total</strong> and <strong>well-defined</strong>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\circ,\star), (\star,\star)\}\)</span>: <strong>Total</strong>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\circ,b_1) \in f\)</span> and <span class="math inline">\((\circ,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+<li><span class="math inline">\(\{(\star,\circ), (\star,\star)\}\)</span>: <strong>Not total</strong> because there is no <span class="math inline">\(b \in B\)</span> with <span class="math inline">\((\circ, b) \in f\)</span>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\star,b_1) \in f\)</span> and <span class="math inline">\((\star,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\star,\circ), (\star,\star)\}\)</span>: <strong>Total</strong>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\star,b_1) \in f\)</span> and <span class="math inline">\((\star,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+<li><span class="math inline">\(\{(\circ,\star), (\star,\circ), (\star,\star)\}\)</span>: <strong>Total</strong>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\star,b_1) \in f\)</span> and <span class="math inline">\((\star,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+<li><span class="math inline">\(\{(\circ,\circ), (\circ,\star), (\star,\circ), (\star,\star)\}\)</span>: <strong>Total</strong>. <strong>Not well-defined</strong> since there exist <span class="math inline">\(b_1,b_2 \in B\)</span> with <span class="math inline">\((\circ,b_1) \in f\)</span> and <span class="math inline">\((\circ,b_2) \in f\)</span> but <span class="math inline">\(b_1 \neq b_2\)</span>.</li>
+</ul>
+<p>To summarize, among the subsets of <span class="math inline">\(B \times B\)</span>,</p>
+<ul>
+<li>2 elements are neither total nor well-defined.</li>
+<li>5 elements are total but not well-defined.</li>
+<li>5 elements are not total, but are well-defined.</li>
+<li>4 elements are both total and well-defined (e.g., are functions).</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="level2">
+<h2>Composition</h2>
+<div class="definition">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be functions. Note that for all <span class="math inline">\(a \in A\)</span>, <span class="math inline">\(f(a) \in B\)</span>, and so <span class="math inline">\(g(f(a)) \in C\)</span>. Then the set <span class="math display">\[g \circ f = \{ (a, g(f(a))) \mid a \in A \} \subseteq A \times C\]</span> is a function, called the <em>composite</em> of <span class="math inline">\(g\)</span> and <span class="math inline">\(f\)</span>. By definition, <span class="math inline">\((g \circ f)(a) = g(f(a))\)</span> for all <span class="math inline">\(a \in A\)</span>.</p>
+<div class="proof">
+<p>We need to show that <span class="math inline">\(g \circ f\)</span> is total and well defined.</p>
+<ol>
+<li>First we show that <span class="math inline">\(g \circ f\)</span> is total. Let <span class="math inline">\(a \in A\)</span>; by definition we have <span class="math inline">\((a, g(f(a))) \in g \circ f\)</span>. Since <span class="math inline">\(a\)</span> was arbitrary, <span class="math inline">\(g \circ f\)</span> is total.</li>
+<li>Next we show that <span class="math inline">\(g \circ f\)</span> is well-defined. To this end, suppose we have <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(c_1, c_2 \in C\)</span> such that <span class="math inline">\((a, c_1) \in g \circ f\)</span> and <span class="math inline">\((a, c_2) \in g \circ f\)</span>. By definition, we have <span class="math inline">\(c_1 = g(f(a)) = c_2\)</span> as required.</li>
+</ol>
+<p>Since <span class="math inline">\(g \circ f\)</span> is both total and well-defined, it is a function.</p>
+</div>
+</div>
+<p>Since functions are sets, to show that two functions are equal we can use the usual strategy of showing that each is a subset of the other. However, there is an equivalent strategy that is often simpler: show that they have the same <em>images</em>.</p>
+<div class="theorem">
+<p><a name='crossref-6'></a> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets with <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : A \rightarrow B\)</span>. Then the following are equivalent.</p>
+<ol>
+<li><span class="math inline">\(f = g\)</span>.</li>
+<li>For all <span class="math inline">\(a \in A\)</span>, <span class="math inline">\(f(a) = g(a)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show that (1) implies (2). Suppose <span class="math inline">\(f = g\)</span>, and let <span class="math inline">\(a \in A\)</span>. We have <span class="math inline">\((a, f(a)) \in f\)</span>, so that <span class="math inline">\((a, f(a)) \in g\)</span>. Recall that <span class="math inline">\(g(a)\)</span> is precisely the <em>unique</em> <span class="math inline">\(b \in B\)</span> such that <span class="math inline">\((a,b) \in g\)</span>, so we have <span class="math inline">\(g(a) = f(a)\)</span> as needed. Since <span class="math inline">\(a\)</span> was arbitrary, (2) holds.</p>
+<p>Next we show that (2) implies (1); to this end suppose (2) holds. We need to show that <span class="math inline">\(f = g\)</span>, and to do that we'll show that an arbitrary element of <span class="math inline">\(f\)</span> is also in <span class="math inline">\(g\)</span> and vice versa. Suppose we have <span class="math inline">\((a,b) \in f\)</span>. Recall that <span class="math inline">\(f(a)\)</span> is the unique <span class="math inline">\(z \in B\)</span> such that <span class="math inline">\((a,z) \in f\)</span>; that is, <span class="math inline">\(f(a) = b\)</span>. So we have <span class="math display">\[(a,b) = (a,f(a)) = (a,g(a)) \in g,\]</span> and thus <span class="math inline">\(f \subseteq g\)</span>. A similar argument shows that <span class="math inline">\(g \subseteq f\)</span>, and so <span class="math inline">\(f = g\)</span> as needed.</p>
+</div>
+</div>
+<p>With this proof strategy for equality in hand we can now establish some useful theorems about composition. First, identity functions are "neutral" with respect to composition.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(f \circ \mathsf{id}_A = f\)</span></li>
+<li><span class="math inline">\(\mathsf{id}_B \circ f = f\)</span></li>
+</ol>
+<div class="proof">
+<p>First we show (1). Let <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[(f \circ \mathsf{id}_A)(a) = f(\mathsf{id}_A(a)) = f(a).\]</span> Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math inline">\(f \circ \mathsf{id}_A = f\)</span> as claimed.</p>
+<p>To see (2), likewise let <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[(\mathsf{id}_B \circ f)(a) = \mathsf{id}_b(f(a)) = f(a),\]</span> so that <span class="math inline">\(\mathsf{id}_B \circ f = f\)</span> as claimed.</p>
+</div>
+</div>
+<p>Constant functions are "absorptive" on the left, and also kind of on the right.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function, <span class="math inline">\(a \in A\)</span>, and <span class="math inline">\(C\)</span> a set with <span class="math inline">\(c \in C\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(\mathsf{const}_c \circ f = \mathsf{const}_c\)</span>.</li>
+<li><span class="math inline">\(f \circ \mathsf{const}_a = \mathsf{const}_{f(a)}\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). Note that the notation <span class="math inline">\(\mathsf{const}_b\)</span> is playing two roles in this equation; on the left it has signature <span class="math inline">\(B \rightarrow C\)</span>, and on the right it has signature <span class="math inline">\(A \rightarrow C\)</span>. Let <span class="math inline">\(a \in A\)</span>. Then we have <span class="math inline">\((\mathsf{const}_c \circ f)(a) = \mathsf{const}_c(f(a)) = c = \mathsf{const}_c(a)\)</span>. Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math inline">\(\mathsf{const}_c \circ f = \mathsf{const}_c\)</span> as claimed.</p>
+<p>Next we show (2). There is a fourth set <span class="math inline">\(D\)</span> here playing the role of domain for both <span class="math inline">\(\mathsf{const}_a\)</span> and <span class="math inline">\(\mathsf{const}{f(a)}\)</span>. Let <span class="math inline">\(d \in D\)</span>. Now <span class="math inline">\((f \circ \mathsf{const}_a)(d) = f(\mathsf{const}_a(d)) = f(a) = \mathsf{const}_{f(a)}(d)\)</span>. Since <span class="math inline">\(d\)</span> was arbitrary, we have <span class="math inline">\(f \circ \mathsf{const}_a = \mathsf{const}_{f(a)}\)</span> as claimed.</p>
+</div>
+</div>
+<p>This one's really important: function composition is associative.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span>, <span class="math inline">\(g : B \rightarrow C\)</span>, and <span class="math inline">\(h : C \rightarrow D\)</span> be functions. Then <span class="math display">\[h \circ (g \circ f) = (h \circ g) \circ f.\]</span></p>
+<div class="proof">
+<p>We usually gloss over this, but it's important to convince ourselves that all the compositions here make sense -- for instance, <span class="math inline">\(g \circ f\)</span> has signature <span class="math inline">\(A \rightarrow C\)</span>, so that <span class="math inline">\(h \circ (g \circ f)\)</span> exists.</p>
+<p>Now to show the claimed equality holds, let <span class="math inline">\(a \in A\)</span>. Now</p>
+<p><span class="math display">\[\begin{eqnarray*}
+(h \circ (g \circ f))(a)
+ &amp; = &amp; h((g \circ f)(a)) \\
+ &amp; = &amp; h(g(f(a))) \\
+ &amp; = &amp; (h \circ g)(f(a)) \\
+ &amp; = &amp; ((h \circ g) \circ f)(a).
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math inline">\(h \circ (g \circ f) = (h \circ g) \circ f\)</span> as claimed.</p>
+</div>
+</div>
+<p>It's important to get really comfortable with function composition; we're going to use it a lot. :)</p>
+</section>
+<section class="level2">
+<h2>Roster Notation</h2>
+<p>Notation is how we turn abstract concepts into computational objects. Here we'll define a notation now for working with functions on finite sets. Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function with <span class="math inline">\(A\)</span> finite; for our purposes a set is finite if its elements can be indexed by natural numbers (what are those!) as <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_2\)</span>, up to <span class="math inline">\(a_n\)</span> for some <span class="math inline">\(n\)</span>. For each <span class="math inline">\(a_i\)</span> the corresponding image <span class="math inline">\(f(a_i)\)</span> is unique, and we can simply list the pairs vertically like so:</p>
+<p><span class="math display">\[\begin{pmatrix} a_1 &amp; a_2 &amp; \cdots &amp; a_n \\ f(a_1) &amp; f(a_2) &amp; \cdots &amp; f(a_n) \end{pmatrix}\]</span></p>
+<p>We'll call this <em>roster notation</em>. What makes this handy as notation is that composition can be carried out mechanically. For instance, here are the four functions on <span class="math inline">\(\{\circ,\star\}\)</span> we found earlier, this time in roster form.</p>
+<p><span class="math display">\[\begin{pmatrix}
+\circ &amp; \star \\ \circ &amp; \circ
+\end{pmatrix}, \begin{pmatrix}
+\circ &amp; \star \\ \circ &amp; \star
+\end{pmatrix}, \begin{pmatrix}
+\circ &amp; \star \\ \star &amp; \circ
+\end{pmatrix}, \begin{pmatrix}
+\circ &amp; \star \\ \star &amp; \star
+\end{pmatrix}\]</span></p>
+<p>To compute the composite of two functions, say <span class="math inline">\(g \circ f\)</span>, we can write the roster of <span class="math inline">\(f\)</span> above the roster of <span class="math inline">\(g\)</span> and then chase the symbols downward. For example, if <span class="math display">\[f = \begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} \ \mathrm{and}\ g = \begin{pmatrix} \circ &amp; \star \\ \star &amp; \circ \end{pmatrix},\]</span> we can compute the composite <span class="math inline">\(g \circ f\)</span> by drawing <span class="math inline">\(f\)</span> above <span class="math inline">\(g\)</span> and tracing the "flow" of symbols downward, matching the output of <span class="math inline">\(f\)</span> to the input of <span class="math inline">\(g\)</span>.</p>
+<p><span class="math display">\[g \circ f = \begin{matrix}
+\begin{pmatrix}
+\circ &amp; \star \\ \circ &amp; \circ
+\end{pmatrix} \\
+\begin{pmatrix}
+\circ &amp; \star \\ \star &amp; \circ
+\end{pmatrix}
+\end{matrix} = \begin{pmatrix}
+\circ &amp; \star \\ \star &amp; \star
+\end{pmatrix}\]</span></p>
+<p>Taking this a step further, any two functions on <span class="math inline">\(\{\circ,\star\}\)</span> can be composed with one another. We can compute these products and compile them into a table like so; note that in the product <span class="math inline">\(g \circ f\)</span>, <span class="math inline">\(g\)</span> is the row label and <span class="math inline">\(f\)</span> the column label.</p>
+<p><span class="math display">\[\begin{array}{c|cccc}
+ &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} \\ \hline
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} \\
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} \\
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \circ \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \circ &amp; \circ \end{pmatrix} \\
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix} &amp;
+\begin{pmatrix} \circ &amp; \star \\ \star &amp; \star \end{pmatrix}
+\end{array}\]</span></p>
+<p>Roster notation is only practical for hand calculation on functions with small domains. However it is a nice example of a notation allowing us to turn an otherwise awkward computation into a mechanical symbol-pushing exercise.</p>
+</section>
+</article>
+</body>
+</html>
