@@ -52,27 +52,124 @@
 <p>Let <span class="math inline">\(c \in C\)</span>. Since <span class="math inline">\(g\)</span> is surjective, there is a <span class="math inline">\(b \in B\)</span> such that <span class="math inline">\(g(b) = c\)</span>. Similarly, since <span class="math inline">\(f\)</span> is surjective, there is an <span class="math inline">\(a \in A\)</span> with <span class="math inline">\(f(a) = b\)</span>. Now <span class="math display">\[(g \circ f)(a) = g(f(a)) = g(b) = c.\]</span> Since <span class="math inline">\(c\)</span> was arbitrary in <span class="math inline">\(C\)</span>, <span class="math inline">\(g \circ f\)</span> is surjective as claimed.</p>
 </div>
 </div>
+<p>We have two alternative characterizations of surjectivity which are sometimes useful.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. Then the following are equivalent:</p>
+<ol>
+<li><span class="math inline">\(f\)</span> is surjective.</li>
+<li>For all sets <span class="math inline">\(C\)</span> and functions <span class="math inline">\(h\)</span> and <span class="math inline">\(k\)</span> with signature <span class="math inline">\(B \rightarrow C\)</span>, if <span class="math inline">\(h \circ f = k \circ f\)</span>, then <span class="math inline">\(h = k\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1) implies (2). To this end, suppose <span class="math inline">\(f : A \rightarrow B\)</span> is surjective, and that we have functions <span class="math inline">\(h\)</span> and <span class="math inline">\(k\)</span> with signature <span class="math inline">\(B \rightarrow C\)</span> such that <span class="math inline">\(h \circ f = k \circ f\)</span>. Now let <span class="math inline">\(b \in B\)</span>. Since <span class="math inline">\(f\)</span> is surjective, we have <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a \in A\)</span>. Now</p>
+<p><span class="math display">\[\begin{eqnarray*}
+h(b)
+ &amp; = &amp; h(f(a)) \\
+ &amp; = &amp; (h \circ f)(a) \\
+ &amp; = &amp; (k \circ f)(a) \\
+ &amp; = &amp; k(f(a)) \\
+ &amp; = &amp; k(b).
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(b\)</span> was arbitrary in <span class="math inline">\(B\)</span>, we have <span class="math inline">\(h = k\)</span> as needed.</p>
+<p>Next we show (2) implies (1). To this end, suppose that for all sets <span class="math inline">\(C\)</span> and all functions <span class="math inline">\(h\)</span> and <span class="math inline">\(k\)</span> with signature <span class="math inline">\(B \rightarrow C\)</span>, if <span class="math inline">\(h \circ f = k \circ f\)</span> then <span class="math inline">\(h = k\)</span>. We now choose a specific <span class="math inline">\(C\)</span>; let <span class="math inline">\(C = \{ \circ, \star \}\)</span>. We define a subset <span class="math inline">\(h \subseteq B \times C\)</span> as follows.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+h &amp; = &amp; \{ (b,\circ) \in B \times C \mid b = f(a)\ \mathrm{for\ some}\ a \in A \} \\
+  &amp;   &amp; \cup \{ (b,\star) \in B \times C \mid b \neq f(a)\ \mathrm{for\ all}\ a \in A \}.
+\end{eqnarray*}\]</span></p>
+<p>We claim that <span class="math inline">\(h\)</span> is a function. To see this, we need to establish it is both total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(h\)</span> is total, let <span class="math inline">\(b \in B\)</span>. Now either <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a \in A\)</span>, or we have <span class="math inline">\(b \neq f(a)\)</span> for all <span class="math inline">\(a \in A\)</span>. In the first case we have <span class="math inline">\((b,\circ) \in h\)</span>, and in the second we have <span class="math inline">\((b,\star) \in h\)</span>. In either case, <span class="math inline">\((b,c) \in h\)</span> for some <span class="math inline">\(c \in C\)</span>. Since <span class="math inline">\(b\)</span> was arbitrary, <span class="math inline">\(h\)</span> is total.</li>
+<li>To see that <span class="math inline">\(h\)</span> is well-defined, suppose we have <span class="math inline">\(b \in B\)</span> and <span class="math inline">\(c_1, c_2 \in C\)</span> such that <span class="math inline">\((b,c_1) \in h\)</span> and <span class="math inline">\((b,c_2) \in h\)</span>. We have two possibilities for <span class="math inline">\(b\)</span>; either <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a \in A\)</span> or <span class="math inline">\(b \neq f(a)\)</span> for all <span class="math inline">\(a \in A\)</span>. In the first case, by definition we have <span class="math inline">\(c_1 = \circ = c_2\)</span>, and in the second case, we have <span class="math inline">\(c_1 = \star = c_2\)</span>. In either case we have <span class="math inline">\(c_1 = c_2\)</span>, and so <span class="math inline">\(h\)</span> is well-defined.</li>
+</ul>
+<p>Now note that for all <span class="math inline">\(a \in A\)</span>, we have</p>
+<p><span class="math display">\[\begin{eqnarray*}
+(h \circ f)(a)
+ &amp; = &amp; h(f(a)) \\
+ &amp; = &amp; \circ \\
+ &amp; = &amp; \mathsf{const}_{\circ}(f(a)) \\
+ &amp; = &amp; (\mathsf{const}_{\circ} \circ f)(a).
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math inline">\(h \circ f = \mathsf{const}_{\circ} \circ f\)</span>. By our hypothesis (2), then, we have <span class="math inline">\(h = \mathsf{const}_{\circ}\)</span>. In particular, if <span class="math inline">\(b \in B\)</span>, we have <span class="math inline">\(h(b) = \circ\)</span> and so (by the definition of <span class="math inline">\(h\)</span>) <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a \in A\)</span>. Since <span class="math inline">\(b\)</span> was arbitrary, <span class="math inline">\(f\)</span> is surjective.</p>
+</div>
+</div>
+<p>In other words, surjective functions are precisely those which can be "cancelled" from the right.</p>
 </section>
 <section class="level2">
 <h2>Injectivity</h2>
 <p>Where surjectivity was dual to totality, well-definedness also has a dual, called <em>injectivity</em>. These are functions which send distinct inputs to distinct outputs.</p>
 <div class="definition">
-<p><a name='crossref-3'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. We say <span class="math inline">\(f\)</span> is <em>injective</em> if whenever <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\(f(a_1) = f(a_2)\)</span>, we have <span class="math inline">\(a_1 = a_2\)</span>.</p>
+<p><a name='crossref-3'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. We say <span class="math inline">\(f\)</span> is <em>injective</em> if whenever <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\(f(a_1) = f(a_2)\)</span>, we have <span class="math inline">\(a_1 = a_2.\)</span></p>
 </div>
-<p>This property is sometimes called <em>one-to-one</em>, but again I'll prefer injective. (Even <em>two-to-two</em> would be better than one-to-one, since that more accurately reflects what it means.) Showing that a function is injective usually involves setting up an equality <span class="math inline">\(f(x) = f(y)\)</span> for arbitrary <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and showing that <span class="math inline">\(x = y\)</span>.</p>
+<p>This property is sometimes called <em>one-to-one</em>, but again I'll prefer injective. (Even <em>two-to-two</em> would be better than one-to-one, since that more accurately reflects what it means.) Showing that a function is injective usually involves setting up an equality <span class="math inline">\(f(x) = f(y)\)</span> for arbitrary <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and showing that <span class="math inline">\(x = y.\)</span></p>
 <div class="theorem">
 <p><a name='crossref-4'></a> The identity function <span class="math inline">\(\mathsf{id}_A\)</span> is injective.</p>
 <div class="proof">
-<p>Let <span class="math inline">\(a_1, a_2 \in A\)</span> with <span class="math inline">\(\mathsf{id}_A(a_1) = \mathsf{id}_A(a_2)\)</span>. Using the definition of <span class="math inline">\(\mathsf{id}_A\)</span>, we have <span class="math display">\[a_1 = \mathsf{id}_A(a_1) = \mathsf{id}_A(a_2) = a_2.\]</span> Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary, <span class="math inline">\(\mathsf{id}_A\)</span> is injective as claimed.</p>
+<p>Let <span class="math inline">\(a_1, a_2 \in A\)</span> with <span class="math inline">\(\mathsf{id}_A(a_1) = \mathsf{id}_A(a_2).\)</span> Using the definition of <span class="math inline">\(\mathsf{id}_A\)</span>, we have <span class="math display">\[a_1 = \mathsf{id}_A(a_1) = \mathsf{id}_A(a_2) = a_2.\]</span> Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary, <span class="math inline">\(\mathsf{id}_A\)</span> is injective as claimed.</p>
 </div>
 </div>
 <p>The composite of injective functions is again injective.</p>
 <div class="theorem">
 <p><a name='crossref-5'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be functions. If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are injective, then <span class="math inline">\(g \circ f\)</span> is also injective.</p>
 <div class="proof">
-<p>Let <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((g \circ f)(a_1) = (g \circ f)(a_2)\)</span>. Now <span class="math display">\[g(f(a_1)) = (g \circ f)(a_1) = (g \circ f)(a_2) = g(f(a_2)).\]</span> Since <span class="math inline">\(g\)</span> is injective, we have <span class="math inline">\(f(a_1) = f(a_2)\)</span>, and because <span class="math inline">\(f\)</span> is injective, we have <span class="math inline">\(a_1 = a_2\)</span>. Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary in <span class="math inline">\(A\)</span>, <span class="math inline">\(g \circ f\)</span> is injective as claimed.</p>
+<p>Let <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((g \circ f)(a_1) = (g \circ f)(a_2).\)</span> Now <span class="math display">\[g(f(a_1)) = (g \circ f)(a_1) = (g \circ f)(a_2) = g(f(a_2)).\]</span> Since <span class="math inline">\(g\)</span> is injective, we have <span class="math inline">\(f(a_1) = f(a_2)\)</span>, and because <span class="math inline">\(f\)</span> is injective, we have <span class="math inline">\(a_1 = a_2.\)</span> Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary in <span class="math inline">\(A\)</span>, <span class="math inline">\(g \circ f\)</span> is injective as claimed.</p>
 </div>
 </div>
+<p>Like surjectivity, we have an alternative characterization of injectivity. This one is a little richer, though; in addition to being "cancellable", injective functions are "left undoable".</p>
+<div class="theorem">
+<p><a name='crossref-6'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function with <span class="math inline">\(A\)</span> not empty. Then the following are equivalent.</p>
+<ol>
+<li><span class="math inline">\(f\)</span> is injective.</li>
+<li>There is a function <span class="math inline">\(g : B \rightarrow A\)</span> such that <span class="math inline">\(g \circ f = \mathsf{id}_A.\)</span></li>
+<li>If <span class="math inline">\(h\)</span> and <span class="math inline">\(k\)</span> are functions with signature <span class="math inline">\(C \rightarrow A\)</span> such that <span class="math inline">\(f \circ h = f \circ k\)</span>, then <span class="math inline">\(h = k.\)</span></li>
+</ol>
+<div class="proof">
+<p>Note the condition that <span class="math inline">\(A\)</span> is not empty. We haven't been very concerned about what happens if the domain or codomain of a function is empty because it hasn't mattered; however it does matter here, at least for the proof we're going to write.</p>
+<p>First we show that (1) implies (2). To this end, note that since <span class="math inline">\(A\)</span> is not empty, it contains at least one element; say <span class="math inline">\(z \in A\)</span>. We now define a subset <span class="math inline">\(g \subseteq B \times A\)</span> as follows.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+g &amp; = &amp; \{ (b,a) \in B \times A \mid f(a) = b \} \\
+  &amp;   &amp; \cup \{ (b,z) \in B \times A \mid b \neq f(a)\ \mathrm{for\ all}\ a \in A \}.
+\end{eqnarray*}\]</span></p>
+<p>We claim that <span class="math inline">\(g\)</span> is a function. To see this, we need to show that <span class="math inline">\(g\)</span> is both total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(g\)</span> is total, let <span class="math inline">\(b \in B\)</span>. There are two possibilities for <span class="math inline">\(b\)</span>; either <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a \in A\)</span>, or <span class="math inline">\(b \neq f(a)\)</span> for all <span class="math inline">\(a \in A\)</span>. If <span class="math inline">\(b = f(a)\)</span>, we have <span class="math display">\[(b,a) \in \{ (b,a) \mid b = f(a) \} \subseteq g\]</span> as needed. If instead we have <span class="math inline">\(b \neq f(a)\)</span> for all <span class="math inline">\(a \in A\)</span>, we have <span class="math display">\[(b,z) \in \{ (b,z) \mid b \neq f(a)\ \mathrm{for\ all}\ a \in A \} \subseteq g.\]</span> In either case, we have <span class="math inline">\((b,a) \in g\)</span> for some <span class="math inline">\(a \in A\)</span>. Since <span class="math inline">\(b\)</span> was arbitrary, <span class="math inline">\(g\)</span> is total.</li>
+<li>Next we show that <span class="math inline">\(g\)</span> is well-defined. To that end, suppose we have <span class="math inline">\(b \in B\)</span> and <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((b,a_1) \in g\)</span> and <span class="math inline">\((b,a_2) \in g\)</span>. We again have two possibilities for <span class="math inline">\(b\)</span>. First suppose <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a \in A\)</span>. Then we necessarily have <span class="math display">\[(b,a_1) \in \{ (b,a) \mid b = f(a) \},\]</span> so that <span class="math inline">\(b = f(a_1)\)</span>. Similarly, <span class="math inline">\(b = f(a_2)\)</span>, and so <span class="math inline">\(f(a_1) = f(a_2)\)</span>. Since <span class="math inline">\(f\)</span> is injective, we have <span class="math inline">\(a_1 = a_2\)</span>. Now suppose that <span class="math inline">\(b \neq f(a)\)</span> for all <span class="math inline">\(a \in A\)</span>. This time we have <span class="math inline">\((b,a_1) \in \{ (b,z) \mid b \neq f(a)\ \mathrm{for\ all}\ a \in A \}\)</span> so that <span class="math inline">\(a_1 = z\)</span>. Similarly, <span class="math inline">\(a_2 = z\)</span>, and we have <span class="math inline">\(a_1 = a_2\)</span>. In either case, we have <span class="math inline">\(a_1 = a_2\)</span>, and so <span class="math inline">\(g\)</span> is well-defined.</li>
+</ul>
+<p>Since <span class="math inline">\(g\)</span> is total and well-defined, it is a function. Next we need to show that <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span>. To this end, let <span class="math inline">\(a \in A\)</span>. then <span class="math display">\[(g \circ f)(a) = g(f(a)) = a = \mathsf{id}_A(a),\]</span> since by definition <span class="math inline">\((f(a),a) \in g\)</span>. Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span> as claimed.</p>
+<p>Next, we show (2) implies (3). To this end, suppose <span class="math inline">\(g\)</span> exists with <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span>, and suppose further we have functions <span class="math inline">\(h\)</span> and <span class="math inline">\(k\)</span> with <span class="math inline">\(f \circ h = f \circ k\)</span>. Now</p>
+<p><span class="math display">\[\begin{eqnarray*}
+h
+ &amp; = &amp; \mathsf{id}_A \circ h \\
+ &amp; = &amp; (g \circ f) \circ h \\
+ &amp; = &amp; g \circ (f \circ h) \\
+ &amp; = &amp; g \circ (f \circ k) \\
+ &amp; = &amp; (g \circ f) \circ k \\
+ &amp; = &amp; \mathsf{id}_A \circ k \\
+ &amp; = &amp; k
+\end{eqnarray*}\]</span></p>
+<p>as needed.</p>
+<p>Finally, we show that (3) implies (1). We need to show that <span class="math inline">\(f\)</span> is injective. To this end, let <span class="math inline">\(a_1, a_2 \in A\)</span> and suppose <span class="math inline">\(f(a_1) = f(a_2)\)</span>. Let <span class="math inline">\(C = \{\star\}\)</span>, and define <span class="math inline">\(h = \mathsf{const}_{a_1}\)</span> and <span class="math inline">\(h = \mathsf{const}_{a_2}\)</span> as functions with signature <span class="math inline">\(C \rightarrow A\)</span>. Now let <span class="math inline">\(c \in C\)</span>, and note that</p>
+<p><span class="math display">\[\begin{eqnarray*}
+(f \circ h)(c)
+ &amp; = &amp; f(h(c)) \\
+ &amp; = &amp; f(\mathsf{const}_{a_1}(c)) \\
+ &amp; = &amp; f(a_1) \\
+ &amp; = &amp; f(a_2) \\
+ &amp; = &amp; f(\mathsf{const}_{a_2}(c)) \\
+ &amp; = &amp; f(k(c)) \\
+ &amp; = &amp; (f \circ k)(c).
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(c\)</span> was arbitrary, we have <span class="math inline">\(f \circ h = f \circ k\)</span>, and thus <span class="math inline">\(h = k\)</span>. But now note that</p>
+<p><span class="math display">\[\begin{eqnarray*}
+a_1
+ &amp; = &amp; \mathsf{const}_{a_1}(\star) \\
+ &amp; = &amp; h(\star) \\
+ &amp; = &amp; k(\star) \\
+ &amp; = &amp; \mathsf{const}_{a_2}(\star) \\
+ &amp; = &amp; a_2.
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> were arbitrary in <span class="math inline">\(A\)</span>, <span class="math inline">\(f\)</span> is injective as claimed.</p>
+</div>
+</div>
+<p>This characterization of injective functions is very similar to the analogous result for surjective functions, except that surjectivity did not have an analogue of statement (2). There is a reason for this; it turns out the existence of a right inverse implies surjectivity, but the converse statement is equivalent to the axiom of choice. My personal preference is to avoid using AC because it is nonconstructive. We can get pretty far without it, and what we gain is the ability to turn proofs into algorithms, which is a pretty big win. We could argue that there's no <em>harm</em> in assuming AC, since we can simply try to find proofs that don't use it, and it does make lots of things much simpler. This is certainly true. However, the equivalence of "surjective implies right invertible" and AC demonstrates that it can easily creep in when we're not looking. So we'll just do without for as long as possible.</p>
 </section>
 <section class="level2">
 <h2>Bijectivity</h2>
@@ -98,7 +195,7 @@
 <p>First we show (1): that <span class="math inline">\(g \subseteq B \times A\)</span> is a function. Recall that this has two sub-parts: showing that <span class="math inline">\(g\)</span> is both total and well-defined.</p>
 <ul>
 <li>To see that <span class="math inline">\(g\)</span> is total, first let <span class="math inline">\(b \in B\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(a \in A\)</span> such that <span class="math inline">\(b = f(a)\)</span>. By definition, then, we have <span class="math display">\[(b,a) = (f(a),a) \in g.\]</span> Since <span class="math inline">\(b\)</span> is arbitrary, <span class="math inline">\(g\)</span> is total.</li>
-<li>To see that <span class="math inline">\(g\)</span> is well-defined, suppose we have <span class="math inline">\(b \in B\)</span> and <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((b,a_1) \in g\)</span> and <span class="math inline">\((b, a_2) \in g\)</span>. By definition, we then have <span class="math inline">\(f(a_1) = b = f(a_2)\)</span>. Since <span class="math inline">\(f\)</span> is injective, we then have <span class="math inline">\(a_1 = a_2\)</span>. Since <span class="math inline">\(b\)</span>, <span class="math inline">\(a_1\)</span>, and <span class="math inline">\(a_2\)</span> were arbitrary, <span class="math inline">\(g\)</span> is well-defined</li>
+<li>To see that <span class="math inline">\(g\)</span> is well-defined, suppose we have <span class="math inline">\(b \in B\)</span> and <span class="math inline">\(a_1, a_2 \in A\)</span> such that <span class="math inline">\((b,a_1) \in g\)</span> and <span class="math inline">\((b, a_2) \in g\)</span>. By definition, we then have <span class="math inline">\(f(a_1) = b = f(a_2)\)</span>. Since <span class="math inline">\(f\)</span> is injective, we then have <span class="math inline">\(a_1 = a_2\)</span>. Since <span class="math inline">\(b\)</span>, <span class="math inline">\(a_1\)</span>, and <span class="math inline">\(a_2\)</span> were arbitrary, <span class="math inline">\(g\)</span> is well-defined.</li>
 </ul>
 <p>So <span class="math inline">\(g\)</span> is total and well-defined, and thus a function with signature <span class="math inline">\(B \rightarrow A\)</span>. In particular, it now makes sense to use <span class="math inline">\(g(\star)\)</span> notation, and we have <span class="math inline">\(g(f(a)) = a\)</span>.</p>
 <p>Next we show (2). Let <span class="math inline">\(a \in A\)</span>; note that <span class="math display">\[(g \circ f)(a) = g(f(a)) = a = \mathsf{id}_A(a).\]</span> Since <span class="math inline">\(a\)</span> is arbitrary, we have <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span>. Now let <span class="math inline">\(b \in B\)</span>; since <span class="math inline">\(f\)</span> is surjective, we have <span class="math inline">\(b = f(a)\)</span> for some <span class="math inline">\(a\)</span>. Now note that <span class="math display">\[(f \circ g)(b) = f(g(b)) = f(g(f(a))) = f(a) = b.\]</span> Since <span class="math inline">\(b\)</span> was arbitrary we have <span class="math inline">\(f \circ g = \mathsf{id}_B\)</span> as claimed.</p>
@@ -128,7 +225,7 @@ b_1
 </div>
 <p>The identity function is bijective.</p>
 <div class="theorem">
-<p><a name='crossref-6'></a> Let <span class="math inline">\(A\)</span> be a set. Then <span class="math inline">\(\mathsf{id}_A^{-1} = \mathsf{id}_A\)</span>.</p>
+<p><a name='crossref-7'></a> Let <span class="math inline">\(A\)</span> be a set. Then <span class="math inline">\(\mathsf{id}_A^{-1} = \mathsf{id}_A\)</span>.</p>
 <div class="proof">
 <p>We've already shown that <span class="math inline">\(\mathsf{id}_A\)</span> is <a href="jectivity.html#crossref-1">surjective</a> as well as <a href="jectivity.html#crossref-4">injective</a>, so it is bijective.</p>
 <p>Now note that <span class="math inline">\(\mathsf{id}_A : A \rightarrow A\)</span> and that <span class="math inline">\(\mathsf{id}_A \circ \mathsf{id}_A = \mathsf{id}_A\)</span>. By the uniqueness property of function inverses, we have <span class="math inline">\(\mathsf{id}_A^{-1} = \mathsf{id}_A\)</span>, as claimed.</p>
@@ -162,6 +259,28 @@ b_1
 </div>
 <p>In some sense, bijective functions are not very interesting as functions; they "only" tell us that two sets are the same "up to a renaming". That may or may not be useful in a given context.</p>
 <p>However, bijective functions turn out to be extremely interesting as computational objects, particularly when the domain and codomain are the same.</p>
+<p>We wrap up this section with yet another way to characterize bijective functions using the existince of left and right undoers.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow B\)</span> be a function. Suppose we have functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> with signature <span class="math inline">\(B \rightarrow A\)</span> such that <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span> and <span class="math inline">\(f \circ h = \mathsf{id}_B\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(g = h\)</span>.</li>
+<li><span class="math inline">\(f\)</span> is bijective and <span class="math inline">\(f^{-1} = g = h\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), let <span class="math inline">\(b \in B\)</span>. Now</p>
+<p><span class="math display">\[\begin{eqnarray*}
+g(b)
+ &amp; = &amp; g(\mathsf{id}_B(b)) \\
+ &amp; = &amp; g((f \circ h)(b)) \\
+ &amp; = &amp; (g \circ (f \circ h))(b) \\
+ &amp; = &amp; ((g \circ f) \circ h)(b) \\
+ &amp; = &amp; (\mathsf{id}_A \circ h)(b) \\
+ &amp; = &amp; h(b).
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(b\)</span> was arbitrary, we have <span class="math inline">\(g = h\)</span>.</p>
+<p>Next we show (2). Since <span class="math inline">\(g \circ f = \mathsf{id}_A\)</span>, we've <a href="jectivity.html#crossref-6">already shown</a> that <span class="math inline">\(f\)</span> is injective. To see that <span class="math inline">\(f\)</span> is surjective, let <span class="math inline">\(b \in B\)</span> and let <span class="math inline">\(a = h(b)\)</span>. Now we have <span class="math display">\[f(a) = f(h(b)) = (f \circ h)(b) = \mathsf{id}_B(b) = b;\]</span> since <span class="math inline">\(b\)</span> was arbitrary, <span class="math inline">\(f\)</span> is surjective. That <span class="math inline">\(f^{-1} = g\)</span> (and so also <span class="math inline">\(f^{-1} = h\)</span>) follows from the uniqueness property of inverses.</p>
+</div>
+</div>
 </section>
 </article>
 </body>

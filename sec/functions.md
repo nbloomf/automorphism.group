@@ -87,7 +87,7 @@ To summarize, among the subsets of $B \times B$,
 
 - 2 elements are neither total nor well-defined.
 - 5 elements are total but not well-defined.
-- 5 elements are not total, but are well-defined.
+- 5 elements are not total but are well-defined.
 - 4 elements are both total and well-defined (e.g., are functions).
 
 :::::::::::::
