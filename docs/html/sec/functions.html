@@ -74,7 +74,7 @@
 </div>
 <p>In the long run we won't often be working with functions as sets; in some sense the set-based machinery behind functions is an implementation detail. However it does pop up from time to time. So for the sake of the exercise, and to get a taste of pain, we'll characterize all of the subsets of a particular <span class="math inline">\(A \times B\)</span> by their totality or well-definedness.</p>
 <div class="example">
-<p>Let <span class="math inline">\(B = \{ \circ, \star \}\)</span>. Determine which subsets of <span class="math inline">\(B \times B\)</span> are total and which are well-defined.</p>
+<p><a name='crossref-6'></a> Let <span class="math inline">\(B = \{ \circ, \star \}\)</span>. Determine which subsets of <span class="math inline">\(B \times B\)</span> are total and which are well-defined.</p>
 <div class="proof">
 <p>Note that <span class="math inline">\(B \times B\)</span> contains four elements: <span class="math display">\[B \times B = \{ (\circ,\circ), (\circ,\star), (\star,\circ), (\star,\star) \}.\]</span> Given an arbitrary subset of <span class="math inline">\(B \times B\)</span>, every element is either in or out, so there are <span class="math inline">\(2^4 = 16\)</span> different subsets.</p>
 <ul>
@@ -121,7 +121,7 @@
 </div>
 <p>Since functions are sets, to show that two functions are equal we can use the usual strategy of showing that each is a subset of the other. However, there is an equivalent strategy that is often simpler: show that they have the same <em>images</em>.</p>
 <div class="theorem">
-<p><a name='crossref-6'></a> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets with <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : A \rightarrow B\)</span>. Then the following are equivalent.</p>
+<p><a name='crossref-7'></a> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets with <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : A \rightarrow B\)</span>. Then the following are equivalent.</p>
 <ol>
 <li><span class="math inline">\(f = g\)</span>.</li>
 <li>For all <span class="math inline">\(a \in A\)</span>, <span class="math inline">\(f(a) = g(a)\)</span>.</li>
@@ -157,7 +157,7 @@
 </div>
 <p>This one's really important: function composition is associative.</p>
 <div class="theorem">
-<p><a name='crossref-7'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span>, <span class="math inline">\(g : B \rightarrow C\)</span>, and <span class="math inline">\(h : C \rightarrow D\)</span> be functions. Then <span class="math display">\[h \circ (g \circ f) = (h \circ g) \circ f.\]</span></p>
+<p><a name='crossref-8'></a> Let <span class="math inline">\(f : A \rightarrow B\)</span>, <span class="math inline">\(g : B \rightarrow C\)</span>, and <span class="math inline">\(h : C \rightarrow D\)</span> be functions. Then <span class="math display">\[h \circ (g \circ f) = (h \circ g) \circ f.\]</span></p>
 <div class="proof">
 <p>We usually gloss over this, but it's important to convince ourselves that all the compositions here make sense -- for instance, <span class="math inline">\(g \circ f\)</span> has signature <span class="math inline">\(A \rightarrow C\)</span>, so that <span class="math inline">\(h \circ (g \circ f)\)</span> exists.</p>
 <p>Now to show the claimed equality holds, let <span class="math inline">\(a \in A\)</span>. Now</p>

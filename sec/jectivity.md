@@ -41,6 +41,7 @@ Let $c \in C$. Since $g$ is surjective, there is a $b \in B$ such that $g(b) = c
 We have two alternative characterizations of surjectivity which are sometimes useful.
 
 ::: theorem :::
+[@thm-surjective-cancel]()
 Let $f : A \rightarrow B$ be a function. Then the following are equivalent:
 
 1. $f$ is surjective.
@@ -202,6 +203,7 @@ Bijectivity
 Functions which are both injective and surjective end up being especially important, so we give them a name.
 
 ::: definition :::
+[@def-bijective]()
 A function $f$ is called _bijective_ if it is both injective and surjective.
 ::::::::::::::::::
 
@@ -213,6 +215,7 @@ Bijective functions basically come in two flavors:
 In any case, what makes bijective functions really interesting is that each one has a corresponding "undo" function, as characterized in the following result.
 
 ::: theorem :::
+[@thm-inv-exists-bijective]()
 Let $f : A \rightarrow B$ be a function. If $f$ is bijective, then there is a unique function $g : B \rightarrow A$ such that $g \circ f = \mathsf{id}_A$ and $f \circ g = \mathsf{id}_B$. We denote this function $f^{-1}$, pronounced $f$-_inverse_.
 
 ::: proof :::
@@ -242,6 +245,7 @@ This theorem is interesting because it defines $f^{-1}$ using a _uniqueness prop
 To see the uniqueness strategy in action, we can try it out on a few concrete examples. First, the inverse of a bijective function is again bijective.
 
 ::: theorem :::
+[@thm-inv-bijective]()
 Let $f : A \rightarrow B$ be a bijective function. Then $f^{-1}$ is also bijective, and moreover $(f^{-1})^{-1} = f$.
 
 ::: proof :::
@@ -280,6 +284,7 @@ Now note that $\mathsf{id}_A : A \rightarrow A$ and that $\mathsf{id}_A \circ \m
 And the composite of bijective functions is bijective.
 
 ::: theorem :::
+[@thm-comp-bijective]()
 Let $f : A \rightarrow B$ and $g : B \rightarrow C$ be bijective functions. Then $g \circ f$ is also bijective, and moreover $(g \circ f)^{-1} = f^{-1} \circ g^{-1}$.
 
 ::: proof :::
@@ -318,6 +323,7 @@ However, bijective functions turn out to be extremely interesting as computation
 We wrap up this section with yet another way to characterize bijective functions using the existince of left and right undoers.
 
 ::: theorem :::
+[@thm-bij-inverses]()
 Let $f : A \rightarrow B$ be a function. Suppose we have functions $g$ and $h$ with signature $B \rightarrow A$ such that $g \circ f = \mathsf{id}_A$ and $f \circ h = \mathsf{id}_B$. Then we have the following.
 
 1. $g = h$.
@@ -342,4 +348,23 @@ Next we show (2). Since $g \circ f = \mathsf{id}_A$, we've [already shown](@thm-
 :::::::::::::
 :::::::::::::::
 
-This theorem can be used to show that a given function is bijective when its inverse has two different "presentations" that are easier to work with depending on the direction they are composed.
+This theorem can be used to show that a given function is bijective when its inverse has two different "presentations" that are easier to work with depending on the direction they are composed. As an example, we can use it characterize the bijections on a two-element set.
+
+::: example :::
+[@thm-bijections-two-elts]()
+Let $A = \{1,2\}$. Determine which functions $f : A \rightarrow A$ are bijective.
+
+::: proof :::
+We [previously](@thm-func-two-elts) determined that there are four functions from a two-element set back to itself, which in roster notation are as follows:
+$$f_a = \begin{pmatrix}
+1 & 2 \\ 1 & 1
+\end{pmatrix}, f_b =  \begin{pmatrix}
+1 & 2 \\ 1 & 2
+\end{pmatrix}, f_c =  \begin{pmatrix}
+1 & 2 \\ 2 & 1
+\end{pmatrix}, f_d =  \begin{pmatrix}
+1 & 2 \\ 2 & 2
+\end{pmatrix}$$
+Now $f_a$ is not injective (hence not bijective) since we have $f_a(1) = 1 = f_a(2)$ but $1 \neq 2$; similarly $f_d$ is not injective (hence not bijective) because $f_d(1) = 2 = f_d(2)$ but $1 \neq 2$. $f_b$ is bijective since it is the identity function on $A$. All that remains is $f_c$; but now note that $$(f_c \circ f_c)(1) = f_c(f_c(1)) = f_c(2) = 1 = \mathsf{id}_A(1)$$ and $$(f_c \circ f_c)(2) = f_c(f_c(2)) = f_c(1) = 2 = \mathsf{id}_A(2),$$ so that $f_c \circ f_c = \mathsf{id}_A$. So $f_c$ has both left and right inverses, and [therefore](@thm-bij-inverses) is bijective.
+:::::::::::::
+:::::::::::::::

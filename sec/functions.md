@@ -61,6 +61,7 @@ Since $K$ is both total and well-defined, it is a function.
 In the long run we won't often be working with functions as sets; in some sense the set-based machinery behind functions is an implementation detail. However it does pop up from time to time. So for the sake of the exercise, and to get a taste of pain, we'll characterize all of the subsets of a particular $A \times B$ by their totality or well-definedness.
 
 ::: example :::
+[@thm-func-two-elts]()
 Let $B = \{ \circ, \star \}$. Determine which subsets of $B \times B$ are total and which are well-defined.
 
 ::: proof :::

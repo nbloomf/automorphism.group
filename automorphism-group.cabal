@@ -4,17 +4,17 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 14506e9dc23847e7d4018db8246082c57e2083e0d0f8c7ebb6c2016d33e705b8
+-- hash: 03dc8c0d714bfb887f4fe62caafaddf64d666ef02b98e2938d998787a14c2299
 
 name:           automorphism-group
-version:        0.1.0.0
+version:        0.0.0.0
 description:    Please see the README on GitHub at <https://github.com/nbloomf/automorphism-group#readme>
 homepage:       https://github.com/nbloomf/automorphism-group#readme
 bug-reports:    https://github.com/nbloomf/automorphism-group/issues
 author:         Nathan Bloomfield
 maintainer:     nbloomf@gmail.com
 copyright:      Automattic, Inc
-license:        BSD3
+license:        GPL3
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:

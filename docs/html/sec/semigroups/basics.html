@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Semigroups</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          Hask: "\\mathsf{Hask}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Semigroups</h1>
+
+</header>
+<section class="level2">
+<h2>Semigroups</h2>
+<p>To a first approximation, algebra is all about studying sets equipped with functions satisfying some fixed set of properties. One of the simplest interesting examples of such a property is <em>associativity</em>; here we define a kind of algebra which has this and nothing else.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(S\)</span> be a set and <span class="math inline">\(t : S \times S \rightarrow S\)</span> a function. We say that <span class="math inline">\(\langle S, t \rangle\)</span> is a <em>semigroup</em> if the following holds:</p>
+<ul>
+<li><span class="math inline">\(t(t(a,b),c) = t(a,t(b,c))\)</span> for all <span class="math inline">\(a,b,c \in S\)</span>.</li>
+</ul>
+<p>Typically functions with signature <span class="math inline">\(S \times S \rightarrow S\)</span> are called <em>binary operators</em> and written using infix notation. In that case, the associative property is written <span class="math inline">\((a \cdot b) \cdot c = a \cdot (b \cdot c)\)</span>.</p>
+</div>
+<p>At this stage we've only got one example, but it's a good one.</p>
+<div class="example">
+<p>Let <span class="math inline">\(A\)</span> be a set. We define the set of all functions on <span class="math inline">\(A\)</span> by <span class="math display">\[\mathsf{Map}(A) = \{ f \subseteq A \times A \mid f : A \rightarrow A \}.\]</span> Then <span class="math inline">\(\langle \mathsf{Map}(A), \circ \rangle\)</span> is a semigroup.</p>
+<div class="proof">
+<p>We <a href="../functions.html#crossref-8">already showed</a> that composition of arbitrary functions is associative.</p>
+</div>
+</div>
+<p>We can also define a semigroup structure on singleton sets.</p>
+<div class="example">
+<p>Let <span class="math inline">\(S = \{a\}\)</span> be a singleton set, and define <span class="math display">\[\cdot = \{((a,a),a)\}.\]</span> Then <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup; in fact this <span class="math inline">\(\cdot\)</span> is the <em>only</em> operation such that <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup.</p>
+<div class="proof">
+<p>We should mention that <span class="math inline">\(\cdot\)</span> is a function, although the proof is trivial. It is also associative since we have <span class="math display">\[(a \cdot a) \cdot a = a = a \cdot (a \cdot a)\]</span> as needed. Uniqueness follows because there is only one binary operation on a singleton set.</p>
+</div>
+</div>
+<p>We'll save a study of semigroups with two elements for later.</p>
+</section>
+<section class="level2">
+<h2>Subsemigroups</h2>
+<p>One of the Big Questions in algebra is this: given a class of algebras, how do we find examples? Examples are precious gems among a vast universe of logical garbage. To guide the search, it is often useful to find systematic ways of constructing <em>new</em> examples out of existing ones. There are many examples of this phenomenon at work, and we describe one of the simplest here: taking subsets.</p>
+<div class="theorem">
+<p><a name='crossref-0'></a> Let <span class="math inline">\(\langle S, t \rangle\)</span> be a semigroup, with <span class="math inline">\(T \subseteq S\)</span> be a nonempty subset, and define <span class="math display">\[u = \{ (a,b) \in t \mid a \in T \times T \}.\]</span> Then the following are equivalent.</p>
+<ol>
+<li>For all <span class="math inline">\(a,b \in T\)</span>, <span class="math inline">\(u(a,b)\)</span> is also in <span class="math inline">\(T\)</span>.</li>
+<li><span class="math inline">\(u\)</span> is a function with signature <span class="math inline">\(T \times T \rightarrow T\)</span>.</li>
+<li><span class="math inline">\(\langle T, u \rangle\)</span> is a semigroup.</li>
+</ol>
+<p>When these conditions hold, we say that <span class="math inline">\(T\)</span> is a <em>subsemigroup</em> of <span class="math inline">\(S\)</span>. When condition (1) holds specifically we say that <span class="math inline">\(T\)</span> is <em>closed</em> under <span class="math inline">\(t\)</span>.</p>
+<div class="proof">
+<p>First we show that (1) implies (2). We'll need to show three things: that <span class="math inline">\(u\)</span> is a subset of <span class="math inline">\((T \times T) \times T\)</span>, that <span class="math inline">\(u\)</span> is total, and that <span class="math inline">\(u\)</span> is well-defined.</p>
+<ul>
+<li>Let <span class="math inline">\((a,b) \in u\)</span>. By definition, we have <span class="math inline">\(a = (x,y)\)</span> for some <span class="math inline">\(x,y \in T\)</span>, and <span class="math inline">\(b = t(x,y)\)</span>. Condition (1) yields that <span class="math inline">\(b = t(x,y) \in T\)</span>, and so we have <span class="math inline">\((a,b) \in (T \times T) \times T\)</span>. Thus <span class="math inline">\(u \subseteq (T \times T) \times T\)</span> as needed.</li>
+<li>Next we show that <span class="math inline">\(u\)</span> is total. To this end, let <span class="math inline">\(a \in T \times T \subseteq S \times S\)</span>. Because <span class="math inline">\(t\)</span> is total, we have <span class="math inline">\((a,b) \in t\)</span>, for some <span class="math inline">\(b \in S\)</span>, and thus <span class="math inline">\((a,b) \in u\)</span>.</li>
+<li>Finally we show that <span class="math inline">\(u\)</span> is well-defined. To this end, suppose we have <span class="math inline">\(a \in T \times T\)</span> and <span class="math inline">\(b_1, b_2 \in T\)</span> such that <span class="math inline">\((a,b_1) \in u\)</span> and <span class="math inline">\((a,b_2) \in u\)</span>. Buy definition, we also have <span class="math inline">\((a,b_1) \in t\)</span> and <span class="math inline">\((a,b_2) \in t\)</span>. Since <span class="math inline">\(t\)</span> is a function, it is well-defined, and so <span class="math inline">\(b_1 = b_2\)</span> as needed.</li>
+</ul>
+<p>Thus <span class="math inline">\(u\)</span> is a function with signature <span class="math inline">\(T \times T \rightarrow T\)</span>.</p>
+<p>Next we show that (2) implies (3). It suffices to show that <span class="math inline">\(u\)</span> is associative. Note that, by definition, for all <span class="math inline">\(x,y \in T\)</span> we have <span class="math inline">\(u(x,y) = t(x,y)\)</span>. Thus for all <span class="math inline">\(x,y,z \in T\)</span>, we have</p>
+<p><span class="math display">\[\begin{eqnarray*}
+u(u(x,y),z)
+ &amp; = &amp; t(t(x,y),z) \\
+ &amp; = &amp; t(x,t(y,z)) \\
+ &amp; = &amp; u(x,u(y,z))
+\end{eqnarray*}\]</span></p>
+<p>as needed; thus <span class="math inline">\(\langle T, u \rangle\)</span> is a semigroup.</p>
+<p>Finally we show that (3) implies (1). If <span class="math inline">\(\langle T, u \rangle\)</span> is a semigroup, then <span class="math inline">\(u\)</span> is a function with signature <span class="math inline">\(T \times T \rightarrow T\)</span>; in particular, if <span class="math inline">\((a,b) \in T \times T\)</span>, then <span class="math inline">\(u(a,b) \in T\)</span> as needed.</p>
+</div>
+</div>
+<p>We don't usually go to the trouble of using a distinct symbol for the "restricted" operation on a subsemigroup, although in principle it is a different function (since it has a different signature).</p>
+<p>We've already got some examples of subsemigroups.</p>
+<div class="example">
+<p><a name='crossref-1'></a> Let <span class="math inline">\(A\)</span> be a set. Then the following subsets of <span class="math inline">\(\mathsf{Map}(A)\)</span> are also subsemigroups of <span class="math inline">\(\langle \mathsf{Map}, \circ \rangle\)</span>.</p>
+<ol>
+<li><span class="math inline">\(\mathsf{Inj}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ injective} \}\)</span></li>
+<li><span class="math inline">\(\mathsf{Surj}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ surjective} \}\)</span></li>
+<li><span class="math inline">\(\mathsf{Sym}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ bijective} \}\)</span></li>
+</ol>
+<div class="proof">
+<p>We've already shown that the composite of <a href="../jectivity.html#crossref-6">injective</a>, <a href="../jectivity.html#crossref-2">surjective</a>, and <a href="../jectivity.html#crossref-12">bijective</a> functions retain the jectivity of their arguments.</p>
+</div>
+</div>
+<p>As a more concrete example, we've already enumerated the bijections on <span class="math inline">\(A = \{1,2\}\)</span>.</p>
+<div class="example">
+<p>Let <span class="math inline">\(A = \{1,2\}\)</span>. Then <span class="math display">\[\mathsf{Sym}(A) = \left\{ \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix}, \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \right\}\]</span> is a semigroup.</p>
+<div class="proof">
+<p>We have already <a href="../jectivity.html#crossref-14">enumerated</a> the elements of <span class="math inline">\(\mathsf{Sym}(A)\)</span> as shown, and we just <a href="basics.html#crossref-1">established</a> that <span class="math inline">\(\mathsf{Sym}(A)\)</span> is a subsemigroup of <span class="math inline">\(\mathsf{Map}(A)\)</span> (and thus also a semigroup).</p>
+</div>
+</div>
+<p>The subsets of a set come equipped with a structure of their own, which we can take advantage of.</p>
+<div class="theorem">
+<p><a name='crossref-2'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup, and let <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span> be subsemigroups of <span class="math inline">\(S\)</span>. If <span class="math inline">\(T_1 \cap T_2\)</span> is not empty, then <span class="math inline">\(T_1 \cap T_2\)</span> is also a subsemigroup of <span class="math inline">\(S\)</span>.</p>
+<div class="proof">
+<p>Suppose <span class="math inline">\(T_1 \cap T_2\)</span> is not empty. (This condition is important, since in general the intersection of subsemigroups may be trivial!) Of course we have <span class="math inline">\(T_1 \cap T_2 \subseteq S\)</span>.</p>
+<p>Using our <a href="basics.html#crossref-0">definition</a> of subsemigroup, it suffices to show that <span class="math inline">\(T_1 \cap T_2\)</span> is closed under <span class="math inline">\(\cdot\)</span>. To this end, let <span class="math inline">\(a,b \in T_1 \cap T_2\)</span>. Now <span class="math inline">\(a,b \in T_1\)</span>, and since <span class="math inline">\(T_1\)</span> is a subsemigroup of <span class="math inline">\(S\)</span>, we have <span class="math inline">\(a \cdot b \in T_1\)</span>. Similarly, <span class="math inline">\(a \cdot b \in T_2\)</span>. Thus we have <span class="math inline">\(a \cdot b \in T_1 \cap T_2\)</span>, and so <span class="math inline">\(T_1 \cap T_2\)</span> is a subsemigroup of <span class="math inline">\(S\)</span> as claimed.</p>
+</div>
+</div>
+<p>The union of two subsemigroups is generally not also a subsemigroup. There is a universal way to turn the union of semigroups into a (generally larger) subsemigroup, however. We will examine that concept later.</p>
+</section>
+<section class="level2">
+<h2>Special Elements, Special Semigroups</h2>
+<p>We'll often refer to the operation on a semigroup as its "product" or "multiplication", by analogy with multiplication of numbers. Recall that there are two particular numbers which exhibit extreme behavior under multiplication: zero and one. These extreme behaviors can have analogs among semigroup elements as well.</p>
+<div class="definition">
+<p><a name='crossref-3'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup with <span class="math inline">\(z \in Z\)</span>.</p>
+<ul>
+<li><span class="math inline">\(z\)</span> is called a <em>left zero</em> if we have <span class="math inline">\(z \cdot s = z\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
+<li><span class="math inline">\(z\)</span> is called a <em>right zero</em> if we have <span class="math inline">\(s \cdot z = z\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
+<li><span class="math inline">\(z\)</span> is called a <em>zero</em> if it is both a left and a right zero.</li>
+</ul>
+</div>
+<p>Not every semigroup has a zero element. However, given a semigroup we can always add a zero element to it.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, t \rangle\)</span> be a semigroup, and let <span class="math inline">\(z\)</span> be an element not in <span class="math inline">\(S\)</span>. Define <span class="math inline">\(\mathsf{Z}_z(S) = S \cup \{ z \}\)</span> and define</p>
+<p><span class="math display">\[\begin{eqnarray*}
+u
+ &amp; = &amp; t \cup \{ ((z,s),z) \mid s \in S \} \\
+ &amp;   &amp; \cup \{ ((s,z),s) \mid s \in S \} \cup \{ ((z,z),z) \}.
+\end{eqnarray*}\]</span></p>
+<p>Then <span class="math inline">\(\langle \mathsf{Z}_z(S), u \rangle\)</span> is a semigroup and <span class="math inline">\(S\)</span> is a subsemigroup of <span class="math inline">\(\mathsf{Z}_z(S)\)</span>. We say that <span class="math inline">\(\mathsf{Z}_z(S)\)</span> is obtained from <span class="math inline">\(S\)</span> by <em>adjoining a zero</em>.</p>
+<div class="proof">
+<p>Since we defined <span class="math inline">\(u\)</span> as a set, we'll first establish that it is a function. To that end we need to show it is total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(u\)</span> is total, note that there are four possibilities for an element <span class="math inline">\(x \in \mathsf{Z}_z(S) \times \mathsf{Z}_z(S)\)</span>, which are distinct since <span class="math inline">\(z \not\in S\)</span>. If <span class="math inline">\(x = (s_1,s_2)\)</span> with <span class="math inline">\(s_1, s_2 \in S\)</span>, then (since <span class="math inline">\(t\)</span> is total) we have <span class="math inline">\(w \in S \subseteq \mathsf{Z}_z(S)\)</span> such that <span class="math inline">\(((s_1,s_2),w) \in t \subseteq u\)</span>. If <span class="math inline">\(x = (s,z)\)</span> with <span class="math inline">\(s \in S\)</span>, then <span class="math inline">\(((s,z),z) \in u\)</span>. If <span class="math inline">\(x = (z,s)\)</span> with <span class="math inline">\(s \in S\)</span>, then <span class="math inline">\(((z,s),s) \in u\)</span>, and finally if <span class="math inline">\(x = (z,z)\)</span> then <span class="math inline">\(((z,z),z) \in u\)</span>. So <span class="math inline">\(u\)</span> is total.</li>
+<li>To see that <span class="math inline">\(u\)</span> is well-defined, suppose we have <span class="math inline">\(x \in \mathsf{Z}_z(S) \times \mathsf{Z}_z(S)\)</span> and <span class="math inline">\(w_1, w_2 \in \mathsf{Z}_z(S)\)</span> such that <span class="math inline">\((x,w_1) \in u\)</span> and <span class="math inline">\((x,w_2) \in u\)</span>. Again there are four possibilities for <span class="math inline">\(x\)</span>. If <span class="math inline">\(x \in S \times S\)</span>, then <span class="math inline">\(w_1 = w_2\)</span> because <span class="math inline">\(t\)</span> is total. In the other three cases we have <span class="math inline">\(w_1 = z = w_2\)</span> as needed. So <span class="math inline">\(u\)</span> is total.</li>
+</ul>
+<p>Next we need to show that <span class="math inline">\(u\)</span> is associative. To that end, note first that <span class="math inline">\(u(z,x) = u(x,z) = z\)</span> for all <span class="math inline">\(x \in \mathsf{Z}_z(S)\)</span>. Now suppose we have <span class="math inline">\(a,b,c \in \mathsf{Z}_z(S)\)</span>; we consider four possibilities.</p>
+<ul>
+<li>If <span class="math inline">\(a = z\)</span>, we have <span class="math display">\[\begin{eqnarray*} u(u(a,b),c) &amp; = &amp; u(u(z,b),c) \\ &amp; = &amp; u(z,c) \\ &amp; = &amp; z \\ &amp; = &amp; u(z,u(b,c)) \\ &amp; = &amp; u(a,u(b,c)). \end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(b = z\)</span>, we have <span class="math display">\[\begin{eqnarray*} u(u(a,b),c) &amp; = &amp; u(u(a,z),c) \\ &amp; = &amp; u(z,c) \\ &amp; = &amp; z \\ &amp; = &amp; u(a,z) \\ &amp; = &amp; u(a,u(z,c)) \\ &amp; = &amp; u(a,u(b,c)). \end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(c = z\)</span>, we have <span class="math display">\[\begin{eqnarray*} u(u(a,b),c) &amp; = &amp; u(u(a,b),z) \\ &amp; = &amp; z \\ &amp; = &amp; u(a,z) \\ &amp; = &amp; u(a,u(b,z)) \\ &amp; = &amp; u(a,u(b,c)). \end{eqnarray*}\]</span></li>
+<li>Suppose now that <span class="math inline">\(a,b,c \neq z\)</span>; then we have <span class="math inline">\(a,b,c \in S\)</span>. Since <span class="math inline">\(t\)</span> is associative, we then have <span class="math display">\[\begin{eqnarray*} u(u(a,b),c) &amp; = &amp; u(t(a,b),c) \\ &amp; = &amp; t(t(a,b),c) \\ &amp; = &amp; t(a,t(b,c)) \\ &amp; = &amp; u(a,t(b,c)) \\ &amp; = &amp; u(a,u(b,c)). \end{eqnarray*}\]</span></li>
+</ul>
+<p>Since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary in <span class="math inline">\(\mathsf{Z}_z(S)\)</span>, <span class="math inline">\(u\)</span> is associative, and so <span class="math inline">\(\langle \mathsf{Z}_z(S), u \rangle\)</span> is a semigroup.</p>
+<p>To see that <span class="math inline">\(S \subseteq \mathsf{Z}_z(S)\)</span> is a subsemigroup it <a href="basics.html#crossref-0">suffices</a> to show that <span class="math inline">\(S\)</span> is closed under <span class="math inline">\(u\)</span>. But of course if <span class="math inline">\(a,b \in S\)</span>, then <span class="math inline">\(u(a,b) = t(a,b) \in S\)</span> as needed.</p>
+</div>
+</div>
+<p>Note that not every semigroup that <em>has</em> a zero is obtained from some other semigroup by <em>adjoining</em> a zero. Adjunction (adjoinment?) can only produce very special semigroups where the product of two nonzero elements is never zero.</p>
+<p>Also note that there were no restrictions on the semigroups <span class="math inline">\(S\)</span> to which we can adjoin a zero. So we can adjoin <em>two</em> zeros, like <span class="math inline">\(\mathsf{Z}_w(\mathsf{Z}_z(S))\)</span>. We need to be very careful, however, because only the outermost adjoined "zero" is actually a zero <em>element</em> in the whole semigroup; for instance in this example we have <span class="math inline">\(w \cdot z = z \cdot w = w\)</span>, so <span class="math inline">\(z\)</span> is not a zero element even though it was adjoined to <span class="math inline">\(S\)</span> as a zero. More generally, if <span class="math inline">\(S\)</span> has a zero element already it will not be one anymore in <span class="math inline">\(\mathsf{Z}_z(S)\)</span>.</p>
+<p>The zero element of a semigroup, if it exists, is unique.</p>
+<div class="theorem">
+<p><a name='crossref-4'></a> Let <span class="math inline">\(S\)</span> be a semigroup with <span class="math inline">\(a,b \in S\)</span>. If <span class="math inline">\(a\)</span> is a left zero and <span class="math inline">\(b\)</span> a right zero, then <span class="math inline">\(a = b\)</span>. In particular, if <span class="math inline">\(S\)</span> has a zero element then it is unique.</p>
+<div class="proof">
+<p>We have <span class="math display">\[a = a \cdot b = b;\]</span> the first equality since <span class="math inline">\(a\)</span> is a left zero and the second because <span class="math inline">\(b\)</span> is a right zero. The "in particular" follows because every zero element is both a left and a right zero by definition.</p>
+</div>
+</div>
+<p>Note that this result says nothing about the uniqueness of one-sided zeros, and indeed they need not be unique. In fact left and right zeros can fail to be unique in the worst possible way.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(S\)</span> be a nonempty set, and define <span class="math inline">\(u \subseteq (S \times S) \times S\)</span> by <span class="math display">\[u = \{((s,t),s) \mid s,t \in S \}.\]</span> Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(u\)</span> is a function with signature <span class="math inline">\(S \times S \rightarrow S\)</span>.</li>
+<li><span class="math inline">\(\langle S, u \rangle\)</span> is a semigroup.</li>
+<li>Every element of <span class="math inline">\(S\)</span> is a left zero.</li>
+</ol>
+<p>If a semigroup satisfies condition (3), we say it is a <em>left zero</em> semigroup. When <span class="math inline">\(S\)</span> is equipped with this operation we refer to it as <span class="math inline">\(\mathsf{LZ}(S)\)</span>, pronounced "left zero semigroup on <span class="math inline">\(S\)</span>".</p>
+<div class="proof">
+<p>First we show (1); that <span class="math inline">\(u\)</span> is a function. This requires showing that <span class="math inline">\(u\)</span> is total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(u\)</span> is total, note that if <span class="math inline">\(a,b \in S\)</span> then by definition <span class="math inline">\(((a,b),a) \in u\)</span> as needed.</li>
+<li>To see that <span class="math inline">\(u\)</span> is well-defined, suppose we have <span class="math inline">\((a,b) \in S \times S\)</span> and <span class="math inline">\(c_1, c_2 \in S\)</span> such that <span class="math inline">\(((a,b),c_1) \in u\)</span> and <span class="math inline">\(((a,b),c_2) \in u\)</span>. By definition, we have <span class="math inline">\(c_1 = a = c_2\)</span> as needed.</li>
+</ul>
+<p>Next we show (2); for this it suffices to show that <span class="math inline">\(u\)</span> is associative. To this end, let <span class="math inline">\(a,b,c \in S\)</span>. Now <span class="math display">\[\begin{eqnarray*} u(u(a,b),c) &amp; = &amp; u(a,b) \\ &amp; = &amp; a \\ &amp; = &amp; u(a,u(b,c)) \end{eqnarray*}\]</span> as needed.</p>
+<p>Finally we show (3). To this end let <span class="math inline">\(a \in S\)</span>. We want to show that <span class="math inline">\(a\)</span> is a left zero. To do that, let <span class="math inline">\(b \in S\)</span>; from the definition of <span class="math inline">\(u\)</span> we have <span class="math inline">\(u(a,b) = a\)</span>. Since <span class="math inline">\(b\)</span> was arbitrary, <span class="math inline">\(a\)</span> is a left zero, and since <span class="math inline">\(a\)</span> was arbitrary, <em>every</em> element of <span class="math inline">\(S\)</span> is a left zero.</p>
+</div>
+</div>
+<p>That is, it's possible that <em>every</em> element of a semigroup is a left zero. We have an analogous theorem for right zeros.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(S\)</span> be a nonempty set, and define <span class="math inline">\(u \subseteq (S \times S) \times S\)</span> by <span class="math display">\[u = \{((s,t),t) \mid s,t \in S \}.\]</span> Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(u\)</span> is a function with signature <span class="math inline">\(S \times S \rightarrow S\)</span>.</li>
+<li><span class="math inline">\(\langle S, u \rangle\)</span> is a semigroup.</li>
+<li>Every element of <span class="math inline">\(S\)</span> is a right zero.</li>
+</ol>
+<p>If a semigroup satisfies condition (3), we say it is a <em>right zero</em> semigroup. When <span class="math inline">\(S\)</span> is equipped with this operation we refer to it as <span class="math inline">\(\mathsf{RZ}(S)\)</span>, pronounced "right zero semigroup on <span class="math inline">\(S\)</span>".</p>
+<div class="proof">
+<p>This proof is entirely analogous to the corresponding theorem about left zero semigroups.</p>
+</div>
+</div>
+<p>We have another pathological example: constant functions <span class="math inline">\(S \times S \rightarrow S\)</span> also yield a semigroups.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(S\)</span> be a nonempty set with <span class="math inline">\(z \in S\)</span>, and let <span class="math inline">\(\cdot : S \times S \rightarrow S\)</span> be <span class="math inline">\(\cdot = \mathsf{const}_{z}\)</span>. Then <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup. Semigroups of this form are called <em>null</em> semigroups, and the null semigroup on <span class="math inline">\(S\)</span> with constant <span class="math inline">\(z\)</span> is denoted <span class="math inline">\(\mathsf{K}_z(S)\)</span> (k for constant).</p>
+<div class="proof">
+<p>It suffices to show that this product is associative. To that end, let <span class="math inline">\(a,b,c \in S\)</span>. Now <span class="math display">\[(a \cdot b) \cdot c = z = a \cdot (b \cdot c);\]</span> since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary, <span class="math inline">\(\cdot\)</span> is associative as needed.</p>
+</div>
+</div>
+<p>We've seen what can happen when a semigroup element acts like zero. Interesting things also happen when elements act like one.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup with <span class="math inline">\(u \in S\)</span>.</p>
+<ol>
+<li><span class="math inline">\(u\)</span> is called a <em>left unit</em> if we have <span class="math inline">\(u \cdot s = s\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
+<li><span class="math inline">\(u\)</span> is called a <em>right unit</em> if we have <span class="math inline">\(s \cdot u = s\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
+<li><span class="math inline">\(u\)</span> is called a <em>unit</em> if it is both a left and a right unit.</li>
+</ol>
+</div>
+<p>Again, not every semigroup has a unit, but we can always add a unit to an existing semigroup.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, t \rangle\)</span> be a semigroup, and let <span class="math inline">\(e\)</span> be an element not in <span class="math inline">\(S\)</span>. Define <span class="math inline">\(\mathsf{U}_e(S) = S \cup \{e\}\)</span> and define <span class="math display">\[\begin{eqnarray*} u &amp; = &amp; t \cup \{ ((e,s),s) \mid s \in S \} \\ &amp; &amp; \cup \{ ((s,e),s) \mid s \in S \} \cup \{((e,e),e)\}. \end{eqnarray*}\]</span></p>
+<p>Then <span class="math inline">\(\langle \mathsf{U}_e(S), u \rangle\)</span> is a semigroup and <span class="math inline">\(S\)</span> is a subsemigroup of <span class="math inline">\(\mathsf{U}_e(S)\)</span>. We say that <span class="math inline">\(\mathsf{U}_e(S)\)</span> is obtained from <span class="math inline">\(S\)</span> by <em>adjoining a unit</em>.</p>
+<div class="proof">
+<p>Because we defined <span class="math inline">\(u\)</span> as a set, we should show it is a function. To do this we'll show it is both total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(u\)</span> is total, note that there are four possibilities for an element <span class="math inline">\(x \in \mathsf{U}_e(S) \times \mathsf{U}_e(S)\)</span>, which are distinct since <span class="math inline">\(e \notin S\)</span>. If <span class="math inline">\(x = (s_1,s_2)\)</span> with <span class="math inline">\(s_1,s_2 \in S\)</span>, then (since <span class="math inline">\(t\)</span> is total) we have <span class="math inline">\(w \in S \subseteq \mathsf{U}_e(S)\)</span> such that <span class="math inline">\((x,w) \in t \subseteq u\)</span>. If <span class="math inline">\(x = (s,e)\)</span> with <span class="math inline">\(s \in S\)</span>, then <span class="math inline">\(((s,e),s) \in u\)</span>. If <span class="math inline">\(x = (e,s)\)</span> with <span class="math inline">\(s \in S\)</span>, then <span class="math inline">\((x,s) \in u\)</span>. Finally, if <span class="math inline">\(x = (e,e)\)</span>, then <span class="math inline">\((x,e) \in u\)</span>. So <span class="math inline">\(u\)</span> is total.</li>
+<li>To see that <span class="math inline">\(u\)</span> is well-defined, suppose we have <span class="math inline">\(x \in \mathsf{U}_e(S) \times \mathsf{U}_e(S)\)</span> and <span class="math inline">\(w_1,w_2 \in \mathsf{U}_e(S)\)</span> such that <span class="math inline">\((x,w_1) \in u\)</span> and <span class="math inline">\((x,w_2) \in u\)</span>. Again there are four possibilities for <span class="math inline">\(x\)</span>. If <span class="math inline">\(x \in S \times S\)</span>, then <span class="math inline">\(w_1 = w_2\)</span> because <span class="math inline">\(t\)</span> is total. If <span class="math inline">\(x = (e,s)\)</span> with <span class="math inline">\(s \in S\)</span>, then <span class="math inline">\(w_1 = s = w_2\)</span>. If <span class="math inline">\(x = (s,e)\)</span> with <span class="math inline">\(s \in S\)</span>, then <span class="math inline">\(w_1 = s = w_2\)</span>. Finally, if <span class="math inline">\(x = (e,e)\)</span>, then <span class="math inline">\(w_1 = e = w_2\)</span>. So <span class="math inline">\(u\)</span> is well-defined.</li>
+</ul>
+<p>Next we need to show that <span class="math inline">\(u\)</span> is associative. To that end, note that <span class="math inline">\(u(e,s) = s\)</span> and <span class="math inline">\(u(s,e) = s\)</span> for all <span class="math inline">\(s \in \mathsf{U}_e(S)\)</span>. Now let <span class="math inline">\(a,b,c \in \mathsf{U}_e(S)\)</span>. We consider four possibilities.</p>
+<ul>
+<li>If <span class="math inline">\(a = e\)</span>, then <span class="math display">\[\begin{eqnarray*}
+u(u(a,b),c)
+ &amp; = &amp; u(u(e,b),c) \\
+ &amp; = &amp; u(b,c) \\
+ &amp; = &amp; u(e,u(b,c)) \\
+ &amp; = &amp; u(a,u(b,c)).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(b = e\)</span>, then <span class="math display">\[\begin{eqnarray*}
+u(u(a,b),c)
+ &amp; = &amp; u(u(a,e),c) \\
+ &amp; = &amp; u(a,c) \\
+ &amp; = &amp; u(a,u(e,c)) \\
+ &amp; = &amp; u(a,u(b,c)).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(c = e\)</span>, then <span class="math display">\[\begin{eqnarray*}
+u(u(a,b),c)
+ &amp; = &amp; u(u(a,b),e) \\
+ &amp; = &amp; u(a,b) \\
+ &amp; = &amp; u(a,u(b,e)) \\
+ &amp; = &amp; u(a,u(b,c)).
+\end{eqnarray*}\]</span></li>
+<li>Suppose then that <span class="math inline">\(a,b,c \neq e\)</span>, so that <span class="math inline">\(a,b,c \in S\)</span>. Since <span class="math inline">\(t\)</span> is associative, we have <span class="math display">\[\begin{eqnarray*}
+u(u(a,b),c)
+ &amp; = &amp; u(t(a,b),c) \\
+ &amp; = &amp; t(t(a,b),c) \\
+ &amp; = &amp; t(a,t(b,c)) \\
+ &amp; = &amp; u(a,t(b,c)) \\
+ &amp; = &amp; u(a,u(b,c)).
+\end{eqnarray*}\]</span></li>
+</ul>
+<p>Since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary in <span class="math inline">\(\mathsf{U}_e(S)\)</span>, <span class="math inline">\(u\)</span> is associative, so that <span class="math inline">\(\langle \mathsf{U}_e(S), u \rangle\)</span> is a semigroup.</p>
+<p>To see that <span class="math inline">\(S \subseteq \mathsf{U}_e(S)\)</span> is a subsemigroup it <a href="basics.html#crossref-0">suffices</a> to show that <span class="math inline">\(S\)</span> is closed under <span class="math inline">\(u\)</span>. But if <span class="math inline">\(a,b \in S\)</span>, then <span class="math inline">\(u(a,b) = t(a,b) \in S\)</span> as needed.</p>
+</div>
+</div>
+<p>Also again, not every semigroup that has a unit is obtained by adjoining a unit, and as with adjoining a zero, we can adjoin multiple units. We can even adjoin both zeros <em>and</em> units! However, if a unit exists, it is unique.</p>
+<div class="theorem">
+<p><a name='crossref-5'></a> Let <span class="math inline">\(S\)</span> be a semigroup with <span class="math inline">\(a,b \in S\)</span>. If <span class="math inline">\(a\)</span> is a left unit and <span class="math inline">\(b\)</span> a right unit, then <span class="math inline">\(a = b\)</span>. In particular, if <span class="math inline">\(S\)</span> has a unit element then it is unique.</p>
+<div class="proof">
+<p>We have <span class="math display">\[b = a \cdot b = a;\]</span> the first equality since <span class="math inline">\(a\)</span> is a left unit and the second equality since <span class="math inline">\(b\)</span> is a right unit. The "in particular" follows because every unit element is both a left and a right unit by definition.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Semigroup Homomorphisms</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          Hask: "\\mathsf{Hask}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Semigroup Homomorphisms</h1>
+
+</header>
+<section class="level2">
+<h2>Homomorphisms</h2>
+<p>The concept of "semigroup" represents a kind of structure. As we'll see, anytime we have a kind of structure, the structure-preserving functions are typically useful. These are called <em>homomorphisms</em>.</p>
+<div class="definition">
+<p><a name='crossref-0'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> and <span class="math inline">\(\langle T, \star \rangle\)</span> be semigroups and <span class="math inline">\(f : S \rightarrow T\)</span> a function. We say that <span class="math inline">\(f\)</span> is a <em>semigroup homomorphism</em> if the following holds:</p>
+<ul>
+<li><span class="math inline">\(f(a \cdot b) = f(a) \star f(b)\)</span> for all <span class="math inline">\(a,b \in S\)</span>.</li>
+</ul>
+<p>If in addition <span class="math inline">\(f\)</span> is bijective, we say that <span class="math inline">\(f\)</span> is a <em>semigroup isomorphism</em> and that <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span> are <em>isomorphic</em>, written <span class="math inline">\(S \cong T\)</span>.</p>
+</div>
+<p>I like to think of a homomorphism <span class="math inline">\(f : S \rightarrow T\)</span> as projecting a shadow of <span class="math inline">\(S\)</span> into <span class="math inline">\(T\)</span>.</p>
+<p>Homomorphisms interact with the basic algebra of functions as we'd hope; the identity is a homomorphism:</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(S\)</span> be a semigroup. The identity function <span class="math inline">\(\mathsf{id}_S\)</span> is an isomorphism.</p>
+<div class="proof">
+<p>We've already <a href="../jectivity.html#crossref-11">shown</a> that <span class="math inline">\(\mathsf{id}_S\)</span> is a bijection, so we just need to show it is a homomorphism. To see this, let <span class="math inline">\(a,b \in S\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+\mathsf{id}_S(a \cdot b)
+ &amp; = &amp; a \cdot b \\
+ &amp; = &amp; \mathsf{id}_S(a) \cdot \mathsf{id}_S(b)
+\end{eqnarray*}\]</span> as required.</p>
+</div>
+</div>
+<p>And the composite of two homomorphisms is a homomorphism:</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(S\)</span>, <span class="math inline">\(T\)</span>, and <span class="math inline">\(U\)</span> be semigroups, and suppose <span class="math inline">\(f : S \rightarrow T\)</span> and <span class="math inline">\(g : T \rightarrow U\)</span> are homomorphisms. Then <span class="math inline">\(g \circ f : S \rightarrow U\)</span> is a homomorphism. If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are isomorphisms, then <span class="math inline">\(g \circ f\)</span> is an isomorphism.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(a,b \in S\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+(g \circ f)(a \cdot b)
+ &amp; = &amp; g(f(a \cdot b)) \\
+ &amp; = &amp; g(f(a) \cdot f(b)) \\
+ &amp; = &amp; g(f(a)) \cdot g(f(b)) \\
+ &amp; = &amp; (g \circ f)(a) \cdot (g \circ f)(b)
+\end{eqnarray*}\]</span> as required. The isomorphism part follows because, as we've already <a href="../jectivity.html#crossref-12">shown</a>, the composite of bijections is a bijection.</p>
+</div>
+</div>
+<p>There is a unique homomorphism from any given semigroup to a semigroup with one element.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(S\)</span> be a semigroup, and let <span class="math inline">\(\langle \{e\}, \cdot \rangle\)</span> be the unique semigroup on the singleton set <span class="math inline">\(\{e\}\)</span>. Then there is a unique semigroup homomorphism <span class="math inline">\(f : S \rightarrow \{e\}\)</span>.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(f = \mathsf{const}_e\)</span>. To see that <span class="math inline">\(f\)</span> is a homomorphism, let <span class="math inline">\(a,b \in S\)</span>. Then <span class="math display">\[f(a \cdot b) = e = e \cdot e = f(a) \cdot f(e)\]</span> as required. To see that <span class="math inline">\(f\)</span> is unique, suppose <span class="math inline">\(g : S \rightarrow \{e\}\)</span> is another homomorphism; then for all <span class="math inline">\(a \in S\)</span> we have <span class="math inline">\(g(a) = e = f(a)\)</span>. So <span class="math inline">\(g = f\)</span>.</p>
+</div>
+</div>
+</section>
+<section class="level2">
+<h2>Isomorphisms</h2>
+<p><em>Isomorphism</em> is an especially important concept. It is very rare for two given semigroups to be equal; equality is simply too strict. However an isomorphism between semigroups means that the two are essentially the same <em>up to a renaming of the elements</em>. It captures the <em>meaning</em> while throwing away unimportant information. For this reason, we often end up trying to characterize some class of semigroups (or any alebras, for that matter) <em>up to isomorphism</em>. For this reason, it is handy to have some criteria which can demonstrate when two semigroups are <em>not</em> isomorphic.</p>
+<div class="theorem">
+<p><a name='crossref-1'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> and <span class="math inline">\(\langle T, \star \rangle\)</span> be semigroups and <span class="math inline">\(f : S \rightarrow T\)</span> a surjective semigroup homomorphism.</p>
+<ol>
+<li>If <span class="math inline">\(z \in S\)</span> is a left (right) zero, then <span class="math inline">\(f(z) \in T\)</span> is a left (right) zero.</li>
+<li>If <span class="math inline">\(z \in S\)</span> is a zero element, then <span class="math inline">\(f(z) \in T\)</span> is a zero element.</li>
+<li>If <span class="math inline">\(u \in S\)</span> is a left (right) unit, then <span class="math inline">\(f(u) \in T\)</span> is a left (right) unit.</li>
+<li>If <span class="math inline">\(u \in S\)</span> is a unit element, then <span class="math inline">\(f(u) \in T\)</span> is a unit element.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). To this end, first suppose <span class="math inline">\(z\)</span> is a left zero in <span class="math inline">\(S\)</span>. Now let <span class="math inline">\(t \in T\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(s \in S\)</span> with <span class="math inline">\(f(s) = t\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+f(z) \star t
+ &amp; = &amp; f(z) \star f(s) \\
+ &amp; = &amp; f(z \cdot s) \\
+ &amp; = &amp; f(z)
+\end{eqnarray*}\]</span> since <span class="math inline">\(z\)</span> is a left zero element in <span class="math inline">\(S\)</span>. Since <span class="math inline">\(t\)</span> was arbitray in <span class="math inline">\(T\)</span>, <span class="math inline">\(f(z)\)</span> is a left zero. The proof for <span class="math inline">\(z\)</span> a right zero is analogous. Now (2) follows from (1) and the <a href="basics.html#crossref-4">uniqueness</a> of simultaneous one-sided zeros because every zero is both a left and a right zero.</p>
+<p>We can show (3) similarly. Suppose <span class="math inline">\(u \in S\)</span> is a left unit and let <span class="math inline">\(t \in T\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(s \in S\)</span> with <span class="math inline">\(f(s) = t\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+f(u) \star t
+ &amp; = &amp; f(u) \star f(s) \\
+ &amp; = &amp; f(u \cdot s) \\
+ &amp; = &amp; f(s) \\
+ &amp; = &amp; t;
+\end{eqnarray*}\]</span> we similarly have <span class="math inline">\(t \star f(u) = t\)</span>. Since <span class="math inline">\(t\)</span> was arbitrary in <span class="math inline">\(T\)</span>, <span class="math inline">\(f(u)\)</span> is a left unit. The proof for <span class="math inline">\(u\)</span> a right unit is analogous. Now (4) follows from (3) and the <a href="basics.html#crossref-5">uniqueness</a> of simultaneous one-sided units because every unit is both a left and a right unit.</p>
+</div>
+</div>
+<p>This theorem can be used to show that two semigroups are <em>not</em> isomorphic; for instance, if we know that one has a zero but the other does not.</p>
+<p>We can also use isomorphisms to justify referring to <em>the</em> left or right zero semigroup on a set.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup.</p>
+<ol>
+<li>If every element of <span class="math inline">\(S\)</span> is a left zero, then <span class="math inline">\(S \cong \mathsf{LZ}(S)\)</span>.</li>
+<li>If every element of <span class="math inline">\(S\)</span> is a right zero, then <span class="math inline">\(S \cong \mathsf{RZ}(S)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). Denote by <span class="math inline">\(\star\)</span> the operation on the left zero semigroup <span class="math inline">\(\mathsf{LZ}(S)\)</span>. To show that two semigroups are isomorphic, we must first exhibit a function from one to the other, then show it is a homomorphism, and finally show that it is bijective.</p>
+<p>Recall that as sets we have <span class="math inline">\(S = \mathsf{LZ}(S)\)</span>. So we define <span class="math inline">\(f : S \rightarrow \mathsf{LZ}(S)\)</span> by <span class="math inline">\(f = \mathsf{id}_S\)</span>. To see that <span class="math inline">\(f\)</span> is a homomorphism, let <span class="math inline">\(s,t \in S\)</span> and note that</p>
+<p><span class="math display">\[\begin{eqnarray*}
+f(s \cdot t)
+ &amp; = &amp; f(s) \\
+ &amp; = &amp; f(s) \star f(t).
+\end{eqnarray*}\]</span></p>
+<p>(Here we used the fact that <span class="math inline">\(s\)</span> is a left zero in <span class="math inline">\(S\)</span> and <span class="math inline">\(f(s)\)</span> is a left zero in <span class="math inline">\(\mathsf{LZ}(S)\)</span>.) Since <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> were arbitrary in <span class="math inline">\(S\)</span>, <span class="math inline">\(f\)</span> is a homomorphism. Finally, we have <a href="../jectivity.html#crossref-11">shown</a> that the identity function is bijective. So we have <span class="math inline">\(S \cong \mathsf{LZ}(S)\)</span> as claimed.</p>
+<p>The proof of (2) is analogous.</p>
+</div>
+</div>
+<p>Isomorphisms also interact with zero and unit adjunction.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> and <span class="math inline">\(\langle T, \star \rangle\)</span> be semigroups, and suppose we have elements <span class="math inline">\(h \notin S\)</span> and <span class="math inline">\(k \notin T\)</span>. Suppose further that <span class="math inline">\(f : S \rightarrow T\)</span> is an isomorphism. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(g = f \cup \{ (h,k) \}\)</span> is a bijective function with signature <span class="math inline">\(S \cup \{h\} \rightarrow T \cup \{k\}\)</span>.</li>
+<li><span class="math inline">\(g\)</span> is an isomorphism <span class="math inline">\(\mathsf{Z}_h(S) \rightarrow \mathsf{Z}_k(T)\)</span>.</li>
+<li><span class="math inline">\(g\)</span> is an isomorphism <span class="math inline">\(\mathsf{U}_h(S) \rightarrow \mathsf{U}_k(T)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). Certainly we have <span class="math inline">\(g \subseteq (S \cup \{h\}) \times (T \cup \{k\})\)</span>. To see that <span class="math inline">\(g\)</span> is a function we show it is total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(g\)</span> is total, let <span class="math inline">\(x \in S \cup \{h\}\)</span>. if <span class="math inline">\(x \in S\)</span>, then since <span class="math inline">\(f\)</span> is total, we have <span class="math inline">\(y \in T\)</span> such that <span class="math inline">\((x,y) \in f \subseteq g\)</span>. If <span class="math inline">\(x = h\)</span> then <span class="math inline">\((h,k) \in g\)</span>. So <span class="math inline">\(g\)</span> is total.</li>
+<li>To see that <span class="math inline">\(g\)</span> is well-defined, suppose we have <span class="math inline">\(x \in S \cup \{h\}\)</span> and <span class="math inline">\(y_1,y_2 \in T \cup \{k\}\)</span> such that <span class="math inline">\((x,y_1) \in g\)</span> and <span class="math inline">\((x,y_2) \in g\)</span>. We have two possibilities for <span class="math inline">\(x\)</span>. If <span class="math inline">\(x \in S\)</span>, then in fact <span class="math inline">\((x,y_1) \in f\)</span> and <span class="math inline">\((x,y_2) \in f\)</span>; since <span class="math inline">\(f\)</span> is well-defined we have <span class="math inline">\(y_1 = y_2\)</span>. Suppose instead that <span class="math inline">\(x = h\)</span>. Then we have <span class="math inline">\(y_1 = k = y_2\)</span>. So <span class="math inline">\(g\)</span> is well-defined.</li>
+</ul>
+<p>So <span class="math inline">\(g\)</span> is a function. To see that <span class="math inline">\(g\)</span> is bijective, define <span class="math inline">\(u = f^{-1} \cup \{(k,h)\}\)</span>. The argument showing that <span class="math inline">\(g\)</span> is a function also applies to <span class="math inline">\(u\)</span>, so we have <span class="math inline">\(u : T \cup \{k\} \rightarrow S \cup \{h\}\)</span>. Moreover, we have <span class="math inline">\(u \circ g = \mathsf{id}_{S \cup \{h\}}\)</span> and <span class="math inline">\(g \circ u = \mathsf{id}_{T \cup \{k\}}\)</span>, and <a href="../jectivity.html#crossref-13">so</a> <span class="math inline">\(g\)</span> is bijective.</p>
+<p>Now we show (2). To this end, let <span class="math inline">\(a,b \in \mathsf{Z}_h(S)\)</span>. We have four possibilities for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(a \in S\)</span> and <span class="math inline">\(b \in S\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; f(a \cdot b) \\
+ &amp; = &amp; f(a) \star f(b) \\
+ &amp; = &amp; g(a) \star g(b).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(a \in S\)</span> and <span class="math inline">\(b = h\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; g(a \cdot h) \\
+ &amp; = &amp; g(h) \\
+ &amp; = &amp; k \\
+ &amp; = &amp; g(a) \star k \\
+ &amp; = &amp; g(a) \star g(h) \\
+ &amp; = &amp; g(a) \star g(b).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(a = h\)</span> and <span class="math inline">\(b \in S\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; g(h \cdot b) \\
+ &amp; = &amp; g(h) \\
+ &amp; = &amp; k \\
+ &amp; = &amp; k \star g(b) \\
+ &amp; = &amp; g(h) \star g(b) \\
+ &amp; = &amp; g(a) \star g(b).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(a = h\)</span> and <span class="math inline">\(b = h\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; g(h \cdot h) \\
+ &amp; = &amp; g(h) \\
+ &amp; = &amp; k \\
+ &amp; = &amp; k \star k \\
+ &amp; = &amp; g(h) \star g(k).
+\end{eqnarray*}\]</span> So <span class="math inline">\(g\)</span> is a homomorphism, and thus an isomorphism.</li>
+</ul>
+<p>Finally we show (3). To this end, let <span class="math inline">\(a,b \in \mathsf{U}_h(S)\)</span>. We have four possibilities for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(a \in S\)</span> and <span class="math inline">\(b \in S\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; f(a \cdot b) \\
+ &amp; = &amp; f(a) \star f(b) \\
+ &amp; = &amp; g(a) \star g(b).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(a \in S\)</span> and <span class="math inline">\(b = h\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; g(a \cdot h) \\
+ &amp; = &amp; g(a) \\
+ &amp; = &amp; g(a) \star k \\
+ &amp; = &amp; g(a) \star g(h) \\
+ &amp; = &amp; g(a) \star g(b).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(a = h\)</span> and <span class="math inline">\(b \in S\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; g(h \cdot b) \\
+ &amp; = &amp; g(b) \\
+ &amp; = &amp; k \star g(b) \\
+ &amp; = &amp; g(h) \star g(b) \\
+ &amp; = &amp; g(a) \star g(b).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(a = h\)</span> and <span class="math inline">\(b = h\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+g(a \cdot b)
+ &amp; = &amp; g(h \cdot h) \\
+ &amp; = &amp; g(h) \\
+ &amp; = &amp; k \\
+ &amp; = &amp; k \star k \\
+ &amp; = &amp; g(h) \star g(k).
+\end{eqnarray*}\]</span> So <span class="math inline">\(g\)</span> is a homomorphism, and thus an isomorphism.</li>
+</ul>
+</div>
+</div>
+<p>And there is essentially only one null semigroup on a given set.</p>
+<div class="theorem">
+<p><a name='crossref-2'></a> Let <span class="math inline">\(S\)</span> be a nonempty set, and suppose we have <span class="math inline">\(u,v \in S\)</span> with <span class="math inline">\(u \neq v\)</span>. Define <span class="math inline">\(f \subseteq \mathsf{K}_u(S) \times \mathsf{K}_v(S)\)</span> by <span class="math display">\[f = \{ (x,x) \mid x \in S, x \neq u,\ \mathrm{and}\ x \neq v \} \cup \{ (u,v), (v,u) \}.\]</span> Then <span class="math inline">\(f\)</span> is an isomorphism <span class="math inline">\(\mathsf{K}_u(S) \rightarrow \mathsf{K}_v(S)\)</span>.</p>
+<div class="proof">
+<p>First we need to show that <span class="math inline">\(f\)</span> is a function; total and well-defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(f\)</span> is total, let <span class="math inline">\(a \in S\)</span>. If <span class="math inline">\(a = u\)</span> then <span class="math inline">\((a,v) \in f\)</span>. If <span class="math inline">\(a = v\)</span> then <span class="math inline">\((a,u) \in f\)</span>. If <span class="math inline">\(a \neq u\)</span> and <span class="math inline">\(a \neq v\)</span>, then <span class="math inline">\((a,a) \in f\)</span>.</li>
+<li>To see that <span class="math inline">\(f\)</span> is well-defined, suppose we have <span class="math inline">\(x \in S\)</span> and <span class="math inline">\(y_1,y_2 \in S\)</span> such that <span class="math inline">\((x,y_1) \in f\)</span> and <span class="math inline">\((x,y_2) \in f\)</span>. If <span class="math inline">\(x = u\)</span>, then <span class="math inline">\(y_1 = v = y_2\)</span>. If <span class="math inline">\(x = v\)</span>, then <span class="math inline">\(y_1 = u = y_2\)</span>. Suppose then that <span class="math inline">\(x \neq u\)</span> and <span class="math inline">\(x \neq v\)</span>; then we have <span class="math inline">\(y_1 = x = y_2\)</span>. So <span class="math inline">\(f\)</span> is well-defined.</li>
+</ul>
+<p>Thus <span class="math inline">\(f\)</span> is a function. Next we need to show that <span class="math inline">\(f\)</span> is bijective; to this end, we claim that <span class="math inline">\(f \circ f = \mathsf{id}_S\)</span>. To see this we consider three cases for <span class="math inline">\(x \in S\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(x = u\)</span> then <span class="math display">\[\begin{eqnarray*}
+(f \circ f)(x)
+ &amp; = &amp; (f \circ f)(u) \\
+ &amp; = &amp; f(f(u)) \\
+ &amp; = &amp; f(v) \\
+ &amp; = &amp; u \\
+ &amp; = &amp; \mathsf{id}_S(u) \\
+ &amp; = &amp; \mathsf{id}_S(x).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(x = v\)</span>, then <span class="math display">\[\begin{eqnarray*}
+(f \circ f)(x)
+ &amp; = &amp; (f \circ f)(v) \\
+ &amp; = &amp; f(f(v)) \\
+ &amp; = &amp; f(u) \\
+ &amp; = &amp; v \\
+ &amp; = &amp; \mathsf{id}_S(v) \\
+ &amp; = &amp; \mathsf{id}_S(x).
+\end{eqnarray*}\]</span></li>
+<li>If <span class="math inline">\(x \neq u\)</span> and <span class="math inline">\(x \neq v\)</span>, then <span class="math display">\[\begin{eqnarray*}
+(f \circ f)(x)
+ &amp; = &amp; f(f(x)) \\
+ &amp; = &amp; f(x) \\
+ &amp; = &amp; x \\
+ &amp; = &amp; \mathsf{id}_S(x).
+\end{eqnarray*}\]</span></li>
+</ul>
+<p>So we have <span class="math inline">\(f \circ f = \mathsf{id}_S\)</span>. Since <span class="math inline">\(f\)</span> has a left and a right inverse, it is bijective.</p>
+<p>Finally we need to show that <span class="math inline">\(f\)</span> is a homomorphism. To this end, let <span class="math inline">\(a,b \in S\)</span>. Then <span class="math display">\[f(a \cdot b) = f(u) = v = f(a) \cdot f(b)\]</span> as required.</p>
+</div>
+</div>
+<p>Suppose we have a set <span class="math inline">\(S\)</span> and a binary operation <span class="math inline">\(\cdot : S \times S \rightarrow S\)</span>, but we don't know if <span class="math inline">\(\cdot\)</span> is associative. The naive way to check this is to look at all possible triples <span class="math inline">\(a,b,c \in S\)</span> and see if <span class="math inline">\((a \cdot b) \cdot c\)</span> is equal to <span class="math inline">\(a \cdot (b \cdot c)\)</span>. When <span class="math inline">\(S\)</span> is finite (whatever that means) the number of cases to check grows with the cube of the size of <span class="math inline">\(S\)</span>. There is another strategy we can use that brings the amount of work down to the square of the size of <span class="math inline">\(S\)</span>; show that <span class="math inline">\(S\)</span> is related to some other known semigroup.</p>
+<div class="theorem">
+<p><a name='crossref-3'></a> Let <span class="math inline">\(S\)</span> be a set and <span class="math inline">\(\cdot : S \times S \rightarrow S\)</span> a (not necessarily associative!) binary operation on <span class="math inline">\(S\)</span>. Suppose we have a semigroup <span class="math inline">\(\langle T, \star \rangle\)</span>.</p>
+<ol>
+<li>If we have an injective function <span class="math inline">\(f : S \rightarrow T\)</span> such that for all <span class="math inline">\(a,b \in S\)</span>, <span class="math inline">\(f(a \cdot b) = f(a) \star f(b)\)</span>, then <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup and <span class="math inline">\(f\)</span> a homomorphism.</li>
+<li>If we have a surjective function <span class="math inline">\(g : T \rightarrow S\)</span> such that for all <span class="math inline">\(a,b \in T\)</span>, <span class="math inline">\(f(a \star b) = f(a) \cdot f(b)\)</span>, then <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup and <span class="math inline">\(f\)</span> a homomorphism.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). It suffices to show that <span class="math inline">\(\cdot\)</span> is associative; that <span class="math inline">\(f\)</span> is a homomorphism follows trivially. To this end, let <span class="math inline">\(a,b,c \in S\)</span>. Now we have</p>
+<p><span class="math display">\[\begin{eqnarray*}
+f((a \cdot b) \cdot c)
+ &amp; = &amp; f(a \cdot b) \star f(c) \\
+ &amp; = &amp; (f(a) \star f(b)) \star f(c) \\
+ &amp; = &amp; f(a) \star (f(b) \star f(c)) \\
+ &amp; = &amp; f(a) \star f(b \cdot c) \\
+ &amp; = &amp; f(a \cdot (b \cdot c)).
+\end{eqnarray*}\]</span></p>
+<p>Because <span class="math inline">\(f\)</span> is injective, we have <span class="math inline">\((a \cdot b) \cdot c = a \cdot (b \cdot c)\)</span>. Since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary in <span class="math inline">\(S\)</span>, <span class="math inline">\(\cdot\)</span> is associative, and so <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup.</p>
+<p>Next we show (2); again it suffices to show that <span class="math inline">\(\cdot\)</span> is associative. To this end, let <span class="math inline">\(a,b,c \in S\)</span>. Because <span class="math inline">\(f\)</span> is surjective, there exist <span class="math inline">\(x,y,z \in T\)</span> such that <span class="math inline">\(f(x) = a\)</span>, <span class="math inline">\(f(y) = b\)</span>, and <span class="math inline">\(f(z) = c\)</span>. Now we have</p>
+<p><span class="math display">\[\begin{eqnarray*}
+(a \cdot b) \cdot c
+ &amp; = &amp; (f(x) \cdot f(y)) \cdot f(z) \\
+ &amp; = &amp; f(x \star y) \cdot f(z) \\
+ &amp; = &amp; f((x \star y) \star z) \\
+ &amp; = &amp; f(x \star (y \star z)) \\
+ &amp; = &amp; f(x) \cdot f(y \star z) \\
+ &amp; = &amp; f(x) \cdot (f(y) \cdot f(z)) \\
+ &amp; = &amp; a \cdot (b \cdot c).
+\end{eqnarray*}\]</span></p>
+<p>Since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary in <span class="math inline">\(S\)</span>, <span class="math inline">\(\cdot\)</span> is associative, so that <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup, and moreover <span class="math inline">\(f\)</span> is a homomorphism, as claimed.</p>
+</div>
+</div>
+<p>We will now embark on a quest to determine all of the semigroup operations on a set with two elements by brute force. This will be painful. With the tools we have available, we won't be able to avoid some amount of brute force case analysis. More or less, that means examining each of the 16 binary operations on a two-element set and determining which ones are associative. The main goal of proving a result like this is to motivate the development of more powerful tools. :)</p>
+<div class="example">
+<p>Let <span class="math inline">\(S = \{a,b\}\)</span> be a set with <span class="math inline">\(a \neq b\)</span>. Find the operations <span class="math inline">\(\cdot\)</span> on <span class="math inline">\(S\)</span> such that <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a semigroup, and determine which of these are distinct up to isomorphism.</p>
+<div class="proof">
+<p>We start by considering the two possible values of <span class="math inline">\(a \cdot a\)</span>.</p>
+<p>First, suppose <span class="math inline">\(a \cdot a = b\)</span>. Now suppose <span class="math inline">\(a \cdot b\)</span> and <span class="math inline">\(b \cdot a\)</span> are not equal; then we have <span class="math display">\[\begin{eqnarray*}
+(a \cdot a) \cdot a
+ &amp; = &amp; b \cdot a \\
+ &amp; \neq &amp; a \cdot b \\
+ &amp; = &amp; a \cdot (a \cdot a);
+\end{eqnarray*}\]</span> so that <span class="math inline">\(\cdot\)</span> is not associative. Thus we must have <span class="math inline">\(a \cdot b = b \cdot a\)</span>. There are four possibilities for this common value along with <span class="math inline">\(b \cdot b\)</span>.</p>
+<ul>
+<li>Suppose <span class="math inline">\(a \cdot b = b \cdot a = a\)</span> and <span class="math inline">\(b \cdot b = a\)</span>. But now we have <span class="math display">\[\begin{eqnarray*}
+(a \cdot a) \cdot b
+ &amp; = &amp; b \cdot b \\
+ &amp; = &amp; a \\
+ &amp; \neq &amp; b \\
+ &amp; = &amp; a \cdot a \\
+ &amp; = &amp; a \cdot (a \cdot b)
+\end{eqnarray*}\]</span> so <span class="math inline">\(\cdot\)</span> is not associative.</li>
+<li>Suppose <span class="math inline">\(a \cdot b = b \cdot a = a\)</span> and <span class="math inline">\(b \cdot b = b\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; b &amp; a \\
+b &amp; a &amp; b
+\end{array}\]</span> We claim that this operation is associative. To see why, define <span class="math inline">\(f : S \rightarrow \mathsf{Sym}(\{1,2\})\)</span> by <span class="math display">\[f = \left\{ \left(a, \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix}\right), \left(b, \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \right) \right\}.\]</span> It is clear that <span class="math inline">\(f\)</span> is total and well-defined, and moreover as a function is bijective. We also claim that <span class="math inline">\(f(x \cdot y) = f(x) \circ f(y)\)</span> for all <span class="math inline">\(x,y \in S\)</span>; we can brute force this with four cases. <span class="math display">\[\begin{eqnarray*}
+f(a \cdot a)
+ &amp; = &amp; f(b) \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \circ \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \\
+ &amp; = &amp; f(a) \circ f(a), \\
+ &amp;   &amp; \\
+f(a \cdot b)
+ &amp; = &amp; f(a) \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \circ \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \\
+ &amp; = &amp; f(a) \circ f(b), \\
+ &amp;   &amp; \\
+f(b \cdot a)
+ &amp; = &amp; f(a) \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \circ \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \\
+ &amp; = &amp; f(b) \circ f(a),\ \mathrm{and} \\
+ &amp;   &amp; \\
+f(b \cdot b)
+ &amp; = &amp; f(b) \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \\
+ &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \circ \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \\
+ &amp; = &amp; f(b) \circ f(b).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span> is a <a href="basics.html#crossref-1">semigroup</a>, as we established in the <a href="homomorphisms.html#crossref-3">previous result</a>, this means that <span class="math inline">\(\cdot\)</span> is associative, <span class="math inline">\(S\)</span> is a semigroup, and in fact <span class="math inline">\(f\)</span> is a homomorphism. But we have a bit more: since <span class="math inline">\(f\)</span> is bijective, it is an <em>isomorphism</em>, so we have <span class="math inline">\(S \cong \mathsf{Sym}(\{1,2\})\)</span>. I did warn that this would be painful.</li>
+<li>Suppose <span class="math inline">\(a \cdot b = b \cdot a = b\)</span> and <span class="math inline">\(b \cdot b = a\)</span>. But now we have <span class="math display">\[\begin{eqnarray*}
+(a \cdot b) \cdot b
+ &amp; = &amp; a \cdot b \\
+ &amp; = &amp; a \\
+ &amp; \neq &amp; b \\
+ &amp; = &amp; a \cdot a \\
+ &amp; = &amp; a \cdot (b \cdot b)
+\end{eqnarray*}\]</span> so <span class="math inline">\(\cdot\)</span> is not associative.</li>
+<li>Suppose <span class="math inline">\(a \cdot b = b \cdot a = b\)</span> and <span class="math inline">\(b \cdot b = b\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; b &amp; b \\
+b &amp; b &amp; b
+\end{array}\]</span> Then we have <span class="math inline">\(S = \mathsf{K}_b(S)\)</span>.</li>
+</ul>
+<p>Now suppose <span class="math inline">\(a \cdot a = a\)</span>.</p>
+<p>Suppose further that <span class="math inline">\(b \cdot b = a\)</span>. Now suppose <span class="math inline">\(a \cdot b\)</span> and <span class="math inline">\(b \cdot a\)</span> are not equal; then we have <span class="math display">\[\begin{eqnarray*}
+(b \cdot b) \cdot b
+ &amp; = &amp; a \cdot b \\
+ &amp; \neq &amp; b \cdot a \\
+ &amp; = &amp; b \cdot (b \cdot b);
+\end{eqnarray*}\]</span> so that <span class="math inline">\(\cdot\)</span> is not associative. Thus we must have <span class="math inline">\(a \cdot b = b \cdot a\)</span>. There are two possibilities for this common value.</p>
+<ul>
+<li>Suppose <span class="math inline">\(a \cdot b = b \cdot a = a\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; a &amp; a \\
+b &amp; a &amp; a
+\end{array}\]</span> Then we have <span class="math inline">\(S = \mathsf{K}_a(S)\)</span>.</li>
+<li>Suppose instead that <span class="math inline">\(a \cdot b = b \cdot a = b\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; a &amp; b \\
+b &amp; b &amp; a
+\end{array}\]</span> We claim that this operation is associative. To see why, define <span class="math inline">\(f : S \rightarrow \mathsf{Sym}(\{1,2\})\)</span> by <span class="math display">\[f = \left\{ \left(a, \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix}\right), \left(b, \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \right) \right\}.\]</span> Similarly to a previous case, this function satisfies <span class="math inline">\(f(x \cdot y) = f(x) \circ f(y)\)</span> for all <span class="math inline">\(x, y \in S\)</span>, so that <span class="math inline">\(S\)</span> is a semigroup and <span class="math inline">\(f\)</span> is an isomorphism. Thus <span class="math inline">\(S \cong \mathsf{Sym}(\{1,2\})\)</span>.</li>
+</ul>
+<p>Now suppose (in addition to <span class="math inline">\(a \cdot a = a\)</span>) that <span class="math inline">\(b \cdot b = b\)</span>. There are four possibilities for the values of <span class="math inline">\(a \cdot b\)</span> and <span class="math inline">\(b \cdot a\)</span>.</p>
+<ul>
+<li>Suppose <span class="math inline">\(a \cdot b = a\)</span> and <span class="math inline">\(b \cdot a = a\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; a &amp; a \\
+b &amp; a &amp; b
+\end{array}\]</span> Then we have <span class="math inline">\(S = \mathsf{Z}_a(\{b\})\)</span>.</li>
+<li>Suppose <span class="math inline">\(a \cdot b = a\)</span> and <span class="math inline">\(b \cdot a = b\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; a &amp; a \\
+b &amp; b &amp; b
+\end{array}\]</span> Then we have <span class="math inline">\(S = \mathsf{LZ}(S)\)</span>.</li>
+<li>Suppose <span class="math inline">\(a \cdot b = b\)</span> and <span class="math inline">\(b \cdot a = a\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; a &amp; b \\
+b &amp; a &amp; b
+\end{array}\]</span> Then we have <span class="math inline">\(S = \mathsf{RZ}(S)\)</span>.</li>
+<li>Suppose <span class="math inline">\(a \cdot b = b\)</span> and <span class="math inline">\(b \cdot a = b\)</span>; that is, the multiplication table of <span class="math inline">\(S\)</span> looks like this: <span class="math display">\[\begin{array}{c|cc}
+&amp; a &amp; b \\ \hline
+a &amp; a &amp; b \\
+b &amp; b &amp; b
+\end{array}\]</span> Then we have <span class="math inline">\(S = \mathsf{Z}_b(\{a\})\)</span>.</li>
+</ul>
+<p>Among the binary operations on <span class="math inline">\(S\)</span>, we've shown that each one is either not associative or <em>is</em> associative and either equal to or isomorphic to one of <span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span>, <span class="math inline">\(\mathsf{K}_b(S)\)</span>, <span class="math inline">\(\mathsf{K}_a(S)\)</span>, <span class="math inline">\(\mathsf{Z}_a(\{b\})\)</span>, <span class="math inline">\(\mathsf{LZ}(S)\)</span>, <span class="math inline">\(\mathsf{RZ}(S)\)</span>, and <span class="math inline">\(\mathsf{Z}_b(\{a\})\)</span>. Not all of these are distinct up to isomorphism, though; we have already <a href="homomorphisms.html#crossref-2">seen</a> that <span class="math inline">\(\mathsf{K}_a(S) \cong \mathsf{K}_b(S)\)</span> and because <span class="math inline">\(\{a\} \cong \{b\}\)</span> as one-element semigroups, <span class="math inline">\(\mathsf{Z}_a(\{b\}) \cong \mathsf{Z}_b(\{a\})\)</span>.</p>
+<p>This cuts our list down to five: <span class="math display">\[\mathsf{Sym}(\{1,2\}), \mathsf{K}_a(S), \mathsf{Z}_b(\{a\}), \mathsf{LZ}(S),\ \mathrm{and}\ \mathsf{RZ}(S).\]</span> We claim that these five are mutually nonisomorphic.</p>
+<ul>
+<li><span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span> has a unit element, while the other four do not; so it is distinct up to isomorphism.</li>
+<li><span class="math inline">\(\mathsf{K}_a(S)\)</span> is null, while the other four are not; so it is distinct up to isomorphism.</li>
+<li><span class="math inline">\(\mathsf{Z}_b(\{a\})\)</span> has a zero element, while <span class="math inline">\(\mathsf{LZ}(S)\)</span> and <span class="math inline">\(\mathsf{RZ}(S)\)</span> do not; so it is not isomorphic to them.</li>
+<li><span class="math inline">\(\mathsf{LZ}(S)\)</span> has a left zero but <span class="math inline">\(\mathsf{RZ}(S)\)</span> does not, so these two are distinct.</li>
+</ul>
+<p>So a semigroup containing two elements is isomorphic to one of these 5.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>
