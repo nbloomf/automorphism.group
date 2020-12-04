@@ -46,7 +46,7 @@
 <div class="theorem">
 <p>Let <span class="math inline">\(S\)</span> be a semigroup. The identity function <span class="math inline">\(\mathsf{id}_S\)</span> is an isomorphism.</p>
 <div class="proof">
-<p>We've already <a href="../jectivity.html#crossref-11">shown</a> that <span class="math inline">\(\mathsf{id}_S\)</span> is a bijection, so we just need to show it is a homomorphism. To see this, let <span class="math inline">\(a,b \in S\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+<p>We've already <a href="../functions/jectivity.html#crossref-11">shown</a> that <span class="math inline">\(\mathsf{id}_S\)</span> is a bijection, so we just need to show it is a homomorphism. To see this, let <span class="math inline">\(a,b \in S\)</span>. Now <span class="math display">\[\begin{eqnarray*}
 \mathsf{id}_S(a \cdot b)
  &amp; = &amp; a \cdot b \\
  &amp; = &amp; \mathsf{id}_S(a) \cdot \mathsf{id}_S(b)
@@ -63,7 +63,7 @@
  &amp; = &amp; g(f(a) \cdot f(b)) \\
  &amp; = &amp; g(f(a)) \cdot g(f(b)) \\
  &amp; = &amp; (g \circ f)(a) \cdot (g \circ f)(b)
-\end{eqnarray*}\]</span> as required. The isomorphism part follows because, as we've already <a href="../jectivity.html#crossref-12">shown</a>, the composite of bijections is a bijection.</p>
+\end{eqnarray*}\]</span> as required. The isomorphism part follows because, as we've already <a href="../functions/jectivity.html#crossref-12">shown</a>, the composite of bijections is a bijection.</p>
 </div>
 </div>
 <p>There is a unique homomorphism from any given semigroup to a semigroup with one element.</p>
@@ -117,7 +117,7 @@ f(s \cdot t)
  &amp; = &amp; f(s) \\
  &amp; = &amp; f(s) \star f(t).
 \end{eqnarray*}\]</span></p>
-<p>(Here we used the fact that <span class="math inline">\(s\)</span> is a left zero in <span class="math inline">\(S\)</span> and <span class="math inline">\(f(s)\)</span> is a left zero in <span class="math inline">\(\mathsf{LZ}(S)\)</span>.) Since <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> were arbitrary in <span class="math inline">\(S\)</span>, <span class="math inline">\(f\)</span> is a homomorphism. Finally, we have <a href="../jectivity.html#crossref-11">shown</a> that the identity function is bijective. So we have <span class="math inline">\(S \cong \mathsf{LZ}(S)\)</span> as claimed.</p>
+<p>(Here we used the fact that <span class="math inline">\(s\)</span> is a left zero in <span class="math inline">\(S\)</span> and <span class="math inline">\(f(s)\)</span> is a left zero in <span class="math inline">\(\mathsf{LZ}(S)\)</span>.) Since <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> were arbitrary in <span class="math inline">\(S\)</span>, <span class="math inline">\(f\)</span> is a homomorphism. Finally, we have <a href="../functions/jectivity.html#crossref-11">shown</a> that the identity function is bijective. So we have <span class="math inline">\(S \cong \mathsf{LZ}(S)\)</span> as claimed.</p>
 <p>The proof of (2) is analogous.</p>
 </div>
 </div>
@@ -135,7 +135,7 @@ f(s \cdot t)
 <li>To see that <span class="math inline">\(g\)</span> is total, let <span class="math inline">\(x \in S \cup \{h\}\)</span>. if <span class="math inline">\(x \in S\)</span>, then since <span class="math inline">\(f\)</span> is total, we have <span class="math inline">\(y \in T\)</span> such that <span class="math inline">\((x,y) \in f \subseteq g\)</span>. If <span class="math inline">\(x = h\)</span> then <span class="math inline">\((h,k) \in g\)</span>. So <span class="math inline">\(g\)</span> is total.</li>
 <li>To see that <span class="math inline">\(g\)</span> is well-defined, suppose we have <span class="math inline">\(x \in S \cup \{h\}\)</span> and <span class="math inline">\(y_1,y_2 \in T \cup \{k\}\)</span> such that <span class="math inline">\((x,y_1) \in g\)</span> and <span class="math inline">\((x,y_2) \in g\)</span>. We have two possibilities for <span class="math inline">\(x\)</span>. If <span class="math inline">\(x \in S\)</span>, then in fact <span class="math inline">\((x,y_1) \in f\)</span> and <span class="math inline">\((x,y_2) \in f\)</span>; since <span class="math inline">\(f\)</span> is well-defined we have <span class="math inline">\(y_1 = y_2\)</span>. Suppose instead that <span class="math inline">\(x = h\)</span>. Then we have <span class="math inline">\(y_1 = k = y_2\)</span>. So <span class="math inline">\(g\)</span> is well-defined.</li>
 </ul>
-<p>So <span class="math inline">\(g\)</span> is a function. To see that <span class="math inline">\(g\)</span> is bijective, define <span class="math inline">\(u = f^{-1} \cup \{(k,h)\}\)</span>. The argument showing that <span class="math inline">\(g\)</span> is a function also applies to <span class="math inline">\(u\)</span>, so we have <span class="math inline">\(u : T \cup \{k\} \rightarrow S \cup \{h\}\)</span>. Moreover, we have <span class="math inline">\(u \circ g = \mathsf{id}_{S \cup \{h\}}\)</span> and <span class="math inline">\(g \circ u = \mathsf{id}_{T \cup \{k\}}\)</span>, and <a href="../jectivity.html#crossref-13">so</a> <span class="math inline">\(g\)</span> is bijective.</p>
+<p>So <span class="math inline">\(g\)</span> is a function. To see that <span class="math inline">\(g\)</span> is bijective, define <span class="math inline">\(u = f^{-1} \cup \{(k,h)\}\)</span>. The argument showing that <span class="math inline">\(g\)</span> is a function also applies to <span class="math inline">\(u\)</span>, so we have <span class="math inline">\(u : T \cup \{k\} \rightarrow S \cup \{h\}\)</span>. Moreover, we have <span class="math inline">\(u \circ g = \mathsf{id}_{S \cup \{h\}}\)</span> and <span class="math inline">\(g \circ u = \mathsf{id}_{T \cup \{k\}}\)</span>, and <a href="../functions/jectivity.html#crossref-13">so</a> <span class="math inline">\(g\)</span> is bijective.</p>
 <p>Now we show (2). To this end, let <span class="math inline">\(a,b \in \mathsf{Z}_h(S)\)</span>. We have four possibilities for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
 <ul>
 <li>If <span class="math inline">\(a \in S\)</span> and <span class="math inline">\(b \in S\)</span>, we have <span class="math display">\[\begin{eqnarray*}
@@ -395,6 +395,8 @@ b &amp; b &amp; b
 <p>So a semigroup containing two elements is isomorphic to one of these 5.</p>
 </div>
 </div>
+<p>Okay! So we've classified the semigroups with two elements up to isomorphism. Is this interesting? I mean, sort of? Realistically semigroups are such weak structures that they end up being extremely numerous, so building complete tables of them like this is computationally very difficult. What's really interesting about this classification theorem is the machinery we developed to prove it.</p>
+<p>This is a common pattern in mathematics; the journey is often more important than the destination. :)</p>
 </section>
 </article>
 </body>
