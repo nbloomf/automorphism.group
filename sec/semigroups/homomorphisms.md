@@ -462,3 +462,7 @@ This cuts our list down to five: $$\mathsf{Sym}(\{1,2\}), \mathsf{K}_a(S), \math
 So a semigroup containing two elements is isomorphic to one of these 5.
 :::::::::::::
 :::::::::::::::
+
+Okay! So we've classified the semigroups with two elements up to isomorphism. Is this interesting? I mean, sort of? Realistically semigroups are such weak structures that they end up being extremely numerous, so building complete tables of them like this is computationally very difficult. What's really interesting about this classification theorem is the machinery we developed to prove it.
+
+This is a common pattern in mathematics; the journey is often more important than the destination. :)
