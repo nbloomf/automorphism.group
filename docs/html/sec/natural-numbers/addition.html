@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Addition</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          nats: "\\mathbb{N}",
+          zero: "\\mathsf{0}",
+          next: "\\mathsf{next}",
+          natrec: "\\mathsf{natrec}",
+          simprec: "\\mathsf{simprec}",
+          plus: "\\mathsf{plus}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Addition</h1>
+
+</header>
+<section class="level2">
+<h2>Another Recursion Operator</h2>
+<p>At this point we've defined (as an axiom) the natural numbers <span class="math inline">\(\nats\)</span> as an inductive set from which there is a unique inductive homomorphism <span class="math inline">\(\natrec\)</span>. It may be surprising that this is all we need; from here we could directly define the usual arithmetic. It will be handy, though, to have some more specialized tools first.</p>
+<p>We can think of <span class="math inline">\(\natrec\)</span> as a <em>recursion operator</em>. It takes some very basic data, <span class="math inline">\(e\)</span> and <span class="math inline">\(\varphi\)</span>, and bundles it into a very well-behaved function <span class="math inline">\(\nats \rightarrow A\)</span>. Notably, the proof that <span class="math inline">\(\natrec\)</span> is well-behaved only needs to be written once. Whenever we sit down to design a recursive function on <span class="math inline">\(\nats\)</span>, it may be handy to see if there is a more general recursion operator hiding in the details.</p>
+<p>Here we will establish the existence and uniqueness of a handy operator called <em>simple recursion with a parameter</em>. This is handy for defining functions with signature <span class="math inline">\(\nats \times A \rightarrow B\)</span>.</p>
+<div class="theorem">
+<p><a name='crossref-0'></a> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets, and suppose we have functions <span class="math inline">\(\varphi : A \rightarrow B\)</span> and <span class="math inline">\(\mu : \nats \times A \times B \rightarrow B\)</span>. Then there is a unique function <span class="math inline">\(\Theta : \nats \times A \rightarrow B\)</span> satisfying the following:</p>
+<ol>
+<li><span class="math inline">\(\Theta(\zero,a) = \varphi(a)\)</span> for all <span class="math inline">\(a \in A\)</span>.</li>
+<li><span class="math inline">\(\Theta(\next(n),a) = \mu(n,a,\Theta(n,a))\)</span> for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(n \in \nats\)</span>.</li>
+</ol>
+<p>This function <span class="math inline">\(\Theta\)</span> will be denoted <span class="math inline">\(\mathsf{simprec}_{\varphi,\mu}\)</span>, called <em>simple recursion with a parameter</em>.</p>
+<div class="proof">
+<p>This is a "there exists a unique" theorem, so we have to things to show: that such a <span class="math inline">\(\Theta\)</span> exists, and that it is unique. First we show existence.</p>
+<p>Define <span class="math inline">\(\varepsilon : A \rightarrow \nats \times B\)</span> by <span class="math display">\[\varepsilon(a) = (\zero, \varphi(a)),\]</span> and define <span class="math inline">\(\chi : A \rightarrow (\nats \times B)^{\nats \times B}\)</span> by <span class="math display">\[\chi(a)(n,b) = (\next(n),\mu(n,a,b)).\]</span></p>
+<p>Now for each <span class="math inline">\(a \in A\)</span>, <span class="math inline">\(\langle \nats \times B, \varepsilon(a), \mu(a) \rangle\)</span> is an iterative set. We then define <span class="math inline">\(\Omega : \nats \rightarrow (\nats \times B)^A\)</span> by <span class="math display">\[\Omega(n)(a) = \natrec_{\varepsilon(a),\chi(a)}(n).\]</span> Finally we define <span class="math inline">\(\Theta : \nats \times A \rightarrow B\)</span> by <span class="math display">\[\Theta(n,a) = \pi_2(\Omega(n)(a)),\]</span> where <span class="math inline">\(\pi_2 : \nats \times B \rightarrow B\)</span> is the second "coordinate projection -- that is, <span class="math inline">\(\pi_2(n,b) = b\)</span>. We claim that this <span class="math inline">\(\Theta\)</span> satisfies properties (1) and (2).</p>
+<p>To see that <span class="math inline">\(\Theta\)</span> satisfies (1), let <span class="math inline">\(a \in A\)</span>. Now we have <span class="math display">\[\begin{eqnarray*}
+\Theta(\zero,a)
+ &amp; = &amp; \pi_2(\Omega(n)(a)) \\
+ &amp; = &amp; \pi_2(\natrec_{\varepsilon(a),\chi(a)}(\zero)) \\
+ &amp; = &amp; \pi_2(\varepsilon(a)) \\
+ &amp; = &amp; \pi_2(\mathsf{zero},\varphi(a)) \\
+ &amp; = &amp; \varphi(a)
+\end{eqnarray*}\]</span> as needed. Before we show that <span class="math inline">\(\Theta\)</span> satisfies (2), we'll use induction to show that for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(n \in \nats\)</span>, <span class="math display">\[\Omega(\next(n))(a) = (\next(n),\mu(n,a,\Theta(n,a))).\]</span></p>
+<p>For the base case, suppose <span class="math inline">\(n = \zero\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Omega(\next(\zero))(a) \\
+ &amp; = &amp; \natrec_{\varepsilon(a),\chi(a)}(\next(\zero)) \\
+ &amp; = &amp; \chi(a)(\natrec_{\varepsilon(a),\chi(a)}(\zero)) \\
+ &amp; = &amp; \chi(a)(\varepsilon(a)) \\
+ &amp; = &amp; \chi(a)(\zero,\varphi(a)) \\
+ &amp; = &amp; (\next(\zero),\mu(\zero,a,\varphi(a))) \\
+ &amp; = &amp; (\next(\zero),\mu(\zero,a,\Theta(\zero,a)))
+\end{eqnarray*}\]</span> as claimed. For the inductive step, suppose the equality holds for all <span class="math inline">\(a \in A\)</span> for some <span class="math inline">\(n \in \nats\)</span>. Now let <span class="math inline">\(a \in A\)</span>; we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Omega(\next(\next(n)))(a) \\
+ &amp; = &amp; \natrec_{\varepsilon(a),\chi(a)}(\next(\next(n))) \\
+ &amp; = &amp; \chi(a)(\natrec_{\varepsilon(a),\chi(a)}(\next(n))) \\
+ &amp; = &amp; \chi(a)(\Omega(\next(n))(a)) \\
+ &amp; = &amp; \chi(a)(\next(n),\mu(n,a,\Theta(n,a))) \\
+ &amp; = &amp; (\next(\next(n)),\mu(\next(n),a,\mu(n,a,\Theta(n,a)))) \\
+ &amp; = &amp; (\next(\next(n)), \\
+ &amp;   &amp; \quad \mu(\next(n),a,\pi_2(\next(n),\mu(n,a,\Theta(n,a))))) \\
+ &amp; = &amp; (\next(\next(n)),\mu(\next(n),a,\pi_2(\Omega(\next(n))(a)))) \\
+ &amp; = &amp; (\next(\next(n)),\mu(\next(n),a,\Theta(\next(n),a))). \\
+\end{eqnarray*}\]</span> By induction, and since <span class="math inline">\(a\)</span> was arbitrary in <span class="math inline">\(A\)</span>, the equality holds. But now for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(n \in \nats\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(\next(n),a) \\
+ &amp; = &amp; \pi_2(\Omega(\next(n))(a)) \\
+ &amp; = &amp; \pi_2(\next(n),\mu(n,a,\Theta(n,a))) \\
+ &amp; = &amp; \mu(n,a,\Theta(n,a))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see that <span class="math inline">\(\Theta\)</span> is unique, we again use induction. Suppose <span class="math inline">\(\Psi : \nats \times A \rightarrow B\)</span> is another function satisfying both (1) and (2). For the base case, we have <span class="math display">\[\begin{eqnarray*}
+\Psi(\zero,a)
+ &amp; = &amp; \varphi(a) \\
+ &amp; = &amp; \Theta(\zero,a)
+\end{eqnarray*}\]</span> for all <span class="math inline">\(a \in A\)</span>. For the inductive step, if <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(\Psi(n,a) = \Theta(n,a)\)</span> for all <span class="math inline">\(a \in A\)</span>, then we have <span class="math display">\[\begin{eqnarray*}
+\Psi(\next(n),a)
+ &amp; = &amp; \mu(n,a,\Psi(n,a)) \\
+ &amp; = &amp; \mu(n,a,\Theta(n,a)) \\
+ &amp; = &amp; \Theta(\next(n),a)
+\end{eqnarray*}\]</span> for all <span class="math inline">\(a \in A\)</span>. So we have <span class="math inline">\(\Psi = \Theta\)</span> as claimed.</p>
+</div>
+</div>
+<p>This proof might look like a significant jump in sophistication over what we've been doing up to this point because it uses functions which output other functions. But the core of the argument is very simple: we defined <span class="math inline">\(\Theta\)</span>, showed it has the desired properties (by induction), and showed it is unique with those properties (by induction).</p>
+<p>As with <span class="math inline">\(\natrec\)</span>, what's handy about this operator is it only needs two pieces of data, <span class="math inline">\(\varphi\)</span> and <span class="math inline">\(\mu\)</span>, which are not subject to any restrictions other than their signatures.</p>
+</section>
+<section class="level2">
+<h2>Addition</h2>
+<p>We're going to use <span class="math inline">\(\mathsf{simprec}\)</span> to define addition on natural numbers. Rather than just writing down the definition, it's instructive to see where it comes from. <span class="math inline">\(\simprec\)</span> has the right signature; <span class="math inline">\(\simprec : \nats \times A \rightarrow B\)</span> with <span class="math inline">\(A = B = \nats\)</span>. We just need to find appropriate <span class="math inline">\(\varphi : \nats \rightarrow \nats\)</span> and <span class="math inline">\(mu : \nats \times \nats \times \nats \rightarrow \nats\)</span>. For instance, we'd like <span class="math inline">\(\next\)</span> to behave like <span class="math inline">\(+1\)</span>, and <span class="math display">\[n = \zero + n = \simprec_{\varphi,\mu}(\zero,n) = \varphi(n),\]</span> so maybe <span class="math inline">\(\varphi = \mathsf{id}\)</span>. Similarly, we want <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; (m + n) + 1 \\
+ &amp; = &amp; (m + 1) + n \\
+ &amp; = &amp; \simprec_{\varphi,\mu}(\next(m), n) \\
+ &amp; = &amp; \mu(m,n,\simprec_{\varphi,\mu}(m,n)) \\
+ &amp; = &amp; \mu(m,n,m+n).
+\end{eqnarray*}\]</span> With that in mind, we define <span class="math inline">\(\plus\)</span> as follows.</p>
+<div class="definition">
+<p><a name='crossref-1'></a> Define <span class="math inline">\(\mu : \nats \times \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\mu(-,-,b) = \next(b)\)</span>. We then define <span class="math inline">\(\plus : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\plus = \simprec_{\mathsf{id},\mu}.\]</span> We'll usually prefer the infix symbol <span class="math inline">\(+\)</span> rather than the prefix <span class="math inline">\(\plus\)</span> for this function.</p>
+</div>
+<p>The remainder of this section is all about showing that this <span class="math inline">\(\plus\)</span> acts like we expect it to. First, <span class="math inline">\(\plus\)</span> interacts with <span class="math inline">\(\next\)</span>.</p>
+<div class="theorem">
+<p>The following hold for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<ol>
+<li><span class="math inline">\(\plus(\zero,a) = a\)</span>.</li>
+<li><span class="math inline">\(\plus(\next(a),b) = \next(\plus(a,b))\)</span>.</li>
+<li><span class="math inline">\(\plus(a,\zero) = a\)</span>.</li>
+<li><span class="math inline">\(\plus(a,\next(b)) = \next(\plus(a,b))\)</span>.</li>
+</ol>
+<div class="proof">
+<p>Throughout this proof, we use <span class="math inline">\(\mu\)</span> as defined with <span class="math inline">\(\plus\)</span>. To see (1), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\zero,a) \\
+ &amp; = &amp; \simprec_{\mathsf{id},\mu}(\zero,a) \\
+ &amp; = &amp; \mathsf{id}(a) \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\next(a),b) \\
+ &amp; = &amp; \simprec_{\mathsf{id},\mu}(\next(a),b) \\
+ &amp; = &amp; \mu(a,b,\simprec_{\mathsf{id},\mu}(a,b)) \\
+ &amp; = &amp; \next(\simprec_{\mathsf{id},\mu}(a,b)) \\
+ &amp; = &amp; \next(\plus(a,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To show (3) we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(a,\zero) \\
+ &amp; = &amp; \plus(\zero,\zero) \\
+ &amp; = &amp; \simprec_{\mathsf{id},\mu}(\zero,\zero) \\
+ &amp; = &amp; \mathsf{id}(\zero) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose that for some <span class="math inline">\(a \in \nats\)</span> we have <span class="math inline">\(\plus(a,\zero) = a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\next(a),\zero) \\
+ &amp; = &amp; \next(\plus(a,\zero)) \\
+ &amp; = &amp; \next(a).
+\end{eqnarray*}\]</span> By induction, (3) holds for all <span class="math inline">\(a \in \nats\)</span>.</p>
+<p>We also show (4) by induction on <span class="math inline">\(a\)</span>. For the base case, let <span class="math inline">\(a = \zero\)</span>; we then have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(a,\next(b)) \\
+ &amp; = &amp; \plus(\zero,\next(b)) \\
+ &amp; = &amp; \simprec_{\mathsf{id},\mu}(\zero,\next(b)) \\
+ &amp; = &amp; \mathsf{id}(\next(b)) \\
+ &amp; = &amp; \next(b) \\
+ &amp; = &amp; \next(\mathsf{id}(b)) \\
+ &amp; = &amp; \next(\simprec_{\mathsf{id},\mu}(\zero,b)) \\
+ &amp; = &amp; \next(\plus(\zero,b)) \\
+ &amp; = &amp; \next(\plus(a,b))
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose we have <span class="math inline">\(\plus(a,\next(b)) = \next(\plus(a,b))\)</span> for all <span class="math inline">\(b \in A\)</span> for some <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\next(a),\next(b)) \\
+ &amp; = &amp; \next(\plus(a,\next(b))) \\
+ &amp; = &amp; \next(\next(\plus(a,b))) \\
+ &amp; = &amp; \next(\plus(\next(a),b)).
+\end{eqnarray*}\]</span> By induction, the (4) holds for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+</div>
+</div>
+<p>Next, <span class="math inline">\(\plus\)</span> is associative.</p>
+<div class="theorem">
+<p><a name='crossref-2'></a> For all <span class="math inline">\(a,b,c \in \nats\)</span>, we have <span class="math display">\[\plus(\plus(a,b),c) = \plus(a,\plus(b,c)).\]</span></p>
+<div class="proof">
+<p>We proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = 0\)</span>, note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\plus(a,b),c) \\
+ &amp; = &amp; \plus(\plus(\zero,b),c) \\
+ &amp; = &amp; \plus(b,c) \\
+ &amp; = &amp; \plus(\zero,\plus(b,c)) \\
+ &amp; = &amp; \plus(a,\plus(b,c))
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose we have <span class="math display">\[\plus(\plus(a,b),c) = \plus(a,\plus(b,c))\]</span> for all <span class="math inline">\(b,c \in \nats\)</span> for some <span class="math inline">\(a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\plus(\next(a),b),c) \\
+ &amp; = &amp; \plus(\next(\plus(a,b)),c) \\
+ &amp; = &amp; \next(\plus(\plus(a,b),c)) \\
+ &amp; = &amp; \next(\plus(a,\plus(b,c))) \\
+ &amp; = &amp; \plus(\next(a),\plus(b,c)).
+\end{eqnarray*}\]</span> By induction, we thus have <span class="math display">\[\plus(\plus(a,b),c) = \plus(a,\plus(b,c))\]</span> for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
+</div>
+</div>
+<p><span class="math inline">\(\plus\)</span> is also commutative.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b \in \nats\)</span>, we have <span class="math inline">\(\plus(a,b) = \plus(b,a)\)</span>.</p>
+<div class="proof">
+<p>We proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\zero,b) \\
+ &amp; = &amp; b \\
+ &amp; = &amp; \plus(b,\zero)
+\end{eqnarray*}\]</span> for all <span class="math inline">\(b\)</span>. For the inductive step, suppose <span class="math inline">\(\plus(a,b) = \plus(b,a)\)</span> for all <span class="math inline">\(b \in \nats\)</span> for some <span class="math inline">\(a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\next(a),b) \\
+ &amp; = &amp; \next(\plus(a,b)) \\
+ &amp; = &amp; \next(\plus(b,a)) \\
+ &amp; = &amp; \plus(b,\next(a)).
+\end{eqnarray*}\]</span> By induction, <span class="math inline">\(\plus(a,b) = \plus(b,a)\)</span> for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+</div>
+</div>
+<p>Finally, <span class="math inline">\(\plus\)</span> is cancellative.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b,c \in \nats\)</span>, we have the following.</p>
+<ol>
+<li>If <span class="math inline">\(\plus(c,a) = \plus(c,b)\)</span>, then <span class="math inline">\(a = b\)</span>.</li>
+<li>If <span class="math inline">\(\plus(a,c) = \plus(b,c)\)</span>, then <span class="math inline">\(a = b\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), we proceed by induction on <span class="math inline">\(c\)</span>. For the base case, suppose <span class="math display">\[\plus(\zero,a) = \plus(\zero,b).\]</span> Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; a \\
+ &amp; = &amp; \plus(\zero,a) \\
+ &amp; = &amp; \plus(\zero,b) \\
+ &amp; = &amp; b
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose (1) holds for all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for some <span class="math inline">\(c\)</span>. Now suppose <span class="math display">\[\plus(\next(c),a) = \plus(\next(c),b).\]</span> Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(\plus(c,a)) \\
+ &amp; = &amp; \plus(\next(c),a) \\
+ &amp; = &amp; \plus(\next(c),b) \\
+ &amp; = &amp; \next(\plus(c,b)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is <a href="basics.html#crossref-4">injective</a>, we have <span class="math inline">\(\plus(c,a) = \plus(c,b)\)</span>. By the induction hypothesis, we have <span class="math inline">\(a = b\)</span>. By induction, then, (1) holds for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
+<p>To see (2), suppose <span class="math display">\[\plus(a,c) = \plus(b,c).\]</span> Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(c,a) \\
+ &amp; = &amp; \plus(a,c) \\
+ &amp; = &amp; \plus(b,c) \\
+ &amp; = &amp; \plus(c,b).
+\end{eqnarray*}\]</span> Using (1), then, we have <span class="math inline">\(a = b\)</span> as claimed.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

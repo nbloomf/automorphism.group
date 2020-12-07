@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Natural Numbers</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          nats: "\\mathbb{N}",
+          zero: "\\mathsf{0}",
+          next: "\\mathsf{next}",
+          natrec: "\\mathsf{natrec}",
+          simprec: "\\mathsf{simprec}",
+          plus: "\\mathsf{plus}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Natural Numbers</h1>
+
+</header>
+<section class="level2">
+<h2>Iterative Sets</h2>
+<p>Let's define another kind of algebra.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(A\)</span> be a set with a distinguished element <span class="math inline">\(e \in A\)</span> and a map <span class="math inline">\(\varphi : A \rightarrow A\)</span>. Then we say the triple <span class="math inline">\(\langle A, e, \varphi \rangle\)</span> is an <em>iterative set</em>.</p>
+</div>
+<p>This is not so different from our definition of semigroup. Yes, semigroups have a <em>binary</em> function while here we have only a unary function, and semigroups also satisfy a law. But the basic setup of a set with some functions is the same. All that is to say, iterative sets are a class of algebras.</p>
+<p>There's not much we can do with one besides construct a list of successive values: <span class="math display">\[e, \varphi(e), \varphi(\varphi(e)), \varphi(\varphi(\varphi(e))), \ldots\]</span> We might call this list of values the <em>iterates</em> of <span class="math inline">\(e\)</span> under <span class="math inline">\(\varphi\)</span>.</p>
+<p>In general, not all of these values have to be distinct. As an example, we can enumerate the iterative sets which have two elements.</p>
+<div class="example">
+<p>Let <span class="math inline">\(B = \{t,f\}\)</span>. Describe the iterative sets over <span class="math inline">\(B\)</span> and, for each one, find the first few iterates of the distinguished element.</p>
+<div class="proof">
+<p>We've <a href="../functions/basics.html#crossref-6">shown</a> that there are four functions on <span class="math inline">\(B\)</span>: <span class="math display">\[g_1 = \begin{pmatrix} t &amp; f \\ t &amp; t \end{pmatrix}, g_2 = \begin{pmatrix} t &amp; f \\ t &amp; f \end{pmatrix}, g_3 = \begin{pmatrix} t &amp; f \\ f &amp; t \end{pmatrix}, g_4 = \begin{pmatrix} t &amp; f \\ f &amp; f \end{pmatrix}.\]</span> Since there are no restrictions on what functions can form iterative set, choosing one of these, and one element <span class="math inline">\(e \in B\)</span>, gives 8 cases. We list them and the first few iterates <span class="math inline">\(e\)</span>, <span class="math inline">\(\varphi(e)\)</span>, <span class="math inline">\(\varphi(\varphi(e))\)</span> (et cetera) below.</p>
+<ol>
+<li><span class="math inline">\(\langle B, t, g_1 \rangle\)</span>: <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, t, g_2 \rangle\)</span>: <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, t, g_3 \rangle\)</span>: <span class="math inline">\(t\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, t, g_4 \rangle\)</span>: <span class="math inline">\(t\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, f, g_1 \rangle\)</span>: <span class="math inline">\(f\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, f, g_2 \rangle\)</span>: <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, f, g_3 \rangle\)</span>: <span class="math inline">\(f\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(\ldots\)</span></li>
+<li><span class="math inline">\(\langle B, f, g_4 \rangle\)</span>: <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(f\)</span>, <span class="math inline">\(\ldots\)</span></li>
+</ol>
+</div>
+</div>
+<p>Iterative sets have a kind of structure, and it makes sense for a function to preserve that structure.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\langle A, e, \varphi \rangle\)</span> and <span class="math inline">\(\langle B, f, \psi \rangle\)</span> be iterative sets, and let <span class="math inline">\(\theta : A \rightarrow B\)</span> be a function. We say that <span class="math inline">\(\theta\)</span> is an <em>iterative homomorphism</em> if the following hold.</p>
+<ol>
+<li><span class="math inline">\(\theta(e) = f\)</span>.</li>
+<li><span class="math inline">\(\theta \circ \varphi = \psi \circ \theta\)</span>.</li>
+</ol>
+</div>
+<p>As usual, the identity function is a homomorphism:</p>
+<div class="theorem">
+<p><a name='crossref-0'></a> Let <span class="math inline">\(\langle A, e, \varphi \rangle\)</span> be an iterative set. Then <span class="math inline">\(\mathsf{id}_A\)</span> is an iterative homomorphism.</p>
+<div class="proof">
+<p>We have <span class="math inline">\(\mathsf{id}_A(e) = e\)</span> and <span class="math display">\[\mathsf{id}_A \circ f = f = f \circ \mathsf{id}_A\]</span> as needed.</p>
+</div>
+</div>
+<p>And the composite of iterative homomorphisms is again a homomorphism.</p>
+<div class="theorem">
+<p><a name='crossref-1'></a> Let <span class="math inline">\(\langle A, e, \varphi \rangle\)</span>, <span class="math inline">\(\langle B, f, \psi \rangle\)</span>, and <span class="math inline">\(\langle C, g, \chi \rangle\)</span> be iterative sets, with iterative homomorphisms <span class="math inline">\(\theta : A \rightarrow B\)</span> and <span class="math inline">\(\zeta : B \rightarrow C\)</span>. Then <span class="math inline">\(\zeta \circ \theta : A \rightarrow C\)</span> is an iterative homomorphism.</p>
+<div class="proof">
+<p>We have <span class="math display">\[(\zeta \circ \theta)(e) = \zeta(\theta(e)) = \zeta(f) = g\]</span> and <span class="math display">\[\begin{eqnarray*}
+(\zeta \circ \theta) \circ \varphi
+ &amp; = &amp; \zeta \circ (\theta \circ \varphi) \\
+ &amp; = &amp; \zeta \circ (\psi \circ \theta) \\
+ &amp; = &amp; (\zeta \circ \psi) \circ \theta \\
+ &amp; = &amp; (\chi \circ \zeta) \circ \theta \\
+ &amp; = &amp; \chi \circ (\zeta \circ \theta)
+\end{eqnarray*}\]</span> as needed.</p>
+</div>
+</div>
+</section>
+<section class="level2">
+<h2>Natural Numbers</h2>
+<p>We define the natural numbers to be a very special iterative set. We take the existence of this set as an axiom; it's possible it could be proven to exist in terms of more primitive machinery, but we have to start somewhere, and this is as good a place as any.</p>
+<div class="axiom">
+<p>There is an iterative set <span class="math inline">\(\langle \nats, \zero, \next \rangle\)</span> which has the following <em>universal property</em>: if <span class="math inline">\(\langle A, e, \varphi \rangle\)</span> is an iterative set, then there is a unique iterative homomorphism <span class="math inline">\(\Theta : \nats \rightarrow A\)</span>.</p>
+<p>We denote this unique map <span class="math inline">\(\natrec_{e,\varphi}\)</span>.</p>
+</div>
+<p>If you're not used to it, that might seem like a weird way to define numbers! However it turns out to be very useful for thory building and workable (if inefficient) for computations. The key is the uniqueness of homomorphisms from <span class="math inline">\(\nats\)</span>. Like any iterative set, the iterates of <span class="math inline">\(\zero\)</span> look sort of like numbers, assuming they are all distinct. But the unique map <span class="math inline">\(\natrec_{e,\varphi}\)</span> mean that in some sense <span class="math inline">\(\nats\)</span> is the "smallest most general" iterative set.</p>
+<p><span class="math inline">\(\natrec_{e,\varphi}\)</span> captures the essential pattern of <em>recursion</em> on natural numbers, and it does so in a very well-behaved way. Reasoning about recursion with <span class="math inline">\(\natrec_{e,\varphi}\)</span> can be very simple.</p>
+<p>You might also be wondering how this formulation of <span class="math inline">\(\nats\)</span> compares to the usual Peano axioms. It turns out that we can (and we will) derive them as theorems. For example, we can prove a version of the induction principle.</p>
+<div class="theorem">
+<p><a name='crossref-2'></a> Let <span class="math inline">\(A\)</span> be a set and suppose we have a function (not a homomorphism!) <span class="math inline">\(f : \nats \rightarrow A\)</span>. Suppose now that we have a subset <span class="math inline">\(B \subseteq A\)</span> satisfying the following:</p>
+<ol>
+<li><span class="math inline">\(f(\zero) \in B\)</span>.</li>
+<li>If <span class="math inline">\(n \in \nats\)</span> and <span class="math inline">\(f(n) \in B\)</span>, then <span class="math inline">\(f(\next(n)) \in B\)</span>.</li>
+</ol>
+<p>Then we have <span class="math inline">\(f(n) \in B\)</span> for all <span class="math inline">\(n \in \nats\)</span>. When using this theorem we say we are proceeding <em>by induction</em>; (1) is called the <em>base case</em>, and (2) is called the <em>inductive step</em>.</p>
+<div class="proof">
+<p>We define a subset <span class="math inline">\(T \subseteq \nats\)</span> as follows: <span class="math display">\[T = \{ n \in \nats \mid f(n) \in B \}.\]</span> Next we define a set <span class="math inline">\(g \subseteq T \times T\)</span> by <span class="math display">\[g = \next \cap (T \times T).\]</span> We claim that <span class="math inline">\(g\)</span> is a function; to see this we need to show it is total and well defined.</p>
+<ul>
+<li>To see that <span class="math inline">\(g\)</span> is total, let <span class="math inline">\(a \in T\)</span>; that is, <span class="math inline">\(f(a) \in B\)</span>. From (2), we also have <span class="math inline">\(f(\next(a)) \in B\)</span>, so that <span class="math inline">\(\next(a) \in T\)</span>. So <span class="math inline">\((a,\next(a)) \in \next \cap (T \times T) = g\)</span>, and since <span class="math inline">\(a\)</span> was arbitrary, <span class="math inline">\(g\)</span> is total.</li>
+<li>To see that <span class="math inline">\(g\)</span> is well-defined, suppose we have <span class="math inline">\(a \in T\)</span> and <span class="math inline">\(b_1,b_2 \in T\)</span> such that <span class="math inline">\((a,b_1) \in g\)</span> and <span class="math inline">\((a,b_2) \in g\)</span>. We then have <span class="math inline">\(b_1 = \next(a) = b_2\)</span> (since <span class="math inline">\(\next\)</span> is a function).</li>
+</ul>
+<p>So <span class="math inline">\(g\)</span> is a function with signature <span class="math inline">\(T \rightarrow T\)</span>. By (1) we also have <span class="math inline">\(\zero \in T\)</span>, so <span class="math inline">\(\langle T, \zero, g \rangle\)</span> is an iterative set. The universal property of <span class="math inline">\(\nats\)</span> now applies; we let <span class="math inline">\(\Theta = \natrec_{\zero,g}\)</span> be the unique iterative homomorphism <span class="math inline">\(\nats \rightarrow T\)</span>.</p>
+<p>Now consider the inclusion map <span class="math inline">\(\iota : T \rightarrow \nats\)</span>. In particular, <span class="math inline">\(\iota(\zero) = \zero\)</span>, and we have <span class="math display">\[\begin{eqnarray*}
+(\iota \circ g)(n)
+ &amp; = &amp; \iota(g(n)) \\
+ &amp; = &amp; g(n) \\
+ &amp; = &amp; \next(n) \\
+ &amp; = &amp; \next(\iota(n)) \\
+ &amp; = &amp; (\next \circ \iota)(n);
+\end{eqnarray*}\]</span> so <span class="math inline">\(\iota\)</span> is an iterative homomorphism. As we've <a href="basics.html#crossref-1">shown</a>, the composite <span class="math inline">\(\iota \circ \Theta\)</span> is also an iterative homomorphism with signature <span class="math inline">\(\nats \rightarrow \nats\)</span>. Since <a href="basics.html#crossref-0">we also know</a> that <span class="math inline">\(\mathsf{id}_{\nats}\)</span> is an iterative homomorphism, by uniqueness, we must have <span class="math inline">\(\iota \circ \Theta = \mathsf{id}_{\nats}\)</span>. If <span class="math inline">\(n \in \nats\)</span>, we have <span class="math display">\[n = \mathsf{id}_{\nats}(n) = (\iota \circ \Theta)(n) = \iota(\Theta(n)) = \Theta(n);\]</span> in particular, <span class="math inline">\(n \in T\)</span>. So we have <span class="math inline">\(f(n) \in B\)</span>. Since <span class="math inline">\(n\)</span> was arbitrary in <span class="math inline">\(\nats\)</span>, the conclusion follows.</p>
+</div>
+</div>
+<p>A more traditional version of the induction principle follows as a corollary.</p>
+<div class="corollary">
+<p>Suppose we have a subset <span class="math inline">\(B \subseteq \nats\)</span> satisfying the following properties:</p>
+<ol>
+<li><span class="math inline">\(\zero \in B\)</span>.</li>
+<li>For all <span class="math inline">\(n \in \nats\)</span>, if <span class="math inline">\(n \in B\)</span> then <span class="math inline">\(\next(n) \in B\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\(B = \nats\)</span>.</p>
+<div class="proof">
+<p>This is a special case of the <a href="basics.html#crossref-2">induction principle</a> with <span class="math inline">\(A = \nats\)</span> and <span class="math inline">\(f : \nats \rightarrow \nats\)</span> the identity map.</p>
+</div>
+</div>
+<p>The induction principle is a powerful technique for showing that some property holds for all natural numbers. We can extend it slightly to any set whose elements can be "measured" by natural numbers.</p>
+<div class="theorem">
+<p><a name='crossref-3'></a> Let <span class="math inline">\(f : A \rightarrow \nats\)</span> be a function. Suppose we have <span class="math inline">\(B \subseteq A\)</span> satisfying the following.</p>
+<ol>
+<li><span class="math inline">\(f(a) = \zero\)</span> implies <span class="math inline">\(a \in B\)</span> for all <span class="math inline">\(a \in A\)</span>.</li>
+<li>For all <span class="math inline">\(n \in \nats\)</span>, if <span class="math display">\[f(a) = n\ \mathrm{implies}\ a \in B\ \mathrm{for\ all}\ a \in A,\]</span> then <span class="math display">\[f(a) = \next(n)\ \mathrm{implies}\ a \in B\ \mathrm{for\ all}\ a \in A.\]</span></li>
+</ol>
+<p>Then we have <span class="math inline">\(B = A\)</span>. When using this theorem we say we are proceeding by induction <em>on</em> <span class="math inline">\(f\)</span>; (1) is called the <em>base case</em>, and (2) is called the <em>inductive step</em>.</p>
+<div class="proof">
+<p>Define a subset <span class="math inline">\(T \subseteq \nats\)</span> as follows. <span class="math display">\[T = \{ n \in \nats \mid f(a) = n\ \mathrm{implies}\ a \in B\ \mathrm{for\ all}\ a \in A \}.\]</span> We show that <span class="math inline">\(T = \nats\)</span> using induction with the identity map <span class="math inline">\(g : \mathsf{id}_{\nats}\)</span>.</p>
+<ul>
+<li>To see the base case, note that <span class="math inline">\(\mathsf{id}_{\nats}(\zero) = \zero \in T\)</span> by (1).</li>
+<li>To see the inductive step, suppose we have <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(n \in T\)</span>. By definition, we have <span class="math inline">\(f(a) = n\)</span> implies <span class="math inline">\(a \in B\)</span> for all <span class="math inline">\(a \in A\)</span>. By (2), we have <span class="math inline">\(f(a) \next(n)\)</span> implies <span class="math inline">\(a \in B\)</span> for all <span class="math inline">\(a \in A\)</span>, and so <span class="math inline">\(\next(n) \in T\)</span>.</li>
+</ul>
+<p>By induction, we have <span class="math inline">\(T = \nats\)</span>. Now let <span class="math inline">\(a \in A\)</span>. We have <span class="math inline">\(f(a) = n\)</span> for some <span class="math inline">\(n \in \nats\)</span>. Since <span class="math inline">\(n \in T\)</span>, we also have <span class="math inline">\(a \in B\)</span>. So <span class="math inline">\(A \subseteq B\)</span>, and thus <span class="math inline">\(B = A\)</span> as claimed.</p>
+</div>
+</div>
+<p>Note that this theorem does not require any structure on <span class="math inline">\(A\)</span> beyond the "measurement" function <span class="math inline">\(f : A \rightarrow \nats\)</span>; this makes it very useful. If all the elements of <span class="math inline">\(A\)</span> have "finite size", then we can induct on the size. Whenever we see words like <em>finite dimension</em>, <em>finitely generated</em>, <em>finite length</em>, et cetera, odds are good that this theorem (or something like it) can be applied.</p>
+<p>The induction principle is the most complicated among the Peano axioms; to show that <span class="math inline">\(\nats\)</span> really does act how we expect the natural numbers to, we'll also establish the other two "important" axioms: that <span class="math inline">\(\zero\)</span> is not equal to <span class="math inline">\(\next(n)\)</span> for any <span class="math inline">\(n\)</span>, and that <span class="math inline">\(\next\)</span> is injective. For both of these we need a utility function.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\star \notin \nats\)</span> and define <span class="math inline">\(A = \nats \cup \{\star\}\)</span>. Now define <span class="math inline">\(\varphi : A \rightarrow A\)</span> by <span class="math display">\[\varphi(a) = \left\{ \begin{array}{ll} \zero &amp; \mathrm{if}\ a = \star \\ \next(a) &amp; \mathrm{if}\ a \in \nats. \end{array}\right.\]</span> Thinking of <span class="math inline">\(\langle A, \star, \varphi \rangle\)</span> as an iterative set, we let <span class="math display">\[\mathsf{unnext} = \natrec_{\star,\varphi}\]</span> be the unique iterative homomorphism <span class="math inline">\(\nats \rightarrow \nats \cup \{\star\}\)</span>.</p>
+</div>
+<p>True to its name, <span class="math inline">\(\mathsf{unnext}\)</span> can remove one layer of <span class="math inline">\(\next\)</span> from an element of <span class="math inline">\(\nats\)</span>.</p>
+<div class="theorem">
+<p>We have the following.</p>
+<ol>
+<li><span class="math inline">\(\mathsf{unnext}(\zero) = \ast\)</span>.</li>
+<li><span class="math inline">\(\mathsf{unnext}(\next(n)) = n\)</span> for all <span class="math inline">\(n \in \nats\)</span>.</li>
+<li><span class="math inline">\(\mathsf{unnext}\)</span> is bijective, and <span class="math inline">\(\mathsf{unnext}^{-1}\)</span> is an iterative homomorphism.</li>
+</ol>
+<div class="proof">
+<p>To see (1), note that <span class="math display">\[\begin{eqnarray*}
+\mathsf{unnext}(\zero)
+ &amp; = &amp; \natrec_{\star,\varphi}(\zero) \\
+ &amp; = &amp; \star
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To show (2), we proceed by induction on <span class="math inline">\(n \in \nats\)</span>. Since induction is still new in our toolbox, we'll be a little more explicit than we might otherwise. Define <span class="math inline">\(B \subseteq \nats\)</span> by <span class="math display">\[B = \{ n \in \nats \mid \mathsf{unnext}(\next(n)) = n \};\]</span> we want to show that <span class="math inline">\(B = \nats\)</span>.</p>
+<p>For the base case, suppose <span class="math inline">\(n = \zero\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+\mathsf{unnext}(\next(\zero))
+ &amp; = &amp; \natrec_{\star,\varphi}(\next(\zero)) \\
+ &amp; = &amp; \varphi(\natrec_{\star,\varphi}(\zero)) \\
+ &amp; = &amp; \varphi(\star) \\
+ &amp; = &amp; \zero
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose we have <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(n \in B\)</span>; that is, <span class="math display">\[\mathsf{unnext}(\next(n)) = n.\]</span> Now <span class="math display">\[\begin{eqnarray*}
+\mathsf{unnext}(\next(\next(n)))
+ &amp; = &amp; \natrec_{\star,\varphi}(\next(\next(n))) \\
+ &amp; = &amp; \varphi(\natrec_{\star,\varphi}(\next(n))) \\
+ &amp; = &amp; \varphi(\mathsf{unnext}(\next(n))) \\
+ &amp; = &amp; \varphi(n) \\
+ &amp; = &amp; \next(n).
+\end{eqnarray*}\]</span> By induction, we have <span class="math inline">\(\nats \subseteq B\)</span>, and thus <span class="math inline">\(\mathsf{unnext}(\next(n)) = n\)</span> for all <span class="math inline">\(n \in \nats\)</span>.</p>
+<p>Finally we show (3). To this end, define <span class="math inline">\(\Theta : \nats \cup \{\star\} \rightarrow \nats\)</span> by <span class="math display">\[\Theta(a) = \left\{ \begin{array}{ll} \zero &amp; \mathrm{if}\ a = \star \\ \next(a) &amp; \mathrm{if}\ a \in \nats. \end{array} \right.\]</span> We need to show that <span class="math inline">\(\Theta\)</span> is an inductive homomorphism and that <span class="math inline">\(\Theta\)</span> is a two-sided inverse of <span class="math inline">\(\mathsf{unnext}\)</span>. First we show <span class="math inline">\(\Theta\)</span> is a homomorphism. To this end, first note that <span class="math inline">\(\Theta(\star) = \zero\)</span> by definition. Now let <span class="math inline">\(a \in \nats \cup \{\star\}\)</span>; we have two possibilities. Let <span class="math inline">\(\varphi\)</span> be the inductive function on <span class="math inline">\(\nats \cup \{\star\}\)</span>. If If <span class="math inline">\(a = \star\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+\Theta(\varphi(a))
+ &amp; = &amp; \Theta(\varphi(\star)) \\
+ &amp; = &amp; \Theta(\zero) \\
+ &amp; = &amp; \next(\zero) \\
+ &amp; = &amp; \next(\Theta(\star)).
+\end{eqnarray*}\]</span> If instead <span class="math inline">\(a \in \nats\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+\Theta(\varphi(a))
+ &amp; = &amp; \Theta(\next(a)) \\
+ &amp; = &amp; \next(\next(a)) \\
+ &amp; = &amp; \next(\Theta(a)).
+\end{eqnarray*}\]</span> So <span class="math inline">\(\Theta\)</span> is an inductive set homomorphism. To see that <span class="math inline">\(\mathsf{unnext}\)</span> is bijective, e show that <span class="math inline">\(\Theta\)</span> is a two sided inverse. First we claim that <span class="math inline">\((\Theta \circ \mathsf{unnext})(n) = n\)</span> for all <span class="math inline">\(n \in \nats\)</span> by induction. For the base case <span class="math inline">\(n = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+(\Theta \circ \mathsf{unnext})(n)
+ &amp; = &amp; \Theta(\mathsf{unnext}(n)) \\
+ &amp; = &amp; \Theta(\mathsf{unnext}(\zero)) \\
+ &amp; = &amp; \Theta(\star) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; n.
+\end{eqnarray*}\]</span> For the inductive step, suppose we have <span class="math inline">\((\Theta \circ \mathsf{unnext})(n) = n\)</span> for some <span class="math inline">\(n \in \nats\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+(\Theta \circ \mathsf{unnext})(\next(n))
+ &amp; = &amp; \Theta(\mathsf{unnext}(\next(n))) \\
+ &amp; = &amp; \Theta(n) \\
+ &amp; = &amp; \next(n).
+\end{eqnarray*}\]</span> By induction we have <span class="math inline">\(\Theta \circ \mathsf{unnext} = \mathsf{id}_{\nats}\)</span>. (We didn't actually use the induction hypothesis here. This is ok, because we can't yet do case analysis on <span class="math inline">\(\nats\)</span>.) Next we need to show that <span class="math inline">\(\mathsf{unnext} \circ \Theta = \mathsf{id}_{\nats \cup \{\star\}}\)</span>. To this end, let <span class="math inline">\(a \in \nats \cup \{\star\}\)</span>. If <span class="math inline">\(a = \star\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+(\mathsf{unnext} \circ \Theta)(a)
+ &amp; = &amp; \mathsf{unnext}(\Theta(a)) \\
+ &amp; = &amp; \mathsf{unnext}(\Theta(\star)) \\
+ &amp; = &amp; \mathsf{unnext}(\mathsf{\zero}) \\
+ &amp; = &amp; \star \\
+ &amp; = &amp; a.
+\end{eqnarray*}\]</span> Now suppose <span class="math inline">\(a \in \nats\)</span>; we have <span class="math display">\[\begin{eqnarray*}
+(\mathsf{unnext} \circ \Theta)(a)
+ &amp; = &amp; \mathsf{unnext}(\Theta(a)) \\
+ &amp; = &amp; \mathsf{unnext}(\next(a)) \\
+ &amp; = &amp; a.
+\end{eqnarray*}\]</span> as needed. So <span class="math inline">\(\mathsf{unnext}\)</span> is invertible with <span class="math inline">\(\mathsf{unnext}^{-1} = \Theta\)</span>.</p>
+</div>
+</div>
+<p>We'll define a version of <span class="math inline">\(\mathsf{unnext}\)</span> with signature <span class="math inline">\(\nats \rightarrow \nats\)</span>, which is a little more convenient.</p>
+<div class="theorem">
+<p><a name='crossref-4'></a> Define <span class="math inline">\(\psi : \nats \cup \{\star\} \rightarrow \nats\)</span> by <span class="math display">\[\psi(a) = \left\{ \begin{array}{ll} \zero &amp; \mathrm{if}\ a = \star \\ a &amp; \mathrm{if}\ a \in \nats, \end{array} \right.\]</span> and define <span class="math inline">\(\mathsf{prev} : \nats \rightarrow \nats\)</span> by <span class="math display">\[\mathsf{prev} = \psi \circ \mathsf{unnext}.\]</span> Then we have the following:</p>
+<ol>
+<li><span class="math inline">\(\mathsf{prev}(\zero) = \zero\)</span>.</li>
+<li><span class="math inline">\(\mathsf{prev} \circ \next = \nats\)</span>.</li>
+<li><span class="math inline">\(\next\)</span> is injective.</li>
+</ol>
+<div class="proof">
+<p>To see (1), note that <span class="math display">\[\begin{eqnarray*}
+\mathsf{prev}(\zero)
+ &amp; = &amp; (\psi \circ \mathsf{unnext})(\zero) \\
+ &amp; = &amp; \psi(\mathsf{unnext}(\zero)) \\
+ &amp; = &amp; \psi(\ast) \\
+ &amp; = &amp; \zero
+\end{eqnarray*}\]</span> as claimed. To see (2), note that if <span class="math inline">\(n \in \nats\)</span> we have <span class="math display">\[\begin{eqnarray*}
+(\mathsf{prev} \circ \next)(n)
+ &amp; = &amp; \mathsf{prev}(\next(n)) \\
+ &amp; = &amp; (\psi \circ \mathsf{unnext})(\next(n)) \\
+ &amp; = &amp; \psi(\mathsf{unnext}(\next(n))) \\
+ &amp; = &amp; \psi(n) \\
+ &amp; = &amp; n \\
+ &amp; = &amp; \mathsf{id}_\nats;
+\end{eqnarray*}\]</span> since <span class="math inline">\(n\)</span> was arbitrary, <span class="math inline">\(\mathsf{prev} \circ \next = \mathsf{id}\)</span> as claimed. Now (3) <a href="../functions/jectivity.html#crossref-7">follows</a> because <span class="math inline">\(\mathsf{prev}\)</span> is a left inverse of <span class="math inline">\(\next\)</span>.</p>
+</div>
+</div>
+<p>We're now prepared to finish off the Peano axioms for <span class="math inline">\(\nats\)</span>.</p>
+<div class="theorem">
+<p>We have the following.</p>
+<ol>
+<li>If <span class="math inline">\(n \in \nats\)</span>, then either <span class="math inline">\(n = \zero\)</span> or <span class="math inline">\(n = \next(m)\)</span> for some <span class="math inline">\(m \in \nats\)</span>.</li>
+<li>There does not exist <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(\next(n) = \zero\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), let <span class="math inline">\(n \in \nats\)</span>. Now consider <span class="math inline">\(u = \mathsf{unnext}(n) \in \nats \cup \{\star\}\)</span>; either <span class="math inline">\(u = \star\)</span> or <span class="math inline">\(u \in \nats\)</span>. Note first that <span class="math inline">\(\mathsf{unnext}^{-1}(u) = n\)</span>. If <span class="math inline">\(u = \star\)</span>, then <span class="math display">\[n = \mathsf{unnext}^{-1}(u) = \zero.\]</span> If <span class="math inline">\(u \in \nats\)</span>, then <span class="math display">\[n = \mathsf{unnext}^{-1}(u) = \next(u).\]</span></p>
+<p>To see (2), suppose we have <span class="math inline">\(\zero = \next(n)\)</span>. But now <span class="math display">\[\begin{eqnarray*}
+\star
+ &amp; = &amp; \mathsf{unnext}(\zero) \\
+ &amp; = &amp; \mathsf{unnext}(\next(n)) \\
+ &amp; = &amp; n \\
+ &amp; \in &amp; \nats,
+\end{eqnarray*}\]</span> But this is a contradiction.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

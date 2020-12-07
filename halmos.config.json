@@ -6,6 +6,8 @@
     , "sec/functions/jectivity.md"
     , "sec/semigroups/basics.md"
     , "sec/semigroups/homomorphisms.md"
+    , "sec/natural-numbers/basics.md"
+    , "sec/natural-numbers/addition.md"
     , "sec/group-basics.md"
     ]
 }
