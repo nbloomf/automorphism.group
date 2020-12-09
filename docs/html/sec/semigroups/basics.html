@@ -19,12 +19,20 @@
           dom: "\\mathsf{dom}",
           cod: "\\mathsf{cod}",
           id:  "\\mathsf{id}",
+          const: "\\mathsf{const}",
+          Sem: "\\mathsf{Sem}",
+          Map: "\\mathsf{Map}",
+          End: "\\mathsf{End}",
+          Aut: "\\mathsf{Aut}",
+          Hom: "\\mathsf{Hom}",
+          Act: "\\mathsf{Act}",
           nats: "\\mathbb{N}",
           zero: "\\mathsf{0}",
           next: "\\mathsf{next}",
           natrec: "\\mathsf{natrec}",
           simprec: "\\mathsf{simprec}",
           plus: "\\mathsf{plus}",
+          prod: "\\mathsf{times}",
         }
       }
     };
@@ -48,7 +56,7 @@
 </div>
 <p>At this stage we've only got one example, but it's a good one.</p>
 <div class="example">
-<p>Let <span class="math inline">\(A\)</span> be a set. We define the set of all functions on <span class="math inline">\(A\)</span> by <span class="math display">\[\mathsf{Map}(A) = \{ f \subseteq A \times A \mid f : A \rightarrow A \}.\]</span> Then <span class="math inline">\(\langle \mathsf{Map}(A), \circ \rangle\)</span> is a semigroup.</p>
+<p><a name='crossref-0'></a> Let <span class="math inline">\(A\)</span> be a set. We define the set of all functions on <span class="math inline">\(A\)</span> by <span class="math display">\[\Map(A) = \{ f \subseteq A \times A \mid f : A \rightarrow A \}.\]</span> Then <span class="math inline">\(\langle \Map(A), \circ \rangle\)</span> is a semigroup.</p>
 <div class="proof">
 <p>We <a href="../functions/basics.html#crossref-8">already showed</a> that composition of arbitrary functions is associative.</p>
 </div>
@@ -66,7 +74,7 @@
 <h2>Subsemigroups</h2>
 <p>One of the Big Questions in algebra is this: given a class of algebras, how do we find examples? Examples are precious gems among a vast universe of logical garbage. To guide the search, it is often useful to find systematic ways of constructing <em>new</em> examples out of existing ones. There are many examples of this phenomenon at work, and we describe one of the simplest here: taking subsets.</p>
 <div class="theorem">
-<p><a name='crossref-0'></a> Let <span class="math inline">\(\langle S, t \rangle\)</span> be a semigroup, with <span class="math inline">\(T \subseteq S\)</span> be a nonempty subset, and define <span class="math display">\[u = \{ (a,b) \in t \mid a \in T \times T \}.\]</span> Then the following are equivalent.</p>
+<p><a name='crossref-1'></a> Let <span class="math inline">\(\langle S, t \rangle\)</span> be a semigroup, with <span class="math inline">\(T \subseteq S\)</span> be a nonempty subset, and define <span class="math display">\[u = \{ (a,b) \in t \mid a \in T \times T \}.\]</span> Then the following are equivalent.</p>
 <ol>
 <li>For all <span class="math inline">\(a,b \in T\)</span>, <span class="math inline">\(u(a,b)\)</span> is also in <span class="math inline">\(T\)</span>.</li>
 <li><span class="math inline">\(u\)</span> is a function with signature <span class="math inline">\(T \times T \rightarrow T\)</span>.</li>
@@ -95,11 +103,11 @@ u(u(x,y),z)
 <p>We don't usually go to the trouble of using a distinct symbol for the "restricted" operation on a subsemigroup, although in principle it is a different function (since it has a different signature).</p>
 <p>We've already got some examples of subsemigroups.</p>
 <div class="example">
-<p><a name='crossref-1'></a> Let <span class="math inline">\(A\)</span> be a set. Then the following subsets of <span class="math inline">\(\mathsf{Map}(A)\)</span> are also subsemigroups of <span class="math inline">\(\langle \mathsf{Map}, \circ \rangle\)</span>.</p>
+<p><a name='crossref-2'></a> Let <span class="math inline">\(A\)</span> be a set. Then the following subsets of <span class="math inline">\(\Map(A)\)</span> are also subsemigroups of <span class="math inline">\(\langle \Map, \circ \rangle\)</span>.</p>
 <ol>
-<li><span class="math inline">\(\mathsf{Inj}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ injective} \}\)</span></li>
-<li><span class="math inline">\(\mathsf{Surj}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ surjective} \}\)</span></li>
-<li><span class="math inline">\(\mathsf{Sym}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ bijective} \}\)</span></li>
+<li><span class="math inline">\(\mathsf{Inj}(A) = \{ f \in \Map(A) \mid f\ \mathrm{is\ injective} \}\)</span></li>
+<li><span class="math inline">\(\mathsf{Surj}(A) = \{ f \in \Map(A) \mid f\ \mathrm{is\ surjective} \}\)</span></li>
+<li><span class="math inline">\(\mathsf{Sym}(A) = \{ f \in \Map(A) \mid f\ \mathrm{is\ bijective} \}\)</span></li>
 </ol>
 <div class="proof">
 <p>We've already shown that the composite of <a href="../functions/jectivity.html#crossref-6">injective</a>, <a href="../functions/jectivity.html#crossref-2">surjective</a>, and <a href="../functions/jectivity.html#crossref-12">bijective</a> functions retain the jectivity of their arguments.</p>
@@ -109,15 +117,15 @@ u(u(x,y),z)
 <div class="example">
 <p>Let <span class="math inline">\(A = \{1,2\}\)</span>. Then <span class="math display">\[\mathsf{Sym}(A) = \left\{ \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix}, \begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix} \right\}\]</span> is a semigroup.</p>
 <div class="proof">
-<p>We have already <a href="../functions/jectivity.html#crossref-14">enumerated</a> the elements of <span class="math inline">\(\mathsf{Sym}(A)\)</span> as shown, and we just <a href="basics.html#crossref-1">established</a> that <span class="math inline">\(\mathsf{Sym}(A)\)</span> is a subsemigroup of <span class="math inline">\(\mathsf{Map}(A)\)</span> (and thus also a semigroup).</p>
+<p>We have already <a href="../functions/jectivity.html#crossref-14">enumerated</a> the elements of <span class="math inline">\(\mathsf{Sym}(A)\)</span> as shown, and we just <a href="basics.html#crossref-2">established</a> that <span class="math inline">\(\mathsf{Sym}(A)\)</span> is a subsemigroup of <span class="math inline">\(\Map(A)\)</span> (and thus also a semigroup).</p>
 </div>
 </div>
 <p>The subsets of a set come equipped with a structure of their own, which we can take advantage of.</p>
 <div class="theorem">
-<p><a name='crossref-2'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup, and let <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span> be subsemigroups of <span class="math inline">\(S\)</span>. If <span class="math inline">\(T_1 \cap T_2\)</span> is not empty, then <span class="math inline">\(T_1 \cap T_2\)</span> is also a subsemigroup of <span class="math inline">\(S\)</span>.</p>
+<p><a name='crossref-3'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup, and let <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span> be subsemigroups of <span class="math inline">\(S\)</span>. If <span class="math inline">\(T_1 \cap T_2\)</span> is not empty, then <span class="math inline">\(T_1 \cap T_2\)</span> is also a subsemigroup of <span class="math inline">\(S\)</span>.</p>
 <div class="proof">
 <p>Suppose <span class="math inline">\(T_1 \cap T_2\)</span> is not empty. (This condition is important, since in general the intersection of subsemigroups may be trivial!) Of course we have <span class="math inline">\(T_1 \cap T_2 \subseteq S\)</span>.</p>
-<p>Using our <a href="basics.html#crossref-0">definition</a> of subsemigroup, it suffices to show that <span class="math inline">\(T_1 \cap T_2\)</span> is closed under <span class="math inline">\(\cdot\)</span>. To this end, let <span class="math inline">\(a,b \in T_1 \cap T_2\)</span>. Now <span class="math inline">\(a,b \in T_1\)</span>, and since <span class="math inline">\(T_1\)</span> is a subsemigroup of <span class="math inline">\(S\)</span>, we have <span class="math inline">\(a \cdot b \in T_1\)</span>. Similarly, <span class="math inline">\(a \cdot b \in T_2\)</span>. Thus we have <span class="math inline">\(a \cdot b \in T_1 \cap T_2\)</span>, and so <span class="math inline">\(T_1 \cap T_2\)</span> is a subsemigroup of <span class="math inline">\(S\)</span> as claimed.</p>
+<p>Using our <a href="basics.html#crossref-1">definition</a> of subsemigroup, it suffices to show that <span class="math inline">\(T_1 \cap T_2\)</span> is closed under <span class="math inline">\(\cdot\)</span>. To this end, let <span class="math inline">\(a,b \in T_1 \cap T_2\)</span>. Now <span class="math inline">\(a,b \in T_1\)</span>, and since <span class="math inline">\(T_1\)</span> is a subsemigroup of <span class="math inline">\(S\)</span>, we have <span class="math inline">\(a \cdot b \in T_1\)</span>. Similarly, <span class="math inline">\(a \cdot b \in T_2\)</span>. Thus we have <span class="math inline">\(a \cdot b \in T_1 \cap T_2\)</span>, and so <span class="math inline">\(T_1 \cap T_2\)</span> is a subsemigroup of <span class="math inline">\(S\)</span> as claimed.</p>
 </div>
 </div>
 <p>The union of two subsemigroups is generally not also a subsemigroup. There is a universal way to turn the union of semigroups into a (generally larger) subsemigroup, however. We will examine that concept later.</p>
@@ -126,7 +134,7 @@ u(u(x,y),z)
 <h2>Special Elements, Special Semigroups</h2>
 <p>We'll often refer to the operation on a semigroup as its "product" or "multiplication", by analogy with multiplication of numbers. Recall that there are two particular numbers which exhibit extreme behavior under multiplication: zero and one. These extreme behaviors can have analogs among semigroup elements as well.</p>
 <div class="definition">
-<p><a name='crossref-3'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup with <span class="math inline">\(z \in Z\)</span>.</p>
+<p><a name='crossref-4'></a> Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup with <span class="math inline">\(z \in Z\)</span>.</p>
 <ul>
 <li><span class="math inline">\(z\)</span> is called a <em>left zero</em> if we have <span class="math inline">\(z \cdot s = z\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
 <li><span class="math inline">\(z\)</span> is called a <em>right zero</em> if we have <span class="math inline">\(s \cdot z = z\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
@@ -156,14 +164,15 @@ u
 <li>Suppose now that <span class="math inline">\(a,b,c \neq z\)</span>; then we have <span class="math inline">\(a,b,c \in S\)</span>. Since <span class="math inline">\(t\)</span> is associative, we then have <span class="math display">\[\begin{eqnarray*} u(u(a,b),c) &amp; = &amp; u(t(a,b),c) \\ &amp; = &amp; t(t(a,b),c) \\ &amp; = &amp; t(a,t(b,c)) \\ &amp; = &amp; u(a,t(b,c)) \\ &amp; = &amp; u(a,u(b,c)). \end{eqnarray*}\]</span></li>
 </ul>
 <p>Since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary in <span class="math inline">\(\mathsf{Z}_z(S)\)</span>, <span class="math inline">\(u\)</span> is associative, and so <span class="math inline">\(\langle \mathsf{Z}_z(S), u \rangle\)</span> is a semigroup.</p>
-<p>To see that <span class="math inline">\(S \subseteq \mathsf{Z}_z(S)\)</span> is a subsemigroup it <a href="basics.html#crossref-0">suffices</a> to show that <span class="math inline">\(S\)</span> is closed under <span class="math inline">\(u\)</span>. But of course if <span class="math inline">\(a,b \in S\)</span>, then <span class="math inline">\(u(a,b) = t(a,b) \in S\)</span> as needed.</p>
+<p>To see that <span class="math inline">\(S \subseteq \mathsf{Z}_z(S)\)</span> is a subsemigroup it <a href="basics.html#crossref-1">suffices</a> to show that <span class="math inline">\(S\)</span> is closed under <span class="math inline">\(u\)</span>. But of course if <span class="math inline">\(a,b \in S\)</span>, then <span class="math inline">\(u(a,b) = t(a,b) \in S\)</span> as needed.</p>
 </div>
 </div>
 <p>Note that not every semigroup that <em>has</em> a zero is obtained from some other semigroup by <em>adjoining</em> a zero. Adjunction (adjoinment?) can only produce very special semigroups where the product of two nonzero elements is never zero.</p>
 <p>Also note that there were no restrictions on the semigroups <span class="math inline">\(S\)</span> to which we can adjoin a zero. So we can adjoin <em>two</em> zeros, like <span class="math inline">\(\mathsf{Z}_w(\mathsf{Z}_z(S))\)</span>. We need to be very careful, however, because only the outermost adjoined "zero" is actually a zero <em>element</em> in the whole semigroup; for instance in this example we have <span class="math inline">\(w \cdot z = z \cdot w = w\)</span>, so <span class="math inline">\(z\)</span> is not a zero element even though it was adjoined to <span class="math inline">\(S\)</span> as a zero. More generally, if <span class="math inline">\(S\)</span> has a zero element already it will not be one anymore in <span class="math inline">\(\mathsf{Z}_z(S)\)</span>.</p>
 <p>The zero element of a semigroup, if it exists, is unique.</p>
 <div class="theorem">
-<p><a name='crossref-4'></a> Let <span class="math inline">\(S\)</span> be a semigroup with <span class="math inline">\(a,b \in S\)</span>. If <span class="math inline">\(a\)</span> is a left zero and <span class="math inline">\(b\)</span> a right zero, then <span class="math inline">\(a = b\)</span>. In particular, if <span class="math inline">\(S\)</span> has a zero element then it is unique.</p>
+<p><a name='crossref-5'></a> Let <span class="math inline">\(S\)</span> be a semigroup with <span class="math inline">\(a,b \in S\)</span>. If <span class="math inline">\(a\)</span> is a left zero and <span class="math inline">\(b\)</span> a right zero, then <span class="math inline">\(a = b\)</span>. In particular, if <span class="math inline">\(S\)</span> has a zero element then it is unique.</p>
+<p>If S has a zero element, we say it is a <em>semigroup with zero</em>.</p>
 <div class="proof">
 <p>We have <span class="math display">\[a = a \cdot b = b;\]</span> the first equality since <span class="math inline">\(a\)</span> is a left zero and the second because <span class="math inline">\(b\)</span> is a right zero. The "in particular" follows because every zero element is both a left and a right zero by definition.</p>
 </div>
@@ -211,15 +220,19 @@ u
 <div class="definition">
 <p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup with <span class="math inline">\(u \in S\)</span>.</p>
 <ol>
-<li><span class="math inline">\(u\)</span> is called a <em>left unit</em> if we have <span class="math inline">\(u \cdot s = s\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
-<li><span class="math inline">\(u\)</span> is called a <em>right unit</em> if we have <span class="math inline">\(s \cdot u = s\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
-<li><span class="math inline">\(u\)</span> is called a <em>unit</em> if it is both a left and a right unit.</li>
+<li><span class="math inline">\(u\)</span> is called a <em>left identity</em> if we have <span class="math inline">\(u \cdot s = s\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
+<li><span class="math inline">\(u\)</span> is called a <em>right identity</em> if we have <span class="math inline">\(s \cdot u = s\)</span> for all <span class="math inline">\(s \in S\)</span>.</li>
+<li><span class="math inline">\(u\)</span> is called a <em>identity</em> if it is both a left and a right identity.</li>
 </ol>
 </div>
-<p>Again, not every semigroup has a unit, but we can always add a unit to an existing semigroup.</p>
+<p>The name "identity" comes from our first example of such an element.</p>
+<div class="example">
+<p>Let <span class="math inline">\(A\)</span> be a set. The identity <span class="math inline">\(\id_A\)</span> is an identity element in <span class="math inline">\(\Map(A)\)</span>.</p>
+</div>
+<p>Again, not every semigroup has an identity, but we can always add an identity to an existing semigroup.</p>
 <div class="theorem">
 <p>Let <span class="math inline">\(\langle S, t \rangle\)</span> be a semigroup, and let <span class="math inline">\(e\)</span> be an element not in <span class="math inline">\(S\)</span>. Define <span class="math inline">\(\mathsf{U}_e(S) = S \cup \{e\}\)</span> and define <span class="math display">\[\begin{eqnarray*} u &amp; = &amp; t \cup \{ ((e,s),s) \mid s \in S \} \\ &amp; &amp; \cup \{ ((s,e),s) \mid s \in S \} \cup \{((e,e),e)\}. \end{eqnarray*}\]</span></p>
-<p>Then <span class="math inline">\(\langle \mathsf{U}_e(S), u \rangle\)</span> is a semigroup and <span class="math inline">\(S\)</span> is a subsemigroup of <span class="math inline">\(\mathsf{U}_e(S)\)</span>. We say that <span class="math inline">\(\mathsf{U}_e(S)\)</span> is obtained from <span class="math inline">\(S\)</span> by <em>adjoining a unit</em>.</p>
+<p>Then <span class="math inline">\(\langle \mathsf{U}_e(S), u \rangle\)</span> is a semigroup and <span class="math inline">\(S\)</span> is a subsemigroup of <span class="math inline">\(\mathsf{U}_e(S)\)</span>. We say that <span class="math inline">\(\mathsf{U}_e(S)\)</span> is obtained from <span class="math inline">\(S\)</span> by <em>adjoining a identity</em>.</p>
 <div class="proof">
 <p>Because we defined <span class="math inline">\(u\)</span> as a set, we should show it is a function. To do this we'll show it is both total and well-defined.</p>
 <ul>
@@ -259,14 +272,15 @@ u(u(a,b),c)
 \end{eqnarray*}\]</span></li>
 </ul>
 <p>Since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> were arbitrary in <span class="math inline">\(\mathsf{U}_e(S)\)</span>, <span class="math inline">\(u\)</span> is associative, so that <span class="math inline">\(\langle \mathsf{U}_e(S), u \rangle\)</span> is a semigroup.</p>
-<p>To see that <span class="math inline">\(S \subseteq \mathsf{U}_e(S)\)</span> is a subsemigroup it <a href="basics.html#crossref-0">suffices</a> to show that <span class="math inline">\(S\)</span> is closed under <span class="math inline">\(u\)</span>. But if <span class="math inline">\(a,b \in S\)</span>, then <span class="math inline">\(u(a,b) = t(a,b) \in S\)</span> as needed.</p>
+<p>To see that <span class="math inline">\(S \subseteq \mathsf{U}_e(S)\)</span> is a subsemigroup it <a href="basics.html#crossref-1">suffices</a> to show that <span class="math inline">\(S\)</span> is closed under <span class="math inline">\(u\)</span>. But if <span class="math inline">\(a,b \in S\)</span>, then <span class="math inline">\(u(a,b) = t(a,b) \in S\)</span> as needed.</p>
 </div>
 </div>
-<p>Also again, not every semigroup that has a unit is obtained by adjoining a unit, and as with adjoining a zero, we can adjoin multiple units. We can even adjoin both zeros <em>and</em> units! However, if a unit exists, it is unique.</p>
+<p>Also again, not every semigroup that has an identity is obtained by adjoining an identity, and as with adjoining a zero, we can adjoin multiple identities. We can even adjoin both zeros <em>and</em> identities! However, if an identity exists, it is unique.</p>
 <div class="theorem">
-<p><a name='crossref-5'></a> Let <span class="math inline">\(S\)</span> be a semigroup with <span class="math inline">\(a,b \in S\)</span>. If <span class="math inline">\(a\)</span> is a left unit and <span class="math inline">\(b\)</span> a right unit, then <span class="math inline">\(a = b\)</span>. In particular, if <span class="math inline">\(S\)</span> has a unit element then it is unique.</p>
+<p><a name='crossref-6'></a><a name='crossref-7'></a> Let <span class="math inline">\(S\)</span> be a semigroup with <span class="math inline">\(a,b \in S\)</span>. If <span class="math inline">\(a\)</span> is a left identity and <span class="math inline">\(b\)</span> a right identity, then <span class="math inline">\(a = b\)</span>. In particular, if <span class="math inline">\(S\)</span> has an identity element then it is unique.</p>
+<p>If <span class="math inline">\(S\)</span> has an identity element, we call it a <em>monoid</em>.</p>
 <div class="proof">
-<p>We have <span class="math display">\[b = a \cdot b = a;\]</span> the first equality since <span class="math inline">\(a\)</span> is a left unit and the second equality since <span class="math inline">\(b\)</span> is a right unit. The "in particular" follows because every unit element is both a left and a right unit by definition.</p>
+<p>We have <span class="math display">\[b = a \cdot b = a;\]</span> the first equality since <span class="math inline">\(a\)</span> is a left identity and the second equality since <span class="math inline">\(b\)</span> is a right identity. The "in particular" follows because every identity element is both a left and a right identity by definition.</p>
 </div>
 </div>
 </section>

@@ -96,7 +96,7 @@ As with $\natrec$, what's handy about this operator is it only needs two pieces 
 Addition
 --------
 
-We're going to use $\mathsf{simprec}$ to define addition on natural numbers. Rather than just writing down the definition, it's instructive to see where it comes from. $\simprec$ has the right signature; $\simprec : \nats \times A \rightarrow B$ with $A = B = \nats$. We just need to find appropriate $\varphi : \nats \rightarrow \nats$ and $mu : \nats \times \nats \times \nats \rightarrow \nats$. For instance, we'd like $\next$ to behave like $+1$, and $$n = \zero + n = \simprec_{\varphi,\mu}(\zero,n) = \varphi(n),$$ so maybe $\varphi = \mathsf{id}$. Similarly, we want
+We're going to use $\mathsf{simprec}$ to define addition on natural numbers. Rather than just writing down the definition, it's instructive to see where it comes from. $\simprec$ has the right signature; $\simprec : \nats \times A \rightarrow B$ with $A = B = \nats$. We just need to find appropriate $\varphi : \nats \rightarrow \nats$ and $mu : \nats \times \nats \times \nats \rightarrow \nats$. For instance, we'd like $\next$ to behave like $+1$, and $$n = \zero + n = \simprec_{\varphi,\mu}(\zero,n) = \varphi(n),$$ so maybe $\varphi = \id$. Similarly, we want
 $$\begin{eqnarray*}
  &   & (m + n) + 1 \\
  & = & (m + 1) + n \\
@@ -108,7 +108,7 @@ With that in mind, we define $\plus$ as follows.
 
 ::: definition :::
 [@def-nat-plus]()
-Define $\mu : \nats \times \nats \times \nats \rightarrow \nats$ by $\mu(-,-,b) = \next(b)$. We then define $\plus : \nats \times \nats \rightarrow \nats$ by $$\plus = \simprec_{\mathsf{id},\mu}.$$ We'll usually prefer the infix symbol $+$ rather than the prefix $\plus$ for this function.
+Define $\mu : \nats \times \nats \times \nats \rightarrow \nats$ by $\mu(-,-,b) = \next(b)$. We then define $\plus : \nats \times \nats \rightarrow \nats$ by $$\plus = \simprec_{\id,\mu}.$$ We'll usually prefer the infix symbol $+$ rather than the prefix $\plus$ for this function.
 ::::::::::::::::::
 
 The remainder of this section is all about showing that this $\plus$ acts like we expect it to. First, $\plus$ interacts with $\next$.
@@ -125,8 +125,8 @@ The following hold for all $a,b \in \nats$.
 Throughout this proof, we use $\mu$ as defined with $\plus$. To see (1), note that
 $$\begin{eqnarray*}
  &   & \plus(\zero,a) \\
- & = & \simprec_{\mathsf{id},\mu}(\zero,a) \\
- & = & \mathsf{id}(a) \\
+ & = & \simprec_{\id,\mu}(\zero,a) \\
+ & = & \id(a) \\
  & = & a
 \end{eqnarray*}$$
 as claimed.
@@ -134,9 +134,9 @@ as claimed.
 To see (2), note that
 $$\begin{eqnarray*}
  &   & \plus(\next(a),b) \\
- & = & \simprec_{\mathsf{id},\mu}(\next(a),b) \\
- & = & \mu(a,b,\simprec_{\mathsf{id},\mu}(a,b)) \\
- & = & \next(\simprec_{\mathsf{id},\mu}(a,b)) \\
+ & = & \simprec_{\id,\mu}(\next(a),b) \\
+ & = & \mu(a,b,\simprec_{\id,\mu}(a,b)) \\
+ & = & \next(\simprec_{\id,\mu}(a,b)) \\
  & = & \next(\plus(a,b))
 \end{eqnarray*}$$
 as claimed.
@@ -145,8 +145,8 @@ To show (3) we proceed by induction on $a$. For the base case $a = \zero$, we ha
 $$\begin{eqnarray*}
  &   & \plus(a,\zero) \\
  & = & \plus(\zero,\zero) \\
- & = & \simprec_{\mathsf{id},\mu}(\zero,\zero) \\
- & = & \mathsf{id}(\zero) \\
+ & = & \simprec_{\id,\mu}(\zero,\zero) \\
+ & = & \id(\zero) \\
  & = & \zero \\
  & = & a
 \end{eqnarray*}$$
@@ -162,11 +162,11 @@ We also show (4) by induction on $a$. For the base case, let $a = \zero$; we the
 $$\begin{eqnarray*}
  &   & \plus(a,\next(b)) \\
  & = & \plus(\zero,\next(b)) \\
- & = & \simprec_{\mathsf{id},\mu}(\zero,\next(b)) \\
- & = & \mathsf{id}(\next(b)) \\
+ & = & \simprec_{\id,\mu}(\zero,\next(b)) \\
+ & = & \id(\next(b)) \\
  & = & \next(b) \\
- & = & \next(\mathsf{id}(b)) \\
- & = & \next(\simprec_{\mathsf{id},\mu}(\zero,b)) \\
+ & = & \next(\id(b)) \\
+ & = & \next(\simprec_{\id,\mu}(\zero,b)) \\
  & = & \next(\plus(\zero,b)) \\
  & = & \next(\plus(a,b))
 \end{eqnarray*}$$
@@ -208,6 +208,12 @@ By induction, we thus have $$\plus(\plus(a,b),c) = \plus(a,\plus(b,c))$$ for all
 :::::::::::::
 :::::::::::::::
 
+This gives us our first interesting example of a semigroup.
+
+::: corollary :::
+$\langle \nats, \plus \rangle$ is a semigroup.
+:::::::::::::::::
+
 $\plus$ is also commutative.
 
 ::: theorem :::
@@ -239,6 +245,8 @@ For all $a,b,c \in \nats$, we have the following.
 1. If $\plus(c,a) = \plus(c,b)$, then $a = b$.
 2. If $\plus(a,c) = \plus(b,c)$, then $a = b$.
 
+A binary operation (like $\plus$) that satisfies (1) is called _left cancellative_, and one satisfying (2) is called _right cancellative_. Operations which satisfy both (like $\plus$) are simply called _cancellative_.
+
 ::: proof :::
 To see (1), we proceed by induction on $c$. For the base case, suppose $$\plus(\zero,a) = \plus(\zero,b).$$ Then we have
 $$\begin{eqnarray*}
@@ -264,5 +272,110 @@ $$\begin{eqnarray*}
  & = & \plus(c,b).
 \end{eqnarray*}$$
 Using (1), then, we have $a = b$ as claimed.
+:::::::::::::
+:::::::::::::::
+
+We've shown that $\plus$ is associative, commutative, and cancellative, as we expect. However it may not be clear how to get from $\zero$ and $\next$ to the usual base 10 notation for numbers, which I've been careful to avoid. In a nutshell, what we've defined here is a _unary_ representation for natural numbers; the "size" of the number is just the number of times $\next$ is applied to $\zero$. As an example, let's compute the sum of "2" and "3".
+
+$$\begin{eqnarray*}
+ &   & \plus(\next(next(\zero)),\next(\next(\next(\zero)))) \\
+ & = & \plus(\next(\zero),\next(\next(\next(\next(\zero)))) \\
+ & = & \plus(\zero,\next(\next(\next(\next(\next(\zero))))) \\
+ & = & \next(\next(\next(\next(\next(\zero)))) \\
+\end{eqnarray*}$$
+
+$\plus$ works by peeling $\next$s off of one argument and moving it to the other, until the argument reaches zero. This is extremely inefficient, but it is very convenient for proving lots of theorems.
+
+What's happening here is that, as we've defined it here, $\nats$ is simply one possible _representation_ of the natural numbers -- one which is amenable to some problems but not others. Later on we will construct alternative representations that are better for different kinds of problems. The benefit of defining $\nats$ in terms of its universal property is that showing different representations are really "the same" is very straightforward.
+
+::: theorem :::
+Let $\langle A, e, \varphi \rangle$ be an iterative set, and suppose $A$ has the property that for any iterative set $B$, there is a unique iterative set homomorphism $\Theta : A \rightarrow B$. Then we have $A \cong \nats$.
+
+::: proof :::
+Let $\Theta : A \rightarrow \nats$ be the unique iterative homomorphism. By the uniqueness property, we must have $\Theta \circ \natrec = \id_\nats$ and $\natrec \circ \Theta = \id_A$; thus $A \cong \nats$ via $\Theta$.
+:::::::::::::
+:::::::::::::::
+
+
+
+Solving Equations
+-----------------
+
+We can solve some basic addition problems now.
+
+::: example :::
+Let $a,b \in \nats$. Then we have the following.
+
+1. If $\plus(a,b) = a$, then $b = \zero$.
+2. If $\plus(b,a) = a$, then $b = \zero$.
+
+::: proof :::
+To see (1), note that
+$$\begin{eqnarray*}
+ &   & \plus(a,b) \\
+ & = & a \\
+ & = & \plus(a,\zero).
+\end{eqnarray*}$$
+Since $\plus$ is left cancellative, we have $b = \zero$ as claimed. (2) is proved similarly, using the fact that $\plus$ is right cancellative.
+:::::::::::::
+:::::::::::::::
+
+The next theorem solves $a + b = 0$, $a + b = 1$, and $a + b = 2$ over the natural numbers. Baby steps!
+
+::: example :::
+Let $a,b \in \nats$.
+
+1. If $\plus(a,b) = \zero$, then $a = b = \zero$.
+2. If $\plus(a,b) = \next(\zero)$, then either $a = \zero$ and $b = \next(\zero)$, or $a = \next(\zero)$ and $b = \zero$.
+3. If $\plus(a,b) = \next(\next(\zero))$, then either $a = \zero$ and $b = \next(\next(\zero))$, or $a = \next(\zero)$ and $b = \next(\zero)$, or $a = \next(\next(\zero))$ and $b = \zero$.
+
+::: proof :::
+First we show (1). Suppose $\plus(a,b) = \zero$. We've [shown](@thm-nat-case) that $a$ is either $\zero$ or $\next(n)$ for some $n$. If $a = \next(n)$, then we have
+$$\begin{eqnarray*}
+ &   & \zero \\
+ & = & \plus(a,b) \\
+ & = & \plus(\next(n),b) \\
+ & = & \next(\plus(n,b));
+\end{eqnarray*}$$
+however we've also [shown](@thm-nat-zero-not-next) that $\zero$ cannot be equal to $\next(-)$. So we must have $a = \zero$. But now
+$$\begin{eqnarray*}
+ &   & b \\
+ & = & \plus(\zero,b) \\
+ & = & \plus(a,b) \\
+ & = & \zero
+\end{eqnarray*}$$
+as claimed.
+
+Next we show (2). Suppose $\plus(a,b) = \next(\zero)$. Again, either $a = \zero$ or $a = \next(n)$ for some $n$. If $a = \zero$, we have
+$$\begin{eqnarray*}
+ &   & b \\
+ & = & \plus(\zero,b) \\
+ & = & \plus(a,b) \\
+ & = & \next(\zero).
+\end{eqnarray*}$$
+Suppose instead that $a = \next(n)$. Now we have
+$$\begin{eqnarray*}
+ &   & \next(\zero) \\
+ & = & \plus(a,b) \\
+ & = & \plus(\next(n),b) \\
+ & = & \next(\plus(n,b)).
+\end{eqnarray*}$$
+Since $\next$ is injective, we have $\plus(n,b) = \zero$; by (1), we have $n = b = \zero$, and so $a = \next(\zero)$.
+
+Finally we show (3). Suppose $\plus(a,b) = \next(\next(\zero))$. Again, either $a = \zero$ or $a = \next(n)$ for some $n$. If $a = \zero$, then
+$$\begin{eqnarray*}
+ &   & b \\
+ & = & \plus(\zero,b) \\
+ & = & \plus(a,b) \\
+ & = & \next(\next(\zero)).
+\end{eqnarray*}$$
+Suppose instead that $a = \next(n)$; then
+$$\begin{eqnarray*}
+ &   & \next(\next(\zero)) \\
+ & = & \plus(a,b) \\
+ & = & \plus(\next(n),b) \\
+ & = & \next(\plus(n,b)).
+\end{eqnarray*}$$
+Since $\next$ is injective, we have $\plus(n,b) = \next(\zero)$. By (2) we have two possibilities: $n = \zero$ (so $a = \next(\zero)$) and $b = \next(\zero)$, or $n = \next(\zero)$ (so $a = \next(\next(\zero))$) and $b = \zero$.
 :::::::::::::
 :::::::::::::::

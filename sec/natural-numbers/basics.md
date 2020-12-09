@@ -43,6 +43,8 @@ Let $\langle A, e, \varphi \rangle$ and $\langle B, f, \psi \rangle$ be iterativ
 
 1. $\theta(e) = f$.
 2. $\theta \circ \varphi = \psi \circ \theta$.
+
+If $\theta$ is bijective, we say it is an _iterative isomorphism_ and write $A \cong B$.
 ::::::::::::::::::
 
 As usual, the identity function is a homomorphism:
@@ -73,6 +75,33 @@ $$\begin{eqnarray*}
  & = & \chi \circ (\zeta \circ \theta)
 \end{eqnarray*}$$
 as needed.
+:::::::::::::
+:::::::::::::::
+
+And the inverse of an iterative isomorphism is also a homomorphism.
+
+::: theorem :::
+Suppose $\langle A, e, \varphi \rangle$ and $\langle B, f, \psi \rangle$ are iterative sets and that $\theta : A \rightarrow B$ is an iterative isomorphism. Then $\theta^{-1}$ is also an iterative isomorphism.
+
+::: proof :::
+Since $\theta(e) = f$, we have $\theta^{-1}(f) = e$. Now because $\theta$ is an iterative homomorphism, we have $$\theta \circ \varphi = \psi \circ \theta.$$ Composing with $\theta^{-1}$ from the left on both sides, we have
+$$\begin{eqnarray*}
+ &   & \varphi \\
+ & = & \id \circ \varphi \\
+ & = & (\theta^{-1} \circ \theta) \circ \varphi \\
+ & = & \theta^{-1} \circ (\theta \circ \varphi) \\
+ & = & \theta^{-1} \circ (\psi \circ \theta) \\
+ & = & (\theta^{-1} \circ \psi) \circ \theta.
+\end{eqnarray*}$$
+Composing this with $\theta^{-1}$ from the right on both sides, we have
+$$\begin{eqnarray*}
+ &   & \varphi \circ \theta^{-1} \\
+ & = & ((\theta^{-1} \circ \psi) \circ \theta) \circ \theta^{-1} \\
+ & = & (\theta^{-1} \circ \psi) \circ (\theta \circ \theta^{-1}) \\
+ & = & (\theta^{-1} \circ \psi) \circ \id \\
+ & = & \theta^{-1} \circ \psi$.
+\end{eqnarray*}$$
+So $\theta^{-1}$ is an iterative homomorphism (and also an isomorphism).
 :::::::::::::
 :::::::::::::::
 
@@ -296,6 +325,7 @@ since $n$ was arbitrary, $\mathsf{prev} \circ \next = \mathsf{id}$ as claimed. N
 We're now prepared to finish off the Peano axioms for $\nats$.
 
 ::: theorem :::
+[@thm-nat-case]()[@thm-nat-zero-not-next]()
 We have the following.
 
 1. If $n \in \nats$, then either $n = \zero$ or $n = \next(m)$ for some $m \in \nats$.

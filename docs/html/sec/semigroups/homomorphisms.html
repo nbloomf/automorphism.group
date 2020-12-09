@@ -19,12 +19,20 @@
           dom: "\\mathsf{dom}",
           cod: "\\mathsf{cod}",
           id:  "\\mathsf{id}",
+          const: "\\mathsf{const}",
+          Sem: "\\mathsf{Sem}",
+          Map: "\\mathsf{Map}",
+          End: "\\mathsf{End}",
+          Aut: "\\mathsf{Aut}",
+          Hom: "\\mathsf{Hom}",
+          Act: "\\mathsf{Act}",
           nats: "\\mathbb{N}",
           zero: "\\mathsf{0}",
           next: "\\mathsf{next}",
           natrec: "\\mathsf{natrec}",
           simprec: "\\mathsf{simprec}",
           plus: "\\mathsf{plus}",
+          prod: "\\mathsf{times}",
         }
       }
     };
@@ -87,8 +95,8 @@
 <ol>
 <li>If <span class="math inline">\(z \in S\)</span> is a left (right) zero, then <span class="math inline">\(f(z) \in T\)</span> is a left (right) zero.</li>
 <li>If <span class="math inline">\(z \in S\)</span> is a zero element, then <span class="math inline">\(f(z) \in T\)</span> is a zero element.</li>
-<li>If <span class="math inline">\(u \in S\)</span> is a left (right) unit, then <span class="math inline">\(f(u) \in T\)</span> is a left (right) unit.</li>
-<li>If <span class="math inline">\(u \in S\)</span> is a unit element, then <span class="math inline">\(f(u) \in T\)</span> is a unit element.</li>
+<li>If <span class="math inline">\(u \in S\)</span> is a left (right) identity, then <span class="math inline">\(f(u) \in T\)</span> is a left (right) identity.</li>
+<li>If <span class="math inline">\(u \in S\)</span> is an identity element, then <span class="math inline">\(f(u) \in T\)</span> is an identity element.</li>
 </ol>
 <div class="proof">
 <p>First we show (1). To this end, first suppose <span class="math inline">\(z\)</span> is a left zero in <span class="math inline">\(S\)</span>. Now let <span class="math inline">\(t \in T\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(s \in S\)</span> with <span class="math inline">\(f(s) = t\)</span>. Now <span class="math display">\[\begin{eqnarray*}
@@ -96,14 +104,14 @@ f(z) \star t
  &amp; = &amp; f(z) \star f(s) \\
  &amp; = &amp; f(z \cdot s) \\
  &amp; = &amp; f(z)
-\end{eqnarray*}\]</span> since <span class="math inline">\(z\)</span> is a left zero element in <span class="math inline">\(S\)</span>. Since <span class="math inline">\(t\)</span> was arbitray in <span class="math inline">\(T\)</span>, <span class="math inline">\(f(z)\)</span> is a left zero. The proof for <span class="math inline">\(z\)</span> a right zero is analogous. Now (2) follows from (1) and the <a href="basics.html#crossref-4">uniqueness</a> of simultaneous one-sided zeros because every zero is both a left and a right zero.</p>
-<p>We can show (3) similarly. Suppose <span class="math inline">\(u \in S\)</span> is a left unit and let <span class="math inline">\(t \in T\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(s \in S\)</span> with <span class="math inline">\(f(s) = t\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+\end{eqnarray*}\]</span> since <span class="math inline">\(z\)</span> is a left zero element in <span class="math inline">\(S\)</span>. Since <span class="math inline">\(t\)</span> was arbitray in <span class="math inline">\(T\)</span>, <span class="math inline">\(f(z)\)</span> is a left zero. The proof for <span class="math inline">\(z\)</span> a right zero is analogous. Now (2) follows from (1) and the <a href="basics.html#crossref-5">uniqueness</a> of simultaneous one-sided zeros because every zero is both a left and a right zero.</p>
+<p>We can show (3) similarly. Suppose <span class="math inline">\(u \in S\)</span> is a left identity and let <span class="math inline">\(t \in T\)</span>. Since <span class="math inline">\(f\)</span> is surjective, there exists <span class="math inline">\(s \in S\)</span> with <span class="math inline">\(f(s) = t\)</span>. Now <span class="math display">\[\begin{eqnarray*}
 f(u) \star t
  &amp; = &amp; f(u) \star f(s) \\
  &amp; = &amp; f(u \cdot s) \\
  &amp; = &amp; f(s) \\
  &amp; = &amp; t;
-\end{eqnarray*}\]</span> we similarly have <span class="math inline">\(t \star f(u) = t\)</span>. Since <span class="math inline">\(t\)</span> was arbitrary in <span class="math inline">\(T\)</span>, <span class="math inline">\(f(u)\)</span> is a left unit. The proof for <span class="math inline">\(u\)</span> a right unit is analogous. Now (4) follows from (3) and the <a href="basics.html#crossref-5">uniqueness</a> of simultaneous one-sided units because every unit is both a left and a right unit.</p>
+\end{eqnarray*}\]</span> we similarly have <span class="math inline">\(t \star f(u) = t\)</span>. Since <span class="math inline">\(t\)</span> was arbitrary in <span class="math inline">\(T\)</span>, <span class="math inline">\(f(u)\)</span> is a left identity. The proof for <span class="math inline">\(u\)</span> a right identity is analogous. Now (4) follows from (3) and the <a href="basics.html#crossref-6">uniqueness</a> of simultaneous one-sided identities because every identity is both a left and a right identity.</p>
 </div>
 </div>
 <p>This theorem can be used to show that two semigroups are <em>not</em> isomorphic; for instance, if we know that one has a zero but the other does not.</p>
@@ -126,7 +134,7 @@ f(s \cdot t)
 <p>The proof of (2) is analogous.</p>
 </div>
 </div>
-<p>Isomorphisms also interact with zero and unit adjunction.</p>
+<p>Isomorphisms also interact with zero and identity adjunction.</p>
 <div class="theorem">
 <p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> and <span class="math inline">\(\langle T, \star \rangle\)</span> be semigroups, and suppose we have elements <span class="math inline">\(h \notin S\)</span> and <span class="math inline">\(k \notin T\)</span>. Suppose further that <span class="math inline">\(f : S \rightarrow T\)</span> is an isomorphism. Then we have the following.</p>
 <ol>
@@ -332,7 +340,7 @@ f(b \cdot b)
  &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \\
  &amp; = &amp; \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \circ \begin{pmatrix} 1 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \\
  &amp; = &amp; f(b) \circ f(b).
-\end{eqnarray*}\]</span> Since <span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span> is a <a href="basics.html#crossref-1">semigroup</a>, as we established in the <a href="homomorphisms.html#crossref-3">previous result</a>, this means that <span class="math inline">\(\cdot\)</span> is associative, <span class="math inline">\(S\)</span> is a semigroup, and in fact <span class="math inline">\(f\)</span> is a homomorphism. But we have a bit more: since <span class="math inline">\(f\)</span> is bijective, it is an <em>isomorphism</em>, so we have <span class="math inline">\(S \cong \mathsf{Sym}(\{1,2\})\)</span>. I did warn that this would be painful.</li>
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span> is a <a href="basics.html#crossref-2">semigroup</a>, as we established in the <a href="homomorphisms.html#crossref-3">previous result</a>, this means that <span class="math inline">\(\cdot\)</span> is associative, <span class="math inline">\(S\)</span> is a semigroup, and in fact <span class="math inline">\(f\)</span> is a homomorphism. But we have a bit more: since <span class="math inline">\(f\)</span> is bijective, it is an <em>isomorphism</em>, so we have <span class="math inline">\(S \cong \mathsf{Sym}(\{1,2\})\)</span>. I did warn that this would be painful.</li>
 <li>Suppose <span class="math inline">\(a \cdot b = b \cdot a = b\)</span> and <span class="math inline">\(b \cdot b = a\)</span>. But now we have <span class="math display">\[\begin{eqnarray*}
 (a \cdot b) \cdot b
  &amp; = &amp; a \cdot b \\
@@ -392,7 +400,7 @@ b &amp; b &amp; b
 <p>Among the binary operations on <span class="math inline">\(S\)</span>, we've shown that each one is either not associative or <em>is</em> associative and either equal to or isomorphic to one of <span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span>, <span class="math inline">\(\mathsf{K}_b(S)\)</span>, <span class="math inline">\(\mathsf{K}_a(S)\)</span>, <span class="math inline">\(\mathsf{Z}_a(\{b\})\)</span>, <span class="math inline">\(\mathsf{LZ}(S)\)</span>, <span class="math inline">\(\mathsf{RZ}(S)\)</span>, and <span class="math inline">\(\mathsf{Z}_b(\{a\})\)</span>. Not all of these are distinct up to isomorphism, though; we have already <a href="homomorphisms.html#crossref-2">seen</a> that <span class="math inline">\(\mathsf{K}_a(S) \cong \mathsf{K}_b(S)\)</span> and because <span class="math inline">\(\{a\} \cong \{b\}\)</span> as one-element semigroups, <span class="math inline">\(\mathsf{Z}_a(\{b\}) \cong \mathsf{Z}_b(\{a\})\)</span>.</p>
 <p>This cuts our list down to five: <span class="math display">\[\mathsf{Sym}(\{1,2\}), \mathsf{K}_a(S), \mathsf{Z}_b(\{a\}), \mathsf{LZ}(S),\ \mathrm{and}\ \mathsf{RZ}(S).\]</span> We claim that these five are mutually nonisomorphic.</p>
 <ul>
-<li><span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span> has a unit element, while the other four do not; so it is distinct up to isomorphism.</li>
+<li><span class="math inline">\(\mathsf{Sym}(\{1,2\})\)</span> has an identity element, while the other four do not; so it is distinct up to isomorphism.</li>
 <li><span class="math inline">\(\mathsf{K}_a(S)\)</span> is null, while the other four are not; so it is distinct up to isomorphism.</li>
 <li><span class="math inline">\(\mathsf{Z}_b(\{a\})\)</span> has a zero element, while <span class="math inline">\(\mathsf{LZ}(S)\)</span> and <span class="math inline">\(\mathsf{RZ}(S)\)</span> do not; so it is not isomorphic to them.</li>
 <li><span class="math inline">\(\mathsf{LZ}(S)\)</span> has a left zero but <span class="math inline">\(\mathsf{RZ}(S)\)</span> does not, so these two are distinct.</li>

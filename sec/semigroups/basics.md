@@ -20,7 +20,8 @@ Typically functions with signature $S \times S \rightarrow S$ are called _binary
 At this stage we've only got one example, but it's a good one.
 
 ::: example :::
-Let $A$ be a set. We define the set of all functions on $A$ by $$\mathsf{Map}(A) = \{ f \subseteq A \times A \mid f : A \rightarrow A \}.$$ Then $\langle \mathsf{Map}(A), \circ \rangle$ is a semigroup.
+[@ex-map-semigroup]()
+Let $A$ be a set. We define the set of all functions on $A$ by $$\Map(A) = \{ f \subseteq A \times A \mid f : A \rightarrow A \}.$$ Then $\langle \Map(A), \circ \rangle$ is a semigroup.
 
 ::: proof :::
 We [already showed](@thm-composition-assoc) that composition of arbitrary functions is associative.
@@ -86,11 +87,11 @@ We've already got some examples of subsemigroups.
 
 ::: example :::
 [@thm-jection-semigroups]()
-Let $A$ be a set. Then the following subsets of $\mathsf{Map}(A)$ are also subsemigroups of $\langle \mathsf{Map}, \circ \rangle$.
+Let $A$ be a set. Then the following subsets of $\Map(A)$ are also subsemigroups of $\langle \Map, \circ \rangle$.
 
-1. $\mathsf{Inj}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ injective} \}$
-2. $\mathsf{Surj}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ surjective} \}$
-3. $\mathsf{Sym}(A) = \{ f \in \mathsf{Map}(A) \mid f\ \mathrm{is\ bijective} \}$
+1. $\mathsf{Inj}(A) = \{ f \in \Map(A) \mid f\ \mathrm{is\ injective} \}$
+2. $\mathsf{Surj}(A) = \{ f \in \Map(A) \mid f\ \mathrm{is\ surjective} \}$
+3. $\mathsf{Sym}(A) = \{ f \in \Map(A) \mid f\ \mathrm{is\ bijective} \}$
 
 ::: proof :::
 We've already shown that the composite of [injective](@thm-comp-injective), [surjective](@thm-comp-surjective), and [bijective](@thm-comp-bijective) functions retain the jectivity of their arguments.
@@ -103,7 +104,7 @@ As a more concrete example, we've already enumerated the bijections on $A = \{1,
 Let $A = \{1,2\}$. Then $$\mathsf{Sym}(A) = \left\{ \begin{pmatrix} 1 & 2 \\ 1 & 2 \end{pmatrix}, \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix} \right\}$$ is a semigroup.
 
 ::: proof :::
-We have already [enumerated](@thm-bijections-two-elts) the elements of $\mathsf{Sym}(A)$ as shown, and we just [established](@thm-jection-semigroups) that $\mathsf{Sym}(A)$ is a subsemigroup of $\mathsf{Map}(A)$ (and thus also a semigroup).
+We have already [enumerated](@thm-bijections-two-elts) the elements of $\mathsf{Sym}(A)$ as shown, and we just [established](@thm-jection-semigroups) that $\mathsf{Sym}(A)$ is a subsemigroup of $\Map(A)$ (and thus also a semigroup).
 :::::::::::::
 :::::::::::::::
 
@@ -180,6 +181,8 @@ The zero element of a semigroup, if it exists, is unique.
 [@thm-semigroup-zero-unique]()
 Let $S$ be a semigroup with $a,b \in S$. If $a$ is a left zero and $b$ a right zero, then $a = b$. In particular, if $S$ has a zero element then it is unique.
 
+If S has a zero element, we say it is a _semigroup with zero_.
+
 ::: proof :::
 We have $$a = a \cdot b = b;$$ the first equality since $a$ is a left zero and the second because $b$ is a right zero. The "in particular" follows because every zero element is both a left and a right zero by definition.
 :::::::::::::
@@ -239,17 +242,23 @@ We've seen what can happen when a semigroup element acts like zero. Interesting 
 ::: definition :::
 Let $\langle S, \cdot \rangle$ be a semigroup with $u \in S$.
 
-1. $u$ is called a _left unit_ if we have $u \cdot s = s$ for all $s \in S$.
-2. $u$ is called a _right unit_ if we have $s \cdot u = s$ for all $s \in S$.
-3. $u$ is called a _unit_ if it is both a left and a right unit.
+1. $u$ is called a _left identity_ if we have $u \cdot s = s$ for all $s \in S$.
+2. $u$ is called a _right identity_ if we have $s \cdot u = s$ for all $s \in S$.
+3. $u$ is called a _identity_ if it is both a left and a right identity.
 ::::::::::::::::::
 
-Again, not every semigroup has a unit, but we can always add a unit to an existing semigroup.
+The name "identity" comes from our first example of such an element.
+
+::: example :::
+Let $A$ be a set. The identity $\id_A$ is an identity element in $\Map(A)$.
+:::::::::::::::
+
+Again, not every semigroup has an identity, but we can always add an identity to an existing semigroup.
 
 ::: theorem :::
 Let $\langle S, t \rangle$ be a semigroup, and let $e$ be an element not in $S$. Define $\mathsf{U}_e(S) = S \cup \{e\}$ and define $$\begin{eqnarray*} u & = & t \cup \{ ((e,s),s) \mid s \in S \} \\ & & \cup \{ ((s,e),s) \mid s \in S \} \cup \{((e,e),e)\}. \end{eqnarray*}$$
 
-Then $\langle \mathsf{U}_e(S), u \rangle$ is a semigroup and $S$ is a subsemigroup of $\mathsf{U}_e(S)$. We say that $\mathsf{U}_e(S)$ is obtained from $S$ by _adjoining a unit_.
+Then $\langle \mathsf{U}_e(S), u \rangle$ is a semigroup and $S$ is a subsemigroup of $\mathsf{U}_e(S)$. We say that $\mathsf{U}_e(S)$ is obtained from $S$ by _adjoining a identity_.
 
 ::: proof :::
 Because we defined $u$ as a set, we should show it is a function. To do this we'll show it is both total and well-defined.
@@ -299,13 +308,15 @@ To see that $S \subseteq \mathsf{U}_e(S)$ is a subsemigroup it [suffices](@thm-s
 :::::::::::::
 :::::::::::::::
 
-Also again, not every semigroup that has a unit is obtained by adjoining a unit, and as with adjoining a zero, we can adjoin multiple units. We can even adjoin both zeros _and_ units! However, if a unit exists, it is unique.
+Also again, not every semigroup that has an identity is obtained by adjoining an identity, and as with adjoining a zero, we can adjoin multiple identities. We can even adjoin both zeros _and_ identities! However, if an identity exists, it is unique.
 
 ::: theorem :::
-[@thm-semigroup-unit-unique]()
-Let $S$ be a semigroup with $a,b \in S$. If $a$ is a left unit and $b$ a right unit, then $a = b$. In particular, if $S$ has a unit element then it is unique.
+[@thm-semigroup-identity-unique]()[@def-monoid]()
+Let $S$ be a semigroup with $a,b \in S$. If $a$ is a left identity and $b$ a right identity, then $a = b$. In particular, if $S$ has an identity element then it is unique.
+
+If $S$ has an identity element, we call it a _monoid_.
 
 ::: proof :::
-We have $$b = a \cdot b = a;$$ the first equality since $a$ is a left unit and the second equality since $b$ is a right unit. The "in particular" follows because every unit element is both a left and a right unit by definition.
+We have $$b = a \cdot b = a;$$ the first equality since $a$ is a left identity and the second equality since $b$ is a right identity. The "in particular" follows because every identity element is both a left and a right identity by definition.
 :::::::::::::
 :::::::::::::::

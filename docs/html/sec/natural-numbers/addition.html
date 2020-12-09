@@ -19,12 +19,20 @@
           dom: "\\mathsf{dom}",
           cod: "\\mathsf{cod}",
           id:  "\\mathsf{id}",
+          const: "\\mathsf{const}",
+          Sem: "\\mathsf{Sem}",
+          Map: "\\mathsf{Map}",
+          End: "\\mathsf{End}",
+          Aut: "\\mathsf{Aut}",
+          Hom: "\\mathsf{Hom}",
+          Act: "\\mathsf{Act}",
           nats: "\\mathbb{N}",
           zero: "\\mathsf{0}",
           next: "\\mathsf{next}",
           natrec: "\\mathsf{natrec}",
           simprec: "\\mathsf{simprec}",
           plus: "\\mathsf{plus}",
+          prod: "\\mathsf{times}",
         }
       }
     };
@@ -102,7 +110,7 @@
 </section>
 <section class="level2">
 <h2>Addition</h2>
-<p>We're going to use <span class="math inline">\(\mathsf{simprec}\)</span> to define addition on natural numbers. Rather than just writing down the definition, it's instructive to see where it comes from. <span class="math inline">\(\simprec\)</span> has the right signature; <span class="math inline">\(\simprec : \nats \times A \rightarrow B\)</span> with <span class="math inline">\(A = B = \nats\)</span>. We just need to find appropriate <span class="math inline">\(\varphi : \nats \rightarrow \nats\)</span> and <span class="math inline">\(mu : \nats \times \nats \times \nats \rightarrow \nats\)</span>. For instance, we'd like <span class="math inline">\(\next\)</span> to behave like <span class="math inline">\(+1\)</span>, and <span class="math display">\[n = \zero + n = \simprec_{\varphi,\mu}(\zero,n) = \varphi(n),\]</span> so maybe <span class="math inline">\(\varphi = \mathsf{id}\)</span>. Similarly, we want <span class="math display">\[\begin{eqnarray*}
+<p>We're going to use <span class="math inline">\(\mathsf{simprec}\)</span> to define addition on natural numbers. Rather than just writing down the definition, it's instructive to see where it comes from. <span class="math inline">\(\simprec\)</span> has the right signature; <span class="math inline">\(\simprec : \nats \times A \rightarrow B\)</span> with <span class="math inline">\(A = B = \nats\)</span>. We just need to find appropriate <span class="math inline">\(\varphi : \nats \rightarrow \nats\)</span> and <span class="math inline">\(mu : \nats \times \nats \times \nats \rightarrow \nats\)</span>. For instance, we'd like <span class="math inline">\(\next\)</span> to behave like <span class="math inline">\(+1\)</span>, and <span class="math display">\[n = \zero + n = \simprec_{\varphi,\mu}(\zero,n) = \varphi(n),\]</span> so maybe <span class="math inline">\(\varphi = \id\)</span>. Similarly, we want <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; (m + n) + 1 \\
  &amp; = &amp; (m + 1) + n \\
  &amp; = &amp; \simprec_{\varphi,\mu}(\next(m), n) \\
@@ -110,7 +118,7 @@
  &amp; = &amp; \mu(m,n,m+n).
 \end{eqnarray*}\]</span> With that in mind, we define <span class="math inline">\(\plus\)</span> as follows.</p>
 <div class="definition">
-<p><a name='crossref-1'></a> Define <span class="math inline">\(\mu : \nats \times \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\mu(-,-,b) = \next(b)\)</span>. We then define <span class="math inline">\(\plus : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\plus = \simprec_{\mathsf{id},\mu}.\]</span> We'll usually prefer the infix symbol <span class="math inline">\(+\)</span> rather than the prefix <span class="math inline">\(\plus\)</span> for this function.</p>
+<p><a name='crossref-1'></a> Define <span class="math inline">\(\mu : \nats \times \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\mu(-,-,b) = \next(b)\)</span>. We then define <span class="math inline">\(\plus : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\plus = \simprec_{\id,\mu}.\]</span> We'll usually prefer the infix symbol <span class="math inline">\(+\)</span> rather than the prefix <span class="math inline">\(\plus\)</span> for this function.</p>
 </div>
 <p>The remainder of this section is all about showing that this <span class="math inline">\(\plus\)</span> acts like we expect it to. First, <span class="math inline">\(\plus\)</span> interacts with <span class="math inline">\(\next\)</span>.</p>
 <div class="theorem">
@@ -124,22 +132,22 @@
 <div class="proof">
 <p>Throughout this proof, we use <span class="math inline">\(\mu\)</span> as defined with <span class="math inline">\(\plus\)</span>. To see (1), note that <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \plus(\zero,a) \\
- &amp; = &amp; \simprec_{\mathsf{id},\mu}(\zero,a) \\
- &amp; = &amp; \mathsf{id}(a) \\
+ &amp; = &amp; \simprec_{\id,\mu}(\zero,a) \\
+ &amp; = &amp; \id(a) \\
  &amp; = &amp; a
 \end{eqnarray*}\]</span> as claimed.</p>
 <p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \plus(\next(a),b) \\
- &amp; = &amp; \simprec_{\mathsf{id},\mu}(\next(a),b) \\
- &amp; = &amp; \mu(a,b,\simprec_{\mathsf{id},\mu}(a,b)) \\
- &amp; = &amp; \next(\simprec_{\mathsf{id},\mu}(a,b)) \\
+ &amp; = &amp; \simprec_{\id,\mu}(\next(a),b) \\
+ &amp; = &amp; \mu(a,b,\simprec_{\id,\mu}(a,b)) \\
+ &amp; = &amp; \next(\simprec_{\id,\mu}(a,b)) \\
  &amp; = &amp; \next(\plus(a,b))
 \end{eqnarray*}\]</span> as claimed.</p>
 <p>To show (3) we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \plus(a,\zero) \\
  &amp; = &amp; \plus(\zero,\zero) \\
- &amp; = &amp; \simprec_{\mathsf{id},\mu}(\zero,\zero) \\
- &amp; = &amp; \mathsf{id}(\zero) \\
+ &amp; = &amp; \simprec_{\id,\mu}(\zero,\zero) \\
+ &amp; = &amp; \id(\zero) \\
  &amp; = &amp; \zero \\
  &amp; = &amp; a
 \end{eqnarray*}\]</span> as needed. For the inductive step, suppose that for some <span class="math inline">\(a \in \nats\)</span> we have <span class="math inline">\(\plus(a,\zero) = a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
@@ -150,11 +158,11 @@
 <p>We also show (4) by induction on <span class="math inline">\(a\)</span>. For the base case, let <span class="math inline">\(a = \zero\)</span>; we then have <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \plus(a,\next(b)) \\
  &amp; = &amp; \plus(\zero,\next(b)) \\
- &amp; = &amp; \simprec_{\mathsf{id},\mu}(\zero,\next(b)) \\
- &amp; = &amp; \mathsf{id}(\next(b)) \\
+ &amp; = &amp; \simprec_{\id,\mu}(\zero,\next(b)) \\
+ &amp; = &amp; \id(\next(b)) \\
  &amp; = &amp; \next(b) \\
- &amp; = &amp; \next(\mathsf{id}(b)) \\
- &amp; = &amp; \next(\simprec_{\mathsf{id},\mu}(\zero,b)) \\
+ &amp; = &amp; \next(\id(b)) \\
+ &amp; = &amp; \next(\simprec_{\id,\mu}(\zero,b)) \\
  &amp; = &amp; \next(\plus(\zero,b)) \\
  &amp; = &amp; \next(\plus(a,b))
 \end{eqnarray*}\]</span> as needed. For the inductive step, suppose we have <span class="math inline">\(\plus(a,\next(b)) = \next(\plus(a,b))\)</span> for all <span class="math inline">\(b \in A\)</span> for some <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[\begin{eqnarray*}
@@ -184,6 +192,10 @@
 \end{eqnarray*}\]</span> By induction, we thus have <span class="math display">\[\plus(\plus(a,b),c) = \plus(a,\plus(b,c))\]</span> for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
 </div>
 </div>
+<p>This gives us our first interesting example of a semigroup.</p>
+<div class="corollary">
+<p><span class="math inline">\(\langle \nats, \plus \rangle\)</span> is a semigroup.</p>
+</div>
 <p><span class="math inline">\(\plus\)</span> is also commutative.</p>
 <div class="theorem">
 <p>For all <span class="math inline">\(a,b \in \nats\)</span>, we have <span class="math inline">\(\plus(a,b) = \plus(b,a)\)</span>.</p>
@@ -207,6 +219,7 @@
 <li>If <span class="math inline">\(\plus(c,a) = \plus(c,b)\)</span>, then <span class="math inline">\(a = b\)</span>.</li>
 <li>If <span class="math inline">\(\plus(a,c) = \plus(b,c)\)</span>, then <span class="math inline">\(a = b\)</span>.</li>
 </ol>
+<p>A binary operation (like <span class="math inline">\(\plus\)</span>) that satisfies (1) is called <em>left cancellative</em>, and one satisfying (2) is called <em>right cancellative</em>. Operations which satisfy both (like <span class="math inline">\(\plus\)</span>) are simply called <em>cancellative</em>.</p>
 <div class="proof">
 <p>To see (1), we proceed by induction on <span class="math inline">\(c\)</span>. For the base case, suppose <span class="math display">\[\plus(\zero,a) = \plus(\zero,b).\]</span> Then we have <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; a \\
@@ -225,6 +238,83 @@
  &amp; = &amp; \plus(b,c) \\
  &amp; = &amp; \plus(c,b).
 \end{eqnarray*}\]</span> Using (1), then, we have <span class="math inline">\(a = b\)</span> as claimed.</p>
+</div>
+</div>
+<p>We've shown that <span class="math inline">\(\plus\)</span> is associative, commutative, and cancellative, as we expect. However it may not be clear how to get from <span class="math inline">\(\zero\)</span> and <span class="math inline">\(\next\)</span> to the usual base 10 notation for numbers, which I've been careful to avoid. In a nutshell, what we've defined here is a <em>unary</em> representation for natural numbers; the "size" of the number is just the number of times <span class="math inline">\(\next\)</span> is applied to <span class="math inline">\(\zero\)</span>. As an example, let's compute the sum of "2" and "3".</p>
+<p><span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\next(next(\zero)),\next(\next(\next(\zero)))) \\
+ &amp; = &amp; \plus(\next(\zero),\next(\next(\next(\next(\zero)))) \\
+ &amp; = &amp; \plus(\zero,\next(\next(\next(\next(\next(\zero))))) \\
+ &amp; = &amp; \next(\next(\next(\next(\next(\zero)))) \\
+\end{eqnarray*}\]</span></p>
+<p><span class="math inline">\(\plus\)</span> works by peeling <span class="math inline">\(\next\)</span>s off of one argument and moving it to the other, until the argument reaches zero. This is extremely inefficient, but it is very convenient for proving lots of theorems.</p>
+<p>What's happening here is that, as we've defined it here, <span class="math inline">\(\nats\)</span> is simply one possible <em>representation</em> of the natural numbers -- one which is amenable to some problems but not others. Later on we will construct alternative representations that are better for different kinds of problems. The benefit of defining <span class="math inline">\(\nats\)</span> in terms of its universal property is that showing different representations are really "the same" is very straightforward.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle A, e, \varphi \rangle\)</span> be an iterative set, and suppose <span class="math inline">\(A\)</span> has the property that for any iterative set <span class="math inline">\(B\)</span>, there is a unique iterative set homomorphism <span class="math inline">\(\Theta : A \rightarrow B\)</span>. Then we have <span class="math inline">\(A \cong \nats\)</span>.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(\Theta : A \rightarrow \nats\)</span> be the unique iterative homomorphism. By the uniqueness property, we must have <span class="math inline">\(\Theta \circ \natrec = \id_\nats\)</span> and <span class="math inline">\(\natrec \circ \Theta = \id_A\)</span>; thus <span class="math inline">\(A \cong \nats\)</span> via <span class="math inline">\(\Theta\)</span>.</p>
+</div>
+</div>
+</section>
+<section class="level2">
+<h2>Solving Equations</h2>
+<p>We can solve some basic addition problems now.</p>
+<div class="example">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. Then we have the following.</p>
+<ol>
+<li>If <span class="math inline">\(\plus(a,b) = a\)</span>, then <span class="math inline">\(b = \zero\)</span>.</li>
+<li>If <span class="math inline">\(\plus(b,a) = a\)</span>, then <span class="math inline">\(b = \zero\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(a,b) \\
+ &amp; = &amp; a \\
+ &amp; = &amp; \plus(a,\zero).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\plus\)</span> is left cancellative, we have <span class="math inline">\(b = \zero\)</span> as claimed. (2) is proved similarly, using the fact that <span class="math inline">\(\plus\)</span> is right cancellative.</p>
+</div>
+</div>
+<p>The next theorem solves <span class="math inline">\(a + b = 0\)</span>, <span class="math inline">\(a + b = 1\)</span>, and <span class="math inline">\(a + b = 2\)</span> over the natural numbers. Baby steps!</p>
+<div class="example">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<ol>
+<li>If <span class="math inline">\(\plus(a,b) = \zero\)</span>, then <span class="math inline">\(a = b = \zero\)</span>.</li>
+<li>If <span class="math inline">\(\plus(a,b) = \next(\zero)\)</span>, then either <span class="math inline">\(a = \zero\)</span> and <span class="math inline">\(b = \next(\zero)\)</span>, or <span class="math inline">\(a = \next(\zero)\)</span> and <span class="math inline">\(b = \zero\)</span>.</li>
+<li>If <span class="math inline">\(\plus(a,b) = \next(\next(\zero))\)</span>, then either <span class="math inline">\(a = \zero\)</span> and <span class="math inline">\(b = \next(\next(\zero))\)</span>, or <span class="math inline">\(a = \next(\zero)\)</span> and <span class="math inline">\(b = \next(\zero)\)</span>, or <span class="math inline">\(a = \next(\next(\zero))\)</span> and <span class="math inline">\(b = \zero\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). Suppose <span class="math inline">\(\plus(a,b) = \zero\)</span>. We've <a href="basics.html#crossref-5">shown</a> that <span class="math inline">\(a\)</span> is either <span class="math inline">\(\zero\)</span> or <span class="math inline">\(\next(n)\)</span> for some <span class="math inline">\(n\)</span>. If <span class="math inline">\(a = \next(n)\)</span>, then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \zero \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(\next(n),b) \\
+ &amp; = &amp; \next(\plus(n,b));
+\end{eqnarray*}\]</span> however we've also <a href="basics.html#crossref-6">shown</a> that <span class="math inline">\(\zero\)</span> cannot be equal to <span class="math inline">\(\next(-)\)</span>. So we must have <span class="math inline">\(a = \zero\)</span>. But now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; b \\
+ &amp; = &amp; \plus(\zero,b) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \zero
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>Next we show (2). Suppose <span class="math inline">\(\plus(a,b) = \next(\zero)\)</span>. Again, either <span class="math inline">\(a = \zero\)</span> or <span class="math inline">\(a = \next(n)\)</span> for some <span class="math inline">\(n\)</span>. If <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; b \\
+ &amp; = &amp; \plus(\zero,b) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \next(\zero).
+\end{eqnarray*}\]</span> Suppose instead that <span class="math inline">\(a = \next(n)\)</span>. Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(\zero) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(\next(n),b) \\
+ &amp; = &amp; \next(\plus(n,b)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is injective, we have <span class="math inline">\(\plus(n,b) = \zero\)</span>; by (1), we have <span class="math inline">\(n = b = \zero\)</span>, and so <span class="math inline">\(a = \next(\zero)\)</span>.</p>
+<p>Finally we show (3). Suppose <span class="math inline">\(\plus(a,b) = \next(\next(\zero))\)</span>. Again, either <span class="math inline">\(a = \zero\)</span> or <span class="math inline">\(a = \next(n)\)</span> for some <span class="math inline">\(n\)</span>. If <span class="math inline">\(a = \zero\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; b \\
+ &amp; = &amp; \plus(\zero,b) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \next(\next(\zero)).
+\end{eqnarray*}\]</span> Suppose instead that <span class="math inline">\(a = \next(n)\)</span>; then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(\next(\zero)) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(\next(n),b) \\
+ &amp; = &amp; \next(\plus(n,b)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is injective, we have <span class="math inline">\(\plus(n,b) = \next(\zero)\)</span>. By (2) we have two possibilities: <span class="math inline">\(n = \zero\)</span> (so <span class="math inline">\(a = \next(\zero)\)</span>) and <span class="math inline">\(b = \next(\zero)\)</span>, or <span class="math inline">\(n = \next(\zero)\)</span> (so <span class="math inline">\(a = \next(\next(\zero))\)</span>) and <span class="math inline">\(b = \zero\)</span>.</p>
 </div>
 </div>
 </section>

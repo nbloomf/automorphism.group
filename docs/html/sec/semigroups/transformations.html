@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Semigroups of Transformations</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          const: "\\mathsf{const}",
+          Sem: "\\mathsf{Sem}",
+          Map: "\\mathsf{Map}",
+          End: "\\mathsf{End}",
+          Aut: "\\mathsf{Aut}",
+          Hom: "\\mathsf{Hom}",
+          Act: "\\mathsf{Act}",
+          nats: "\\mathbb{N}",
+          zero: "\\mathsf{0}",
+          next: "\\mathsf{next}",
+          natrec: "\\mathsf{natrec}",
+          simprec: "\\mathsf{simprec}",
+          plus: "\\mathsf{plus}",
+          prod: "\\mathsf{times}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Semigroups of Transformations</h1>
+
+</header>
+<section class="level2">
+<h2>Transformation Semigroups</h2>
+<p>We've already <a href="basics.html#crossref-0">shown</a> that the set <span class="math inline">\(\Map(S)\)</span> of all functions from a set <span class="math inline">\(S\)</span> to itself forms a semigroup; in fact it's a monoid with identity <span class="math inline">\(\id_A\)</span>. If <span class="math inline">\(S\)</span> is also a <em>semigroup</em> then <span class="math inline">\(\Map(A)\)</span> has some interesting subsemigroups.</p>
+<div class="corollary">
+<p>Let <span class="math inline">\(S\)</span> be a semigroup, and define subsets <span class="math display">\[\End_\Sem(S) = \{ f : S \rightarrow S \mid f\ \mathrm{is\ a\ homomorphism} \}\]</span> and <span class="math display">\[\Aut_\Sem(S) = \{ f : S \rightarrow S \mid f\ \mathrm{is\ an\ isomorphism} \}.\]</span> Then both <span class="math inline">\(\End_\Sem(S)\)</span> and <span class="math inline">\(\Aut_\Sem(S)\)</span> are subsemigroups of <span class="math inline">\(\langle \Map(S), \circ \rangle\)</span>.</p>
+<div class="proof">
+<p>We've already shown that these sets are closed under composition and that the identity function is an isomorphism.</p>
+</div>
+</div>
+<p>These two semigroups somehow encode the structure of <span class="math inline">\(S\)</span>, and so can be used to better understant <span class="math inline">\(S\)</span> itself.</p>
+<p>There's another way to turn a set of functions into a semigroup.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(A\)</span> be a set and <span class="math inline">\(\langle S, \cdot \rangle\)</span> a semigroup, and let <span class="math display">\[\Map(A,S) = \{ f \subseteq A \times B \mid f : A \rightarrow S \}.\]</span> Define a binary operation <span class="math inline">\(\psi\)</span> on <span class="math inline">\(\Map(A,S)\)</span> by <span class="math display">\[\psi(f,g)(a) = f(a) \cdot g(a).\]</span> Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(\langle \Map(A,S), \psi \rangle\)</span> is a semigroup.</li>
+<li>If <span class="math inline">\(e \in S\)</span> is a left (right) identity, then <span class="math inline">\(\const_e \in \Map(A,S)\)</span> is a left (right) identity.</li>
+<li>If <span class="math inline">\(S\)</span> is a monoid, then <span class="math inline">\(\Map(A,S)\)</span> is a monoid.</li>
+<li>If <span class="math inline">\(z \in S\)</span> is a left (right) zero, then <span class="math inline">\(\const_z \in \Map(A,S)\)</span> is a left (right) zero.</li>
+</ol>
+<p>This is sometimes called the <em>pointwise</em> product on <span class="math inline">\(\Map(A,S)\)</span>.</p>
+<div class="proof">
+<p>To see (1), we need to show that <span class="math inline">\(\psi\)</span> is associative. To this end let <span class="math inline">\(f,g,h \in \Map(A,S)\)</span>. If <span class="math inline">\(a \in A\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \psi(f,\psi(g,h))(a) \\
+ &amp; = &amp; f(a) \cdot \psi(g,h)(a) \\
+ &amp; = &amp; f(a) \cdot (g(a) \cdot h(a)) \\
+ &amp; = &amp; (f(a) \cdot g(a)) \cdot h(a) \\
+ &amp; = &amp; \psi(f,g)(a) \cdot h(a) \\
+ &amp; = &amp; \psi(\psi(f,g),h)(a).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math display">\[\psi(f,\psi(g,h)) = \psi(\psi(f,g),h)\]</span> as needed.</p>
+<p>To see (2), suppose <span class="math inline">\(e \in S\)</span> is a left identity; that is, <span class="math inline">\(e \cdot s = s\)</span> for all <span class="math inline">\(s \in S\)</span>. Now let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(a \in A\)</span>. We have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \psi(\const_e,f)(a) \\
+ &amp; = &amp; \const_e(a) \cdot f(a) \\
+ &amp; = &amp; e \cdot f(a) \\
+ &amp; = &amp; f(a). \\
+\end{eqnarray*}\]</span> Since <span class="math inline">\(a\)</span> is arbitrary, we have <span class="math inline">\(\psi(\const_e,f) = f\)</span>, and since <span class="math inline">\(f\)</span> is arbitrary, <span class="math inline">\(\const_e\)</span> is a left identity. A similar argument shows that if <span class="math inline">\(e\)</span> is a right identity then <span class="math inline">\(\const_e\)</span> is a right identity. (3) then follows because every identity is both a left and a right identity.</p>
+<p>The argument for (4) is very similar to that for (2). Suppose <span class="math inline">\(z \in S\)</span> is a left zero and let <span class="math inline">\(f : A \rightarrow S\)</span> and <span class="math inline">\(a \in A\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \psi(\const_z,f)(a) \\
+ &amp; = &amp; \const_z(a) \cdot f(a) \\
+ &amp; = &amp; z \cdot f(a) \\
+ &amp; = &amp; z \\
+ &amp; = &amp; \const_z(a).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(a\)</span> is arbitrary, <span class="math inline">\(\psi(\const_z,f) = \const_z\)</span>, and since <span class="math inline">\(f\)</span> is arbitrary, <span class="math inline">\(\const_z\)</span> is a left zero. A similar argument shows that <span class="math inline">\(\const_z\)</span> is a right zero.</p>
+</div>
+</div>
+<p>The pointwise product doesn't encode the structure of <span class="math inline">\(S\)</span> quite like <span class="math inline">\(\End\)</span> and <span class="math inline">\(\Aut\)</span> do, but it does have uses.</p>
+</section>
+<section class="level2">
+<h2>Semigroup Actions</h2>
+<p>Let's take a small detour to define yet another kind of algebra.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and <span class="math inline">\(A\)</span> a set. Suppose we have a function <span class="math inline">\(\star : S \times A \rightarrow A\)</span>. Then we say <span class="math inline">\(\langle A, \star \rangle\)</span> is a (left) <em>semigroup action</em> of <span class="math inline">\(S\)</span> if for all <span class="math inline">\(s,t \in S\)</span> and <span class="math inline">\(a \in A\)</span> we have <span class="math display">\[(s \cdot t) \star a = s \star (t \star a).\]</span></p>
+<p>If <span class="math inline">\(S\)</span> is a monoid with identity <span class="math inline">\(e\)</span>, we say further that <span class="math inline">\(\langle A, \star \rangle\)</span> is a (left) <em>monoid action</em> if for all <span class="math inline">\(a \in A\)</span> we have <span class="math display">\[e \star a = a.\]</span></p>
+<p>Sometimes if we're discussing multiple semigroup actions, and definitely if we have multiple actions of the same semigroup on some set, we'll say <span class="math inline">\(S\)</span> acts on <span class="math inline">\(A\)</span> <em>via</em> <span class="math inline">\(\star\)</span> to be explicit.</p>
+</div>
+<p>As usual, this algebra has a corresponding concept of <em>homomorphism</em>.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and let <span class="math inline">\(\langle A, \star \rangle\)</span> and <span class="math inline">\(\langle B, \bullet \rangle\)</span> be (left) semigroup actions of <span class="math inline">\(S\)</span>. A function <span class="math inline">\(f : A \rightarrow B\)</span> is called a <em>semigroup action homomorphism</em> if for all <span class="math inline">\(s \in S\)</span> and <span class="math inline">\(a \in A\)</span> we have <span class="math display">\[f(s \star a) = s \bullet f(a).\]</span> If <span class="math inline">\(f\)</span> is bijective, we call it a (left) semigroup action isomorphism and write <span class="math inline">\(A \cong B\)</span>.</p>
+</div>
+<p>Also as usual, the identity function is a homomorphism.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and <span class="math inline">\(\langle A, \star \rangle\)</span> a semigroup action of <span class="math inline">\(S\)</span>. Then <span class="math inline">\(\id_A\)</span> is a semigroup action homomorphism.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(s \in S\)</span> and <span class="math inline">\(a \in A\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \id_A(s \star a) \\
+ &amp; = &amp; s \star a \\
+ &amp; = &amp; s \star \id_A(a)
+\end{eqnarray*}\]</span> as needed.</p>
+</div>
+</div>
+<p>The composite of homomorphisms is a homomorphism.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and <span class="math inline">\(\langle A, \star_A \rangle\)</span>, <span class="math inline">\(\langle B, \star_B \rangle\)</span>, and <span class="math inline">\(\langle C, \star_C \rangle\)</span> be (left) semigroup actions of <span class="math inline">\(S\)</span>, and let <span class="math inline">\(f : A \rightarrow B\)</span> and <span class="math inline">\(g : B \rightarrow C\)</span> be semigroup action homomorphisms. Then <span class="math inline">\(g \circ f : A \rightarrow C\)</span> is a semigroup action homomorphism.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(s \in S\)</span> and <span class="math inline">\(a \in A\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; (g \circ f)(s \star_A a) \\
+ &amp; = &amp; g(f(s \star_A a)) \\
+ &amp; = &amp; g(s \star_B f(a)) \\
+ &amp; = &amp; s \star_C g(f(a)) \\
+ &amp; = &amp; s \star_C (g \circ f)(a)
+\end{eqnarray*}\]</span> as needed.</p>
+</div>
+</div>
+<p>And the inverse of an isomorphism is an isomorphism.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and <span class="math inline">\(\langle A, \star \rangle\)</span> and <span class="math inline">\(\langle B, \bullet \rangle\)</span> (left) semigroup actions of <span class="math inline">\(S\)</span>, and suppose <span class="math inline">\(f : A \rightarrow B\)</span> is a semigroup action isomorphism. Then <span class="math inline">\(f^{-1} : B \rightarrow A\)</span> is a semigroup action isomorphism.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(s \in S\)</span> and <span class="math inline">\(b \in B\)</span>. Since <span class="math inline">\(f\)</span> is bijective, there is an <span class="math inline">\(a \in A\)</span> such that <span class="math inline">\(f(a) = b\)</span> and <span class="math inline">\(f^{-1}(b) = a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; f^{-1}(s \bullet b) \\
+ &amp; = &amp; f^{-1}(s \bullet f(a)) \\
+ &amp; = &amp; f^{-1}(f(s \star a)) \\
+ &amp; = &amp; (f^{-1} \circ f)(s \star a) \\
+ &amp; = &amp; \id_A(s \star a) \\
+ &amp; = &amp; s \star a \\
+ &amp; = &amp; s \star f^{-1}(b)
+\end{eqnarray*}\]</span> as needed.</p>
+</div>
+</div>
+<p>The signature and axiom of a semigroup action looks suspiciously like the semigroup product; it's not too surprising that semigroups are our first example.</p>
+<div class="example">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup; then <span class="math inline">\(\langle S, \cdot \rangle\)</span> is a (left) semigroup action.</p>
+</div>
+<p>We won't have many more examples for a while, which is unfortunate because actions are really where semigroups (and their most interesting subclass, groups) really shine. This is especially so when the object being acted on is not just a <em>set</em>, but has structure of its own. A semigroup action represents a structure on the set of endomorphisms of an object. In fact we can make this intuition precise: a semigroup action on <span class="math inline">\(A\)</span> can be turned into a semigroup homomorphism to <span class="math inline">\(\Map(A)\)</span>.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and let <span class="math inline">\(A\)</span> be a set, and let <span class="math inline">\(\langle A, \star \rangle\)</span> be a left semigroup action of <span class="math inline">\(S\)</span>. Define <span class="math inline">\(\theta_\star : S \rightarrow \Map(A)\)</span> by <span class="math inline">\(\theta_\star(s)(a) = s \star a\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(\theta_\star\)</span> is a semigroup homomorphism.</li>
+<li>If <span class="math inline">\(S\)</span> is a monoid and <span class="math inline">\(\star\)</span> a monoid action, then <span class="math inline">\(\theta_\star\)</span> is a monoid homomorphism.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). To that end, let <span class="math inline">\(s,t \in S\)</span>, and let <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \theta_\star(s \cdot t)(a) \\
+ &amp; = &amp; (s \cdot t) \star a \\
+ &amp; = &amp; s \star (t \star a) \\
+ &amp; = &amp; \theta_\star(s)(t \star a) \\
+ &amp; = &amp; \theta_\star(s)(f_\star(t)(a)) \\
+ &amp; = &amp; (\theta_\star(s) \circ \theta_\star(t))(a).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(a\)</span> was arbitrary in <span class="math inline">\(A\)</span>, we have <span class="math display">\[\theta_\star(s \cdot t) = \theta_\star(s) \circ \theta_\star(t)\]</span> as needed.</p>
+<p>Now we show (2); this requires showing that <span class="math inline">\(\theta_\star\)</span> preserves identity elements. Suppose <span class="math inline">\(S\)</span> is a monoid with identity <span class="math inline">\(e\)</span>; then we have <span class="math inline">\(e \star a = a\)</span> for all <span class="math inline">\(a \in A\)</span>. Letting <span class="math inline">\(a\)</span> be arbitrary in <span class="math inline">\(A\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \theta_\star(e)(a) \\
+ &amp; = &amp; e \star a \\
+ &amp; = &amp; a \\
+ &amp; = &amp; \id_A(a),
+\end{eqnarray*}\]</span> so that <span class="math inline">\(\theta_\star(e) = \id_A\)</span>. Recall that <span class="math inline">\(\id_A\)</span> is the identity element in the monoid <span class="math inline">\(\langle \Map(A), \id_A \rangle\)</span>, so <span class="math inline">\(\theta_\star\)</span> is a monoid homomorphism.</p>
+</div>
+</div>
+<p>In fact the correspondence between actions and homomorphisms goes further; actions of <span class="math inline">\(S\)</span> on <span class="math inline">\(A\)</span> are precisely equivalent to homomorphisms <span class="math inline">\(S \rightarrow \Map(A)\)</span>.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle S, \cdot \rangle\)</span> be a semigroup and let <span class="math inline">\(A\)</span> be a set. Let <span class="math display">\[\Act_{S,\Sem}(A) = \{ \star : S \times A \rightarrow A \mid \star\ \mathrm{is\ an\ action} \}\]</span> be the set of all semigroup actions of <span class="math inline">\(S\)</span> on <span class="math inline">\(A\)</span>, and let <span class="math display">\[\Hom_\Sem(S,\Map(A)) = \{ f : S \rightarrow \Map(A) \mid f\ \mathrm{is\ a\ hom} \}\]</span> be the set of semigroup homomorphisms <span class="math inline">\(S \rightarrow \Map(A)\)</span>. Now define a map <span class="math display">\[\Theta : \Act_{S,\Sem}(A) \rightarrow \Hom_\Sem(S,\Map(A))\]</span> by <span class="math inline">\(\Theta(\star) = \theta_\star.\)</span> Then <span class="math inline">\(\Theta\)</span> is bijective with inverse <span class="math inline">\(\Omega(f)(s,a) = f(s)(a).\)</span></p>
+<div class="proof">
+<p>This theorem involves a function that takes a function and outputs a function that outputs a function. It can be tough to keep track of what's happening, but if we're careful we can get through this. :)</p>
+<p>We've already shown that <span class="math inline">\(\theta_\star\)</span> is a homomorphism, so <span class="math inline">\(\Theta\)</span> is well-defined. (It's important to point this out!) So it's enough to check that <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(\Omega\)</span> are mutual inverses. To this end, first let <span class="math inline">\(\star : S \times A \rightarrow A\)</span> be a semigroup action of <span class="math inline">\(S\)</span> on <span class="math inline">\(A\)</span>. Let <span class="math inline">\(s \in S\)</span> and <span class="math inline">\(a \in A\)</span>. Note that <span class="math inline">\((\Omega \circ \Theta)(\star)\)</span> is an action; so it has signature <span class="math inline">\(S \times A \rightarrow A\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; (\Omega \circ \Theta)(\star)(s,a) \\
+ &amp; = &amp; \Omega(\Theta(\star))(s,a) \\
+ &amp; = &amp; \Theta(\star)(s)(a) \\
+ &amp; = &amp; \theta_\star(s)(a) \\
+ &amp; = &amp; s \star a \\
+ &amp; = &amp; \star(s,a) \\
+ &amp; = &amp; \id(\star)(s,a).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(s\)</span> and <span class="math inline">\(a\)</span> were arbitrary, we have <span class="math display">\[(\Omega \circ \Theta)(\star) = \id(\star),\]</span> and since <span class="math inline">\(\star\)</span> was arbitrary, <span class="math inline">\(\Omega \circ \Theta = \id\)</span> as needed.</p>
+<p>Now again let <span class="math inline">\(f : S \rightarrow \Map(A)\)</span> be a semigroup homomorphism and let <span class="math inline">\(s \in S\)</span> and <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; (\Theta \circ \Omega)(f)(s)(a) \\
+ &amp; = &amp; \Theta(\Omega(f))(s)(a) \\
+ &amp; = &amp; \theta_{\Omega(f)}(s)(a) \\
+ &amp; = &amp; \Omega(f)(s,a) \\
+ &amp; = &amp; f(s)(a) \\
+ &amp; = &amp; \id(f)(s)(a).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math display">\[(\Theta \circ \Omega)(f)(s) = \id(f)(s);\]</span> since <span class="math inline">\(s\)</span> was arbitrary we have <span class="math display">\[(\Theta \circ \Omega)(f) = \id(f);\]</span> and since <span class="math inline">\(f\)</span> was arbitrary we have <span class="math inline">\(\Theta \circ \Omega = \id\)</span> as needed.</p>
+</div>
+</div>
+<p>This theorem essentially says that semigroup actions are a redundant concept -- they are equivalent to homomorphisms <span class="math inline">\(S \rightarrow \Map(A)\)</span>.</p>
+</section>
+</article>
+</body>
+</html>

@@ -19,12 +19,20 @@
           dom: "\\mathsf{dom}",
           cod: "\\mathsf{cod}",
           id:  "\\mathsf{id}",
+          const: "\\mathsf{const}",
+          Sem: "\\mathsf{Sem}",
+          Map: "\\mathsf{Map}",
+          End: "\\mathsf{End}",
+          Aut: "\\mathsf{Aut}",
+          Hom: "\\mathsf{Hom}",
+          Act: "\\mathsf{Act}",
           nats: "\\mathbb{N}",
           zero: "\\mathsf{0}",
           next: "\\mathsf{next}",
           natrec: "\\mathsf{natrec}",
           simprec: "\\mathsf{simprec}",
           plus: "\\mathsf{plus}",
+          prod: "\\mathsf{times}",
         }
       }
     };
@@ -68,6 +76,7 @@
 <li><span class="math inline">\(\theta(e) = f\)</span>.</li>
 <li><span class="math inline">\(\theta \circ \varphi = \psi \circ \theta\)</span>.</li>
 </ol>
+<p>If <span class="math inline">\(\theta\)</span> is bijective, we say it is an <em>iterative isomorphism</em> and write <span class="math inline">\(A \cong B\)</span>.</p>
 </div>
 <p>As usual, the identity function is a homomorphism:</p>
 <div class="theorem">
@@ -88,6 +97,26 @@
  &amp; = &amp; (\chi \circ \zeta) \circ \theta \\
  &amp; = &amp; \chi \circ (\zeta \circ \theta)
 \end{eqnarray*}\]</span> as needed.</p>
+</div>
+</div>
+<p>And the inverse of an iterative isomorphism is also a homomorphism.</p>
+<div class="theorem">
+<p>Suppose <span class="math inline">\(\langle A, e, \varphi \rangle\)</span> and <span class="math inline">\(\langle B, f, \psi \rangle\)</span> are iterative sets and that <span class="math inline">\(\theta : A \rightarrow B\)</span> is an iterative isomorphism. Then <span class="math inline">\(\theta^{-1}\)</span> is also an iterative isomorphism.</p>
+<div class="proof">
+<p>Since <span class="math inline">\(\theta(e) = f\)</span>, we have <span class="math inline">\(\theta^{-1}(f) = e\)</span>. Now because <span class="math inline">\(\theta\)</span> is an iterative homomorphism, we have <span class="math display">\[\theta \circ \varphi = \psi \circ \theta.\]</span> Composing with <span class="math inline">\(\theta^{-1}\)</span> from the left on both sides, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \varphi \\
+ &amp; = &amp; \id \circ \varphi \\
+ &amp; = &amp; (\theta^{-1} \circ \theta) \circ \varphi \\
+ &amp; = &amp; \theta^{-1} \circ (\theta \circ \varphi) \\
+ &amp; = &amp; \theta^{-1} \circ (\psi \circ \theta) \\
+ &amp; = &amp; (\theta^{-1} \circ \psi) \circ \theta.
+\end{eqnarray*}\]</span> Composing this with <span class="math inline">\(\theta^{-1}\)</span> from the right on both sides, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \varphi \circ \theta^{-1} \\
+ &amp; = &amp; ((\theta^{-1} \circ \psi) \circ \theta) \circ \theta^{-1} \\
+ &amp; = &amp; (\theta^{-1} \circ \psi) \circ (\theta \circ \theta^{-1}) \\
+ &amp; = &amp; (\theta^{-1} \circ \psi) \circ \id \\
+ &amp; = &amp; \theta^{-1} \circ \psi$.
+\end{eqnarray*}\]</span> So <span class="math inline">\(\theta^{-1}\)</span> is an iterative homomorphism (and also an isomorphism).</p>
 </div>
 </div>
 </section>
@@ -254,7 +283,7 @@
 </div>
 <p>We're now prepared to finish off the Peano axioms for <span class="math inline">\(\nats\)</span>.</p>
 <div class="theorem">
-<p>We have the following.</p>
+<p><a name='crossref-5'></a><a name='crossref-6'></a> We have the following.</p>
 <ol>
 <li>If <span class="math inline">\(n \in \nats\)</span>, then either <span class="math inline">\(n = \zero\)</span> or <span class="math inline">\(n = \next(m)\)</span> for some <span class="math inline">\(m \in \nats\)</span>.</li>
 <li>There does not exist <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(\next(n) = \zero\)</span>.</li>

@@ -72,13 +72,13 @@ Isomorphisms
 _Isomorphism_ is an especially important concept. It is very rare for two given semigroups to be equal; equality is simply too strict. However an isomorphism between semigroups means that the two are essentially the same _up to a renaming of the elements_. It captures the _meaning_ while throwing away unimportant information. For this reason, we often end up trying to characterize some class of semigroups (or any alebras, for that matter) _up to isomorphism_. For this reason, it is handy to have some criteria which can demonstrate when two semigroups are _not_ isomorphic.
 
 ::: theorem :::
-[@thm-semigroup-zero-unit-transfer]()
+[@thm-semigroup-zero-identity-transfer]()
 Let $\langle S, \cdot \rangle$ and $\langle T, \star \rangle$ be semigroups and $f : S \rightarrow T$ a surjective semigroup homomorphism.
 
 1. If $z \in S$ is a left (right) zero, then $f(z) \in T$ is a left (right) zero.
 2. If $z \in S$ is a zero element, then $f(z) \in T$ is a zero element.
-3. If $u \in S$ is a left (right) unit, then $f(u) \in T$ is a left (right) unit.
-4. If $u \in S$ is a unit element, then $f(u) \in T$ is a unit element.
+3. If $u \in S$ is a left (right) identity, then $f(u) \in T$ is a left (right) identity.
+4. If $u \in S$ is an identity element, then $f(u) \in T$ is an identity element.
 
 ::: proof :::
 First we show (1). To this end, first suppose $z$ is a left zero in $S$. Now let $t \in T$. Since $f$ is surjective, there exists $s \in S$ with $f(s) = t$. Now
@@ -90,7 +90,7 @@ f(z) \star t
 \end{eqnarray*}$$
 since $z$ is a left zero element in $S$. Since $t$ was arbitray in $T$, $f(z)$ is a left zero. The proof for $z$ a right zero is analogous. Now (2) follows from (1) and the [uniqueness](@thm-semigroup-zero-unique) of simultaneous one-sided zeros because every zero is both a left and a right zero.
 
-We can show (3) similarly. Suppose $u \in S$ is a left unit and let $t \in T$. Since $f$ is surjective, there exists $s \in S$ with $f(s) = t$. Now
+We can show (3) similarly. Suppose $u \in S$ is a left identity and let $t \in T$. Since $f$ is surjective, there exists $s \in S$ with $f(s) = t$. Now
 $$\begin{eqnarray*}
 f(u) \star t
  & = & f(u) \star f(s) \\
@@ -98,7 +98,7 @@ f(u) \star t
  & = & f(s) \\
  & = & t;
 \end{eqnarray*}$$
-we similarly have $t \star f(u) = t$. Since $t$ was arbitrary in $T$, $f(u)$ is a left unit. The proof for $u$ a right unit is analogous. Now (4) follows from (3) and the [uniqueness](@thm-semigroup-unit-unique) of simultaneous one-sided units because every unit is both a left and a right unit.
+we similarly have $t \star f(u) = t$. Since $t$ was arbitrary in $T$, $f(u)$ is a left identity. The proof for $u$ a right identity is analogous. Now (4) follows from (3) and the [uniqueness](@thm-semigroup-identity-unique) of simultaneous one-sided identities because every identity is both a left and a right identity.
 :::::::::::::
 :::::::::::::::
 
@@ -129,7 +129,7 @@ The proof of (2) is analogous.
 :::::::::::::
 :::::::::::::::
 
-Isomorphisms also interact with zero and unit adjunction.
+Isomorphisms also interact with zero and identity adjunction.
 
 ::: theorem :::
 Let $\langle S, \cdot \rangle$ and $\langle T, \star \rangle$ be semigroups, and suppose we have elements $h \notin S$ and $k \notin T$. Suppose further that $f : S \rightarrow T$ is an isomorphism. Then we have the following.
@@ -454,7 +454,7 @@ Among the binary operations on $S$, we've shown that each one is either not asso
 
 This cuts our list down to five: $$\mathsf{Sym}(\{1,2\}), \mathsf{K}_a(S), \mathsf{Z}_b(\{a\}), \mathsf{LZ}(S),\ \mathrm{and}\ \mathsf{RZ}(S).$$ We claim that these five are mutually nonisomorphic.
 
-- $\mathsf{Sym}(\{1,2\})$ has a unit element, while the other four do not; so it is distinct up to isomorphism.
+- $\mathsf{Sym}(\{1,2\})$ has an identity element, while the other four do not; so it is distinct up to isomorphism.
 - $\mathsf{K}_a(S)$ is null, while the other four are not; so it is distinct up to isomorphism.
 - $\mathsf{Z}_b(\{a\})$ has a zero element, while $\mathsf{LZ}(S)$ and $\mathsf{RZ}(S)$ do not; so it is not isomorphic to them.
 - $\mathsf{LZ}(S)$ has a left zero but $\mathsf{RZ}(S)$ does not, so these two are distinct.
