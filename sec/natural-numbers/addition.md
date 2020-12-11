@@ -277,7 +277,7 @@ Using (1), then, we have $a = b$ as claimed.
 We've shown that $\plus$ is associative, commutative, and cancellative, as we expect. However it may not be clear how to get from $\zero$ and $\next$ to the usual base 10 notation for numbers, which I've been careful to avoid. In a nutshell, what we've defined here is a _unary_ representation for natural numbers; the "size" of the number is just the number of times $\next$ is applied to $\zero$. As an example, let's compute the sum of "2" and "3".
 
 $$\begin{eqnarray*}
- &   & \plus(\next(next(\zero)),\next(\next(\next(\zero)))) \\
+ &   & \plus(\next(\next(\zero)),\next(\next(\next(\zero)))) \\
  & = & \plus(\next(\zero),\next(\next(\next(\next(\zero)))) \\
  & = & \plus(\zero,\next(\next(\next(\next(\next(\zero))))) \\
  & = & \next(\next(\next(\next(\next(\zero)))) \\
