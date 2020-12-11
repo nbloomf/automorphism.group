@@ -111,37 +111,28 @@ With that in mind, we define $\plus$ as follows.
 Define $\mu : \nats \times \nats \times \nats \rightarrow \nats$ by $\mu(-,-,b) = \next(b)$. We then define $\plus : \nats \times \nats \rightarrow \nats$ by $$\plus = \simprec_{\id,\mu}.$$ We'll usually prefer the infix symbol $+$ rather than the prefix $\plus$ for this function.
 ::::::::::::::::::
 
+Defining $\plus$ in terms of $\simprec$ has a nice side effect; we can characterize $\plus$ as the unique solution to a particular set of functional equations. This gives a natural way to show that some function is really $\plus$; show it satisfies these equations.
+
+::: corollary :::
+$\plus$ is the unique function $f$ having signature $\nats \times \nats \rightarrow \nats$ satisfying the following system of functional equations for all $a,b \in \nats$.
+
+$$\left\{\begin{array}{l}
+f(\zero,b) = b \\
+f(\next(a),b) = \next(f(a,b)).
+\end{array}\right.$$
+:::::::::::::::::
+
 The remainder of this section is all about showing that this $\plus$ acts like we expect it to. First, $\plus$ interacts with $\next$.
 
 ::: theorem :::
 The following hold for all $a,b \in \nats$.
 
-1. $\plus(\zero,a) = a$.
-2. $\plus(\next(a),b) = \next(\plus(a,b))$.
-3. $\plus(a,\zero) = a$.
-4. $\plus(a,\next(b)) = \next(\plus(a,b))$.
+1. $\plus(a,\zero) = a$.
+2. $\plus(a,\next(b)) = \next(\plus(a,b))$.
+3. $\plus(\next(a),b) = \plus(a,\next(b))$.
 
 ::: proof :::
-Throughout this proof, we use $\mu$ as defined with $\plus$. To see (1), note that
-$$\begin{eqnarray*}
- &   & \plus(\zero,a) \\
- & = & \simprec_{\id,\mu}(\zero,a) \\
- & = & \id(a) \\
- & = & a
-\end{eqnarray*}$$
-as claimed.
-
-To see (2), note that
-$$\begin{eqnarray*}
- &   & \plus(\next(a),b) \\
- & = & \simprec_{\id,\mu}(\next(a),b) \\
- & = & \mu(a,b,\simprec_{\id,\mu}(a,b)) \\
- & = & \next(\simprec_{\id,\mu}(a,b)) \\
- & = & \next(\plus(a,b))
-\end{eqnarray*}$$
-as claimed.
-
-To show (3) we proceed by induction on $a$. For the base case $a = \zero$, we have
+Throughout this proof, we use $\mu$ as defined with $\plus$. To show (1) we proceed by induction on $a$. For the base case $a = \zero$, we have
 $$\begin{eqnarray*}
  &   & \plus(a,\zero) \\
  & = & \plus(\zero,\zero) \\
@@ -156,9 +147,9 @@ $$\begin{eqnarray*}
  & = & \next(\plus(a,\zero)) \\
  & = & \next(a).
 \end{eqnarray*}$$
-By induction, (3) holds for all $a \in \nats$.
+By induction, (1) holds for all $a \in \nats$.
 
-We also show (4) by induction on $a$. For the base case, let $a = \zero$; we then have
+We also show (2) by induction on $a$. For the base case, let $a = \zero$; we then have
 $$\begin{eqnarray*}
  &   & \plus(a,\next(b)) \\
  & = & \plus(\zero,\next(b)) \\
@@ -177,7 +168,15 @@ $$\begin{eqnarray*}
  & = & \next(\next(\plus(a,b))) \\
  & = & \next(\plus(\next(a),b)).
 \end{eqnarray*}$$
-By induction, the (4) holds for all $a,b \in \nats$.
+By induction, the (2) holds for all $a,b \in \nats$.
+
+To see (3), note that
+$$\begin{eqnarray*}
+ &   & \plus(\next(a),b) \\
+ & = & \next(\plus(a,b)) \\
+ & = & \plus(a,\next(b))
+\end{eqnarray*}$$
+as claimed.
 :::::::::::::
 :::::::::::::::
 

@@ -32,7 +32,7 @@
           natrec: "\\mathsf{natrec}",
           simprec: "\\mathsf{simprec}",
           plus: "\\mathsf{plus}",
-          prod: "\\mathsf{times}",
+          mult: "\\mathsf{times}",
         }
       }
     };
@@ -44,9 +44,251 @@
 <h1 class="title">Multiplication</h1>
 
 </header>
+<section class="level2">
+<h2>Multiplication</h2>
+<p>Now we'll try to define the usual product of natural numbers, <span class="math inline">\(\mult\)</span>. Like <span class="math inline">\(\plus\)</span>, this operation has signature <span class="math inline">\(\nats \times \nats \rightarrow \nats\)</span>, so we might hope to define it in terms of <span class="math inline">\(\simprec_{\varphi,\mu}\)</span> for some <span class="math inline">\(\varphi\)</span> and <span class="math inline">\(\mu\)</span>. For example, the product of zero with any natural number should again be zero. So <span class="math display">\[\begin{eqnarray*}
+\zero
+ &amp; = &amp; \simprec_{\varphi,\mu}(\zero,m) \\
+ &amp; = &amp; \varphi(m)
+\end{eqnarray*}\]</span> for any <span class="math inline">\(m\)</span>; evidently then <span class="math inline">\(\varphi = \const_\zero\)</span>. Similarly, we want <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; n \cdot m + m \\
+ &amp; = &amp; (n + 1) \cdot m \\
+ &amp; = &amp; \simprec_{\varphi,\mu}(\next(n),m) \\
+ &amp; = &amp; \mu(n,m,\simprec_{\varphi,\mu}(n,m)) \\
+ &amp; = &amp; \mu(n,m,n \cdot m),
+\end{eqnarray*}\]</span> and evidently <span class="math inline">\(\mu(-,m,k) = \plus(k,m)\)</span>. With that in mind we define <span class="math inline">\(\mult\)</span> as follows.</p>
 <div class="definition">
-<p>Let <span class="math inline">\(\mu : \nats \times \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\mu(-,a,b) = \plus(b,a)\)</span>. We define <span class="math inline">\(\times : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\times = \simprec_{\const_\zero,\mu}.\]</span></p>
+<p>Let <span class="math inline">\(\mu : \nats \times \nats \times \nats \rightarrow \nats\)</span> be given by <span class="math inline">\(\mu(-,a,b) = \plus(b,a)\)</span>. We define <span class="math inline">\(\mult : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\mult = \simprec_{\const_\zero,\mu}.\]</span></p>
 </div>
+<p>As with <span class="math inline">\(\plus\)</span>, we can characterize <span class="math inline">\(\mult\)</span> as the unique solution to a system of functional equations. This is handy for a couple of reasons. One, it represents properties of <span class="math inline">\(\mult\)</span>. But more broadly, once we have isomorphic copies of <span class="math inline">\(\nats\)</span> giving different representations of numbers (like the fixed radix notation we usually expect), we can use it to show that different <em>implementations</em> of <span class="math inline">\(\mult\)</span> are really correct as long as they "behave" like <span class="math inline">\(\mult\)</span>.</p>
+<div class="corollary">
+<p><span class="math inline">\(\mult\)</span> is the unique function <span class="math inline">\(f\)</span> having signature <span class="math inline">\(\nats \times \nats \rightarrow \nats\)</span> satisfying the following system of functional equations for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<p><span class="math display">\[\left\{\begin{array}{l}
+f(\zero,b) = \zero \\
+f(\next(a),b) = \plus(f(a,b),b).
+\end{array}\right.\]</span></p>
+</div>
+<p>We now embark upon an arduous journey to show that this <span class="math inline">\(\mult\)</span> behaves the way we think it does.</p>
+<div class="theorem">
+<p>The following hold for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<ol>
+<li><span class="math inline">\(\mult(a,\zero) = \zero\)</span>.</li>
+<li><span class="math inline">\(\mult(a,\next(b)) = \plus(\mult(a,b),a)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>In this proof, <span class="math inline">\(\mu\)</span> will be as given in the definition of <span class="math inline">\(\mult\)</span>. We show (1) by induction. For the base case, suppose <span class="math inline">\(a = \zero\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(a,\zero) \\
+ &amp; = &amp; \mult(\zero,\zero) \\
+ &amp; = &amp; \zero
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose we have <span class="math inline">\(a \in \nats\)</span> such that <span class="math inline">\(\mult(a,\zero) = \zero\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),\zero) \\
+ &amp; = &amp; \plus(\mult(a,\zero),\zero) \\
+ &amp; = &amp; \plus(\zero,\zero) \\
+ &amp; = &amp; \zero
+\end{eqnarray*}\]</span> as needed. So (1) holds for all <span class="math inline">\(a \in \nats\)</span> by induction.</p>
+<p>We also show (2) by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(a,\next(b)) \\
+ &amp; = &amp; \mult(\zero,\next(b)) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \mult(\zero,b) \\
+ &amp; = &amp; \plus(\mult(\zero,b),\zero) \\
+ &amp; = &amp; \plus(\mult(a,b),a)
+\end{eqnarray*}\]</span> as claimed. For the inductive step, suppose we have <span class="math inline">\(a \in \nats\)</span> with <span class="math display">\[\mult(a,\next(b)) = \plus(\mult(a,b),a)\]</span> for all <span class="math inline">\(b \in \nats\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),\next(b)) \\
+ &amp; = &amp; \plus(\mult(a,\next(b)),\next(b)) \\
+ &amp; = &amp; \next(\plus(\mult(a,\next(b)),b)) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(a,b),a),b)) \\
+ &amp; = &amp; \next(\plus(\mult(a,b),\plus(a,b))) \\
+ &amp; = &amp; \next(\plus(\mult(a,b),\plus(b,a))) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(a,b),b),a)) \\
+ &amp; = &amp; \next(\plus(\mult(\next(a),b),a)) \\
+ &amp; = &amp; \plus(\mult(\next(a),b),\next(a))
+\end{eqnarray*}\]</span> for all <span class="math inline">\(b \in \nats\)</span>. By induction, then, (2) holds for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+</div>
+</div>
+<p>We've seen that the output of <span class="math inline">\(\mult\)</span> is <span class="math inline">\(\zero\)</span> if either input is zero. In fact this is the <em>only</em> way <span class="math inline">\(\mult\)</span> can produce <span class="math inline">\(\zero\)</span>.</p>
+<div class="theorem">
+<p>If <span class="math inline">\(a,b \in \nats\)</span> such that <span class="math inline">\(\mult(a,b) = \zero\)</span>, then either <span class="math inline">\(a = \zero\)</span> or <span class="math inline">\(b = \zero\)</span>.</p>
+<div class="proof">
+<p><a name='crossref-0'></a> Suppose <span class="math inline">\(\mult(a,b) = \zero\)</span>. Recall that if <span class="math inline">\(a \in \nats\)</span>, then either <span class="math inline">\(a = \zero\)</span> or <span class="math inline">\(a = \next(n)\)</span> for some <span class="math inline">\(n\)</span>. Similarly, either <span class="math inline">\(b = \zero\)</span> or <span class="math inline">\(b = \next(m)\)</span> for some <span class="math inline">\(m\)</span>. Suppose we have <span class="math inline">\(a = \next(n)\)</span> and <span class="math inline">\(b = \next(m)\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \zero
+ &amp; = &amp; \mult(a,b) \\
+ &amp; = &amp; \mult(\next(n),\next(m)) \\
+ &amp; = &amp; \plus(\mult(n,\next(m)),\next(m)) \\
+ &amp; = &amp; \next(\plus(\mult(n,\next(m)),m)).
+\end{eqnarray*}\]</span> However there does not exist <span class="math inline">\(k \in \nats\)</span> with <span class="math inline">\(\next(k) = \zero\)</span>; so we must have either <span class="math inline">\(a = \zero\)</span> or <span class="math inline">\(b = \zero\)</span>.</p>
+</div>
+</div>
+<p><span class="math inline">\(\next(\zero)\)</span> acts like 1.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a \in \nats\)</span>, we have the following.</p>
+<ol>
+<li><span class="math inline">\(\mult(\next(\zero),a) = a\)</span>.</li>
+<li><span class="math inline">\(\mult(a,\next(\zero)) = a\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), note that for all <span class="math inline">\(a \in \nats\)</span> we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(\zero),a) \\
+ &amp; = &amp; \plus(\mult(\zero,a),a) \\
+ &amp; = &amp; \plus(\zero,a) \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see (2), we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(a,\next(\zero)) \\
+ &amp; = &amp; \mult(\zero,\next(\zero)) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose the equality holds for some <span class="math inline">\(a \in \nats\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),\next(\zero)) \\
+ &amp; = &amp; \plus(\mult(a,\next(\zero)),\next(\zero)) \\
+ &amp; = &amp; \plus(a,\next(\zero)) \\
+ &amp; = &amp; \next(\plus(a,\zero)) \\
+ &amp; = &amp; \next(a).
+\end{eqnarray*}\]</span> By induction, (2) holds for all <span class="math inline">\(a\)</span>.</p>
+</div>
+</div>
+<p>As a special case, multiplying by "two" is equivalent to adding a number to itself.</p>
+<div class="example">
+<p>For all <span class="math inline">\(a \in \nats\)</span>, <span class="math display">\[\mult(\next(\next(\zero)),a) = \plus(a,a).\]</span></p>
+<div class="proof">
+<p>We have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(\next(\zero)),a) \\
+ &amp; = &amp; \plus(\mult(\next(\zero),a),a) \\
+ &amp; = &amp; \plus(a,a)
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
+<p><span class="math inline">\(\mult\)</span> is commutative.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b \in \nats\)</span>, we have <span class="math display">\[\mult(a,b) = \mult(b,a).\]</span></p>
+<div class="proof">
+<p>We proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = 0\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(a,b) \\
+ &amp; = &amp; \mult(\zero,b) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \mult(b,\zero) \\
+ &amp; = &amp; \mult(b,a)
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose we have <span class="math inline">\(a \in \nats\)</span> such that <span class="math inline">\(\mult(a,b) = \mult(b,a)\)</span> for all <span class="math inline">\(b \in \nats\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),b) \\
+ &amp; = &amp; \plus(\mult(a,b),b) \\
+ &amp; = &amp; \plus(\mult(b,a),b) \\
+ &amp; = &amp; \mult(b,\next(a))
+\end{eqnarray*}\]</span> for all <span class="math inline">\(b\)</span>. By induction, the conclusion holds for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+</div>
+</div>
+<p><span class="math inline">\(\mult\)</span> distributes over <span class="math inline">\(\plus\)</span>.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b,c \in \nats\)</span>, we have the following:</p>
+<ol>
+<li><span class="math inline">\(\mult(a,\plus(b,c)) = \plus(\mult(a,b),\mult(a,c))\)</span>.</li>
+<li><span class="math inline">\(\mult(\plus(a,b),c) = \plus(\mult(a,c),\mult(b,c))\)</span>.</li>
+</ol>
+<div class="proof">
+<p>We first show (1) by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(a,\plus(b,c)) \\
+ &amp; = &amp; \mult(\zero,\plus(b,c)) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \plus(\zero,\zero) \\
+ &amp; = &amp; \plus(\mult(\zero,b),\mult(\zero,c)) \\
+ &amp; = &amp; \plus(\mult(a,b),\mult(a,c))
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose (1) holds for all <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> for some <span class="math inline">\(a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),\plus(b,c)) \\
+ &amp; = &amp; \plus(\mult(a,\plus(b,c)),\plus(b,c)) \\
+ &amp; = &amp; \plus(\plus(\mult(a,b),\mult(a,c)),\plus(b,c)) \\
+ &amp; = &amp; \plus(\mult(a,b),\plus(\mult(a,c),\plus(b,c))) \\
+ &amp; = &amp; \plus(\mult(a,b),\plus(\plus(\mult(a,c),b),c)) \\
+ &amp; = &amp; \plus(\mult(a,b),\plus(\plus(b,\mult(a,c)),c)) \\
+ &amp; = &amp; \plus(\mult(a,b),\plus(b,\plus(\mult(a,c),c))) \\
+ &amp; = &amp; \plus(\plus(\mult(a,b),b),\plus(\mult(a,c),c)) \\
+ &amp; = &amp; \plus(\mult(\next(a),b),\plus(\mult(a,c),c)) \\
+ &amp; = &amp; \plus(\mult(\next(a),b),\mult(\next(a),c)).
+\end{eqnarray*}\]</span> By induction, (1) holds for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
+<p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\plus(a,b),c) \\
+ &amp; = &amp; \mult(c,\plus(a,b)) \\
+ &amp; = &amp; \plus(\mult(c,a),\mult(c,b)) \\
+ &amp; = &amp; \plus(\mult(c,a),\mult(b,c)) \\
+ &amp; = &amp; \plus(\mult(a,c),\mult(b,c))
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
+<p><span class="math inline">\(\mult\)</span> is associative.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b,c \in \nats\)</span>, we have <span class="math display">\[\mult(\mult(a,b),c) = \mult(a,\mult(b,c)).\]</span></p>
+<div class="proof">
+<p>We also show (2) by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span> we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\mult(a,b),c) \\
+ &amp; = &amp; \mult(\mult(\zero,b),c) \\
+ &amp; = &amp; \mult(\zero,c) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \mult(\zero,\mult(b,c))
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose (2) holds for all <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> for some <span class="math inline">\(a\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\mult(\next(a),b),c) \\
+ &amp; = &amp; \mult(\plus(\mult(a,b),b),c) \\
+ &amp; = &amp; \plus(\mult(\mult(a,b),c),\mult(b,c)) \\
+ &amp; = &amp; \plus(\mult(a,\mult(b,c)),\mult(b,c)) \\
+ &amp; = &amp; \mult(\next(a),\mult(b,c)).
+\end{eqnarray*}\]</span> By induction, the conclusion holds for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
+</div>
+</div>
+<p>Finally, <span class="math inline">\(\mult\)</span> is almost cancellative.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b,c \in \nats\)</span> we have the following.</p>
+<ol>
+<li>If <span class="math inline">\(\mult(\next(a),b) = \mult(\next(a),c)\)</span>, then <span class="math inline">\(b = c\)</span>.</li>
+<li>If <span class="math inline">\(\mult(b,\next(a)) = \mult(c,\next(a))\)</span>, then <span class="math inline">\(b = c\)</span>.</li>
+</ol>
+<div class="proof">
+<p>We will prove (1) using <em>nested</em> induction; first on <span class="math inline">\(b\)</span>, then on <span class="math inline">\(c\)</span>. Let <span class="math inline">\(B\)</span> be the set of all <span class="math inline">\(b \in \nats\)</span> such that for all <span class="math inline">\(a\)</span> and <span class="math inline">\(c\)</span>, if <span class="math display">\[\mult(\next(a),b) = \mult(\next(a),c),\]</span> then <span class="math inline">\(b = c\)</span>. We want to show that <span class="math inline">\(B = \nats\)</span> by induction. For the base case <span class="math inline">\(b = \zero\)</span>, suppose we have <span class="math display">\[\mult(\next(a),b) = \mult(\next(a),c).\]</span> Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \zero \\
+ &amp; = &amp; \mult(\next(a),\zero) \\
+ &amp; = &amp; \mult(\next(a),b) \\
+ &amp; = &amp; \mult(\next(a),c).
+\end{eqnarray*}\]</span> As we've <a href="multiplication.html#crossref-0">shown</a>, either <span class="math inline">\(\next(a) = \zero\)</span> or <span class="math inline">\(c = \zero\)</span>; however the first case cannot happen, so <span class="math inline">\(c = \zero = b\)</span> as needed.</p>
+<p>For the inductive step, suppose we have <span class="math inline">\(b \in \nats\)</span> such that <span class="math inline">\(b \in B\)</span>. We now want to show that <span class="math inline">\(\next(b) \in B\)</span>. Let <span class="math inline">\(C\)</span> be the set of all natural numbers such that for all <span class="math inline">\(a\)</span>, if <span class="math display">\[\mult(\next(a),\next(b)) = \mult(\next(a),c),\]</span> then <span class="math inline">\(\next(b) = c\)</span>. We will show that <span class="math inline">\(C = \nats\)</span> by induction on <span class="math inline">\(c\)</span>. To that end, for the base case, let <span class="math inline">\(c = \zero\)</span> and suppose we have <span class="math display">\[\mult(\next(a),\next(b)) = \mult(\next(a),c).\]</span> Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \zero \\
+ &amp; = &amp; \mult(\next(a),\zero) \\
+ &amp; = &amp; \mult(\next(a),c) \\
+ &amp; = &amp; \mult(\next(a),\next(b)) \\
+ &amp; = &amp; \plus(\mult(a,\next(b)),\next(b)) \\
+ &amp; = &amp; \next(\plus(\mult(a,\next(b)),b)).
+\end{eqnarray*}\]</span> However this is not possible, so we have <span class="math inline">\(\zero \in C\)</span> <em>vacuously</em>. For the inductive step, suppose we have <span class="math inline">\(c \in C\)</span>. Now let <span class="math inline">\(a \in A\)</span>, and suppose <span class="math display">\[\mult(\next(a),\next(b)) = \mult(\next(a),\next(c)).\]</span> Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(\plus(\plus(\mult(a,c),c),a)) \\
+ &amp; = &amp; \next(\plus(\mult(a,c),\plus(c,a))) \\
+ &amp; = &amp; \next(\plus(\mult(a,c),\plus(a,c))) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(a,c),a),c)) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(c,a),a),c)) \\
+ &amp; = &amp; \next(\plus(\mult(\next(c),a),c)) \\
+ &amp; = &amp; \next(\plus(\mult(a,\next(c)),c)) \\
+ &amp; = &amp; \plus(\mult(a,\next(c)),\next(c)) \\
+ &amp; = &amp; \mult(\next(a),\next(c)) \\
+ &amp; = &amp; \mult(\next(a),\next(b)) \\
+ &amp; = &amp; \plus(\mult(a,\next(b)),\next(b)) \\
+ &amp; = &amp; \next(\plus(\mult(a,\next(b)),b)) \\
+ &amp; = &amp; \next(\plus(\mult(\next(b),a),b)) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(b,a),a),b)) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(a,b),a),b)) \\
+ &amp; = &amp; \next(\plus(\mult(a,b),\plus(a,b))) \\
+ &amp; = &amp; \next(\plus(\mult(a,b),\plus(b,a))) \\
+ &amp; = &amp; \next(\plus(\plus(\mult(a,b),b),a)).
+\end{eqnarray*}\]</span> (That's a mouthful.) Since <span class="math inline">\(\next\)</span> is injective, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\plus(\mult(a,c),c),a) \\
+ &amp; = &amp; \plus(\plus(\mult(a,b),b),a),
+\end{eqnarray*}\]</span> and since <span class="math inline">\(\plus\)</span> is cancellative, we have <span class="math display">\[\plus(\mult(a,c),c) = \plus(\mult(a,b),b),\]</span> and thus <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),b) \\
+ &amp; = &amp; \plus(\mult(a,b),b) \\
+ &amp; = &amp; \plus(\mult(a,c),c) \\
+ &amp; = &amp; \mult(\next(a),c).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(b \in B\)</span>, we have <span class="math inline">\(b = c\)</span>, and thus <span class="math inline">\(\next(b) = \next(c)\)</span>. Since <span class="math inline">\(a\)</span> was arbitrary, we have <span class="math inline">\(\next(c) \in C\)</span>, so <span class="math inline">\(C = \nats\)</span> by induction. Then <span class="math inline">\(\next(b) \in B\)</span>, so <span class="math inline">\(B = \nats\)</span> by induction, and so (1) holds for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
+<p>After all that, showing (2) is straightforward. Suppose <span class="math inline">\(a,b,c \in \nats\)</span> such that <span class="math display">\[\mult(b,\next(a)) = \mult(c,\next(a)).\]</span> Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a),b) \\
+ &amp; = &amp; \mult(b,\next(a)) \\
+ &amp; = &amp; \mult(c,\next(a)) \\
+ &amp; = &amp; \mult(\next(a),c).
+\end{eqnarray*}\]</span> Then <span class="math inline">\(b = c\)</span> as claimed.</p>
+</div>
+</div>
+</section>
 </article>
 </body>
 </html>

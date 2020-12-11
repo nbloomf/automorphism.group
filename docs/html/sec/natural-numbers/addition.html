@@ -32,7 +32,7 @@
           natrec: "\\mathsf{natrec}",
           simprec: "\\mathsf{simprec}",
           plus: "\\mathsf{plus}",
-          prod: "\\mathsf{times}",
+          mult: "\\mathsf{times}",
         }
       }
     };
@@ -120,30 +120,24 @@
 <div class="definition">
 <p><a name='crossref-1'></a> Define <span class="math inline">\(\mu : \nats \times \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\mu(-,-,b) = \next(b)\)</span>. We then define <span class="math inline">\(\plus : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\plus = \simprec_{\id,\mu}.\]</span> We'll usually prefer the infix symbol <span class="math inline">\(+\)</span> rather than the prefix <span class="math inline">\(\plus\)</span> for this function.</p>
 </div>
+<p>Defining <span class="math inline">\(\plus\)</span> in terms of <span class="math inline">\(\simprec\)</span> has a nice side effect; we can characterize <span class="math inline">\(\plus\)</span> as the unique solution to a particular set of functional equations. This gives a natural way to show that some function is really <span class="math inline">\(\plus\)</span>; show it satisfies these equations.</p>
+<div class="corollary">
+<p><span class="math inline">\(\plus\)</span> is the unique function <span class="math inline">\(f\)</span> having signature <span class="math inline">\(\nats \times \nats \rightarrow \nats\)</span> satisfying the following system of functional equations for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<p><span class="math display">\[\left\{\begin{array}{l}
+f(\zero,b) = b \\
+f(\next(a),b) = \next(f(a,b)).
+\end{array}\right.\]</span></p>
+</div>
 <p>The remainder of this section is all about showing that this <span class="math inline">\(\plus\)</span> acts like we expect it to. First, <span class="math inline">\(\plus\)</span> interacts with <span class="math inline">\(\next\)</span>.</p>
 <div class="theorem">
 <p>The following hold for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
 <ol>
-<li><span class="math inline">\(\plus(\zero,a) = a\)</span>.</li>
-<li><span class="math inline">\(\plus(\next(a),b) = \next(\plus(a,b))\)</span>.</li>
 <li><span class="math inline">\(\plus(a,\zero) = a\)</span>.</li>
 <li><span class="math inline">\(\plus(a,\next(b)) = \next(\plus(a,b))\)</span>.</li>
+<li><span class="math inline">\(\plus(\next(a),b) = \plus(a,\next(b))\)</span>.</li>
 </ol>
 <div class="proof">
-<p>Throughout this proof, we use <span class="math inline">\(\mu\)</span> as defined with <span class="math inline">\(\plus\)</span>. To see (1), note that <span class="math display">\[\begin{eqnarray*}
- &amp;   &amp; \plus(\zero,a) \\
- &amp; = &amp; \simprec_{\id,\mu}(\zero,a) \\
- &amp; = &amp; \id(a) \\
- &amp; = &amp; a
-\end{eqnarray*}\]</span> as claimed.</p>
-<p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
- &amp;   &amp; \plus(\next(a),b) \\
- &amp; = &amp; \simprec_{\id,\mu}(\next(a),b) \\
- &amp; = &amp; \mu(a,b,\simprec_{\id,\mu}(a,b)) \\
- &amp; = &amp; \next(\simprec_{\id,\mu}(a,b)) \\
- &amp; = &amp; \next(\plus(a,b))
-\end{eqnarray*}\]</span> as claimed.</p>
-<p>To show (3) we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+<p>Throughout this proof, we use <span class="math inline">\(\mu\)</span> as defined with <span class="math inline">\(\plus\)</span>. To show (1) we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \plus(a,\zero) \\
  &amp; = &amp; \plus(\zero,\zero) \\
  &amp; = &amp; \simprec_{\id,\mu}(\zero,\zero) \\
@@ -154,8 +148,8 @@
  &amp;   &amp; \plus(\next(a),\zero) \\
  &amp; = &amp; \next(\plus(a,\zero)) \\
  &amp; = &amp; \next(a).
-\end{eqnarray*}\]</span> By induction, (3) holds for all <span class="math inline">\(a \in \nats\)</span>.</p>
-<p>We also show (4) by induction on <span class="math inline">\(a\)</span>. For the base case, let <span class="math inline">\(a = \zero\)</span>; we then have <span class="math display">\[\begin{eqnarray*}
+\end{eqnarray*}\]</span> By induction, (1) holds for all <span class="math inline">\(a \in \nats\)</span>.</p>
+<p>We also show (2) by induction on <span class="math inline">\(a\)</span>. For the base case, let <span class="math inline">\(a = \zero\)</span>; we then have <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \plus(a,\next(b)) \\
  &amp; = &amp; \plus(\zero,\next(b)) \\
  &amp; = &amp; \simprec_{\id,\mu}(\zero,\next(b)) \\
@@ -170,7 +164,12 @@
  &amp; = &amp; \next(\plus(a,\next(b))) \\
  &amp; = &amp; \next(\next(\plus(a,b))) \\
  &amp; = &amp; \next(\plus(\next(a),b)).
-\end{eqnarray*}\]</span> By induction, the (4) holds for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+\end{eqnarray*}\]</span> By induction, the (2) holds for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<p>To see (3), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\next(a),b) \\
+ &amp; = &amp; \next(\plus(a,b)) \\
+ &amp; = &amp; \plus(a,\next(b))
+\end{eqnarray*}\]</span> as claimed.</p>
 </div>
 </div>
 <p>Next, <span class="math inline">\(\plus\)</span> is associative.</p>
