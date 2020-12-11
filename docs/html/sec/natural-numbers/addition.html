@@ -241,7 +241,7 @@ f(\next(a),b) = \next(f(a,b)).
 </div>
 <p>We've shown that <span class="math inline">\(\plus\)</span> is associative, commutative, and cancellative, as we expect. However it may not be clear how to get from <span class="math inline">\(\zero\)</span> and <span class="math inline">\(\next\)</span> to the usual base 10 notation for numbers, which I've been careful to avoid. In a nutshell, what we've defined here is a <em>unary</em> representation for natural numbers; the "size" of the number is just the number of times <span class="math inline">\(\next\)</span> is applied to <span class="math inline">\(\zero\)</span>. As an example, let's compute the sum of "2" and "3".</p>
 <p><span class="math display">\[\begin{eqnarray*}
- &amp;   &amp; \plus(\next(next(\zero)),\next(\next(\next(\zero)))) \\
+ &amp;   &amp; \plus(\next(\next(\zero)),\next(\next(\next(\zero)))) \\
  &amp; = &amp; \plus(\next(\zero),\next(\next(\next(\next(\zero)))) \\
  &amp; = &amp; \plus(\zero,\next(\next(\next(\next(\next(\zero))))) \\
  &amp; = &amp; \next(\next(\next(\next(\next(\zero)))) \\
@@ -259,7 +259,7 @@ f(\next(a),b) = \next(f(a,b)).
 <h2>Solving Equations</h2>
 <p>We can solve some basic addition problems now.</p>
 <div class="example">
-<p>Let <span class="math inline">\(a,b \in \nats\)</span>. Then we have the following.</p>
+<p><a name='crossref-3'></a> Let <span class="math inline">\(a,b \in \nats\)</span>. Then we have the following.</p>
 <ol>
 <li>If <span class="math inline">\(\plus(a,b) = a\)</span>, then <span class="math inline">\(b = \zero\)</span>.</li>
 <li>If <span class="math inline">\(\plus(b,a) = a\)</span>, then <span class="math inline">\(b = \zero\)</span>.</li>
@@ -272,9 +272,35 @@ f(\next(a),b) = \next(f(a,b)).
 \end{eqnarray*}\]</span> Since <span class="math inline">\(\plus\)</span> is left cancellative, we have <span class="math inline">\(b = \zero\)</span> as claimed. (2) is proved similarly, using the fact that <span class="math inline">\(\plus\)</span> is right cancellative.</p>
 </div>
 </div>
+<p>If <span class="math inline">\(\plus(-,b)\)</span> acts like <span class="math inline">\(\next\)</span>, then <span class="math inline">\(b = 1\)</span>.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. Then we have the following.</p>
+<ol>
+<li>If <span class="math inline">\(\plus(a,b) = \next(a)\)</span>, then <span class="math inline">\(b = \next(\zero)\)</span>.</li>
+<li>If <span class="math inline">\(\plus(a,b) = \next(b)\)</span>, then <span class="math inline">\(a = \next(\zero)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). There are two possitibilities for <span class="math inline">\(b\)</span>. If <span class="math inline">\(b = \zero\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(a) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(a,\zero) \\
+ &amp; = &amp; a;
+\end{eqnarray*}\]</span> however we've <a href="basics.html#crossref-7">shown</a> this cannot happen. So we must have <span class="math inline">\(b = \next(m)\)</span> for some <span class="math inline">\(m\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(a) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(a,\next(m)) \\
+ &amp; = &amp; \next(\plus(a,m)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is injective, we have <span class="math inline">\(a = \plus(a,m)\)</span>, and so <span class="math inline">\(m = \zero\)</span> by the previous theorem. Then <span class="math inline">\(b = \next(\zero)\)</span> as claimed.</p>
+<p>To see (2), suppose <span class="math inline">\(\plus(a,b) = \next(b)\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(b) \\
+ &amp; = &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(b,a),
+\end{eqnarray*}\]</span> and using (1), we have <span class="math inline">\(a = \next(\zero)\)</span> as claimed.</p>
+</div>
+</div>
 <p>The next theorem solves <span class="math inline">\(a + b = 0\)</span>, <span class="math inline">\(a + b = 1\)</span>, and <span class="math inline">\(a + b = 2\)</span> over the natural numbers. Baby steps!</p>
 <div class="example">
-<p>Let <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<p><a name='crossref-4'></a><a name='crossref-5'></a><a name='crossref-6'></a> Let <span class="math inline">\(a,b \in \nats\)</span>.</p>
 <ol>
 <li>If <span class="math inline">\(\plus(a,b) = \zero\)</span>, then <span class="math inline">\(a = b = \zero\)</span>.</li>
 <li>If <span class="math inline">\(\plus(a,b) = \next(\zero)\)</span>, then either <span class="math inline">\(a = \zero\)</span> and <span class="math inline">\(b = \next(\zero)\)</span>, or <span class="math inline">\(a = \next(\zero)\)</span> and <span class="math inline">\(b = \zero\)</span>.</li>

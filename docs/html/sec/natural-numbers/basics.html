@@ -299,6 +299,14 @@
 \end{eqnarray*}\]</span> But this is a contradiction.</p>
 </div>
 </div>
+<p>Here's a handy corollary.</p>
+<div class="theorem">
+<p><a name='crossref-7'></a> There does not exist <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(n = \next(n)\)</span>.</p>
+<div class="proof">
+<p>We prove this by induction. For the base case <span class="math inline">\(n = \zero\)</span>, we've <a href="basics.html#crossref-6">shown</a> that there does not exist <span class="math inline">\(m\)</span> such that <span class="math inline">\(\next(m) = \zero\)</span>. In particular, we have <span class="math inline">\(\zero \neq \next(\zero)\)</span>.</p>
+<p>For the inductive step, suppose we have <span class="math inline">\(n\)</span> such that <span class="math inline">\(n \neq \next(n)\)</span>, and consider <span class="math inline">\(\next(n)\)</span>. If <span class="math inline">\(\next(\next(n)) = \next(n)\)</span>, then since <span class="math inline">\(\next\)</span> is injective, we have <span class="math inline">\(\next(n) = n\)</span>. But this is absurd. So$ n \neq \next(n)$ for all <span class="math inline">\(n \in \nats\)</span>.</p>
+</div>
+</div>
 </section>
 </article>
 </body>

@@ -303,6 +303,7 @@ Solving Equations
 We can solve some basic addition problems now.
 
 ::: example :::
+[@thm-plus-neutral]()
 Let $a,b \in \nats$. Then we have the following.
 
 1. If $\plus(a,b) = a$, then $b = \zero$.
@@ -319,9 +320,45 @@ Since $\plus$ is left cancellative, we have $b = \zero$ as claimed. (2) is prove
 :::::::::::::
 :::::::::::::::
 
+If $\plus(-,b)$ acts like $\next$, then $b = 1$.
+
+::: theorem :::
+Let $a,b \in \nats$. Then we have the following.
+
+1. If $\plus(a,b) = \next(a)$, then $b = \next(\zero)$.
+2. If $\plus(a,b) = \next(b)$, then $a = \next(\zero)$.
+
+::: proof :::
+First we show (1). There are two possitibilities for $b$. If $b = \zero$, then
+$$\begin{eqnarray*}
+ &   & \next(a) \\
+ & = & \plus(a,b) \\
+ & = & \plus(a,\zero) \\
+ & = & a;
+\end{eqnarray*}$$
+however we've [shown](@thm-next-no-fixpoint) this cannot happen. So we must have $b = \next(m)$ for some $m$. Now
+$$\begin{eqnarray*}
+ &   & \next(a) \\
+ & = & \plus(a,b) \\
+ & = & \plus(a,\next(m)) \\
+ & = & \next(\plus(a,m)).
+\end{eqnarray*}$$
+Since $\next$ is injective, we have $a = \plus(a,m)$, and so $m = \zero$ by the previous theorem. Then $b = \next(\zero)$ as claimed.
+
+To see (2), suppose $\plus(a,b) = \next(b)$. Then
+$$\begin{eqnarray*}
+ &   & \next(b) \\
+ & = & \plus(a,b) \\
+ & = & \plus(b,a),
+\end{eqnarray*}$$
+and using (1), we have $a = \next(\zero)$ as claimed.
+:::::::::::::
+:::::::::::::::
+
 The next theorem solves $a + b = 0$, $a + b = 1$, and $a + b = 2$ over the natural numbers. Baby steps!
 
 ::: example :::
+[@thm-nats-plus-eq-zero]()[@thm-nats-plus-eq-one]()[@thm-nats-plus-eq-two]()
 Let $a,b \in \nats$.
 
 1. If $\plus(a,b) = \zero$, then $a = b = \zero$.

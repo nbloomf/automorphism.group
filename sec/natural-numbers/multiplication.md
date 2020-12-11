@@ -327,3 +327,101 @@ $$\begin{eqnarray*}
 Then $b = c$ as claimed.
 :::::::::::::
 :::::::::::::::
+
+We've seen that anything times one is itself. In fact one is unique with this property.
+
+::: theorem :::
+[@thm-mult-fixpoint]()
+Let $a,b \in \nats$. Then we have the following.
+
+1. If $\mult(a,b) = a$, then either $a = \zero$ or $b = \next(\zero)$.
+2. If $\mult(a,b) = b$, then either $a = \next(\zero)$ or $b = \zero$.
+
+::: proof :::
+First we show (1). Note that there are two possibilities for $b$: either $b = \zero$ or $b = \next(n)$ for some $n$. If $b = \zero$, then $$a = \mult(a,b) = \mult(a,\zero) = \zero$$ as claimed. Suppose instead that $b = \next(m)$ for some $m$. Then we have
+$$\begin{eqnarray*}
+ &   & a \\
+ & = & \mult(a,b) \\
+ & = & \mult(a,\next(m)) \\
+ & = & \plus(\mult(a,m),a).
+\end{eqnarray*}$$
+As we've [shown](@thm-plus-neutral), we then have $\mult(a,m) = \zero$, and so either $a = \zero$ (as claimed) or $m = \zero$ so that $b = \next(\zero)$ (as claimed).
+
+To see (2), note that if $\mult(a,b) = b$, then
+$$\begin{eqnarray*}
+ &   & b \\
+ & = & \mult(a,b) \\
+ & = & \mult(b,a),
+\end{eqnarray*}$$
+so either $b = \zero$ or $a = \next(\zero)$, as claimed.
+:::::::::::::
+:::::::::::::::
+
+
+
+Simple Equations
+----------------
+
+As we did with $\plus$, we can solve some simple equations involving $\plus$ over the natural numbers. Eventually we'll have some tools to make proofs of these solutions simpler, but it is instructive to try to prove them bare-handed.
+
+First: $ab = 1$.
+
+::: example :::
+[@thm-times-eq-one]()
+If $a,b \in \nats$ such that $$\mult(a,b) = \next(\zero),$$ then $a = b = \next(\zero)$.
+
+::: proof :::
+If $a = \zero$ then $$\mult(a,b) = \zero \neq \next(\zero),$$ so we must have $a = \next(n)$ for some $n$. Now
+$$\begin{eqnarray*}
+ &   & \next(\zero) \\
+ & = & \mult(a,b) \\
+ & = & \mult(\next(n),b) \\
+ & = & \plus(\mult(n,b),b).
+\end{eqnarray*}$$
+As we've [shown](@thm-nats-plus-eq-one), there are two possibilities: either $\mult(n,b) = \zero$ and $b = \next(\zero)$ or $\mult(n,b) = \next(\zero)$ and $b = \zero$. Consider the second case. If $b = \zero$, then
+$$\begin{eqnarray*}
+ &   & \next(\zero) \\
+ & = & \mult(n,b) \\
+ & = & \mult(n,\zero) \\
+ & = & \zero,
+\end{eqnarray*}$$
+which is absurd. So we must have $b = \next(\zero)$ and $\mult(n,b) = \zero$. But now
+$$\begin{eqnarray*}
+ &   & \zero \\
+ & = & \mult(n,b) \\
+ & = & \mult(n,\next(\zero)) \\
+ & = & n,
+\end{eqnarray*}$$
+and so $a = \next(\zero)$. So we have $a = b = \next(\zero)$ as claimed.
+:::::::::::::
+:::::::::::::::
+
+Next: $ab = 2$.
+
+::: example :::
+If $a,b \in \nats$ such that $$\mult(a,b) = \next(\next(\zero)),$$ then one of the following holds:
+
+- $a = \next(\zero)$ and $b = \next(\next(\zero))$
+- $a = \next(\next(\zero))$ and $b = \next(\zero)$
+
+::: proof :::
+If $a = \zero$, then $$\mult(a,b) = \mult(\zero,b) = \zero \neq \next(\next(\zero)),$$ so we must have $a = \next(n)$ for some $n$. Now
+$$\begin{eqnarray*}
+ &   & \next(\next(\zero)) \\
+ & = & \mult(a,b) \\
+ & = & \mult(\next(n),b) \\
+ & = & \plus(\mult(n,b),b).
+\end{eqnarray*}$$
+As we've [shown](@thm-nats-plus-eq-two), there are now three possibilities for $b$; either $b = \zero$, $b = \next(\zero)$, or $b = \next(\next(\zero))$. However if $b = \zero$ we have $$\zero = \mult(a,\zero) = \mult(a,b) = \next(\next(\zero)),$$ which is absurd. So there are only two possible cases.
+
+First suppose $b = \next(\zero)$ and $\mult(n,b) = \next(\zero)$. As we showed [previously](@thm-times-eq-one), $n = \next(\zero)$, and so $a = \next(\next(\zero))$ and $b = \next(\zero)$ as claimed.
+
+Suppose instead that $b = \next(\next(\zero))$. Then
+$$\begin{eqnarray*}
+ &   & b \\
+ & = & \next(\next(\zero)) \\
+ & = & \mult(a,b).
+\end{eqnarray*}$$
+As we've [shown](@thm-mult-fixpoint), either $b = \zero$ (which is absurd) or $a = \next(\zero)$, as claimed.
+:::::::::::::
+:::::::::::::::

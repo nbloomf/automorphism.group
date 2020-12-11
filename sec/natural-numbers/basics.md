@@ -345,3 +345,16 @@ $$\begin{eqnarray*}
 But this is a contradiction.
 :::::::::::::
 :::::::::::::::
+
+Here's a handy corollary.
+
+::: theorem :::
+[@thm-next-no-fixpoint]()
+There does not exist $n \in \nats$ such that $n = \next(n)$.
+
+::: proof :::
+We prove this by induction. For the base case $n = \zero$, we've [shown](@thm-nat-zero-not-next) that there does not exist $m$ such that $\next(m) = \zero$. In particular, we have $\zero \neq \next(\zero)$.
+
+For the inductive step, suppose we have $n$ such that $n \neq \next(n)$, and consider $\next(n)$. If $\next(\next(n)) = \next(n)$, then since $\next$ is injective, we have $\next(n) = n$. But this is absurd. So$ n \neq \next(n)$ for all $n \in \nats$.
+:::::::::::::
+:::::::::::::::
