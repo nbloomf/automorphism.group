@@ -10,3 +10,4 @@ title: automorphism.group
 - [Natural Numbers](html/sec/natural-numbers/basics.html)
   - [Addition](html/sec/natural-numbers/addition.html)
   - [Multiplication](html/sec/natural-numbers/multiplication.html)
+  - [Ordering](html/sec/natural-numbers/ordering.html)

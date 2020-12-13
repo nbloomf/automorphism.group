@@ -16,7 +16,7 @@ Let $A$ and $B$ be sets, with a subset $f \subseteq A \times B$.
 3. We say $f$ is a _function_ if it is both total and well-defined.
 ::::::::::::::::::
 
-We have some special notation for working with functions. Although a function is literally a set, we will usually express the statement "$f \subseteq A \times B$ is a function" using the notation $f : A \rightarrow B$, pronounced "$f$ maps $A$ to $B$". In this notation, $A \rightarrow B$ is called the _signature_ of $f$.
+We have some special notation for working with functions. Although a function is literally a set, we will usually express the statement "$f \subseteq A \times B$ is a function" using the notation $f : A \rightarrow B$, pronounced "$f$ maps $A$ to $B$". The notation $A \rightarrow B$ is called the _signature_ of $f.$
 
 The total and well-definedness conditions together imply that for every $a \in A$, there is a _unique_ $b \in B$ with $(a,b) \in f$. Whenever this kind of thing happens -- an object with some property exists and is unique -- it is often useful to give it a name. We refer to this unique $b$ as $f(a)$, called the _image_ of $f$ _at_ $a$.
 

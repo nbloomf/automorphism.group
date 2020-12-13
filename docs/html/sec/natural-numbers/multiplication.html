@@ -233,7 +233,7 @@ f(\next(a),b) = \plus(f(a,b),b).
 </div>
 <p>Finally, <span class="math inline">\(\mult\)</span> is almost cancellative.</p>
 <div class="theorem">
-<p>For all <span class="math inline">\(a,b,c \in \nats\)</span> we have the following.</p>
+<p><a name='crossref-1'></a> For all <span class="math inline">\(a,b,c \in \nats\)</span> we have the following.</p>
 <ol>
 <li>If <span class="math inline">\(\mult(\next(a),b) = \mult(\next(a),c)\)</span>, then <span class="math inline">\(b = c\)</span>.</li>
 <li>If <span class="math inline">\(\mult(b,\next(a)) = \mult(c,\next(a))\)</span>, then <span class="math inline">\(b = c\)</span>.</li>
@@ -290,7 +290,7 @@ f(\next(a),b) = \plus(f(a,b),b).
 </div>
 <p>We've seen that anything times one is itself. In fact one is unique with this property.</p>
 <div class="theorem">
-<p><a name='crossref-1'></a> Let <span class="math inline">\(a,b \in \nats\)</span>. Then we have the following.</p>
+<p><a name='crossref-2'></a> Let <span class="math inline">\(a,b \in \nats\)</span>. Then we have the following.</p>
 <ol>
 <li>If <span class="math inline">\(\mult(a,b) = a\)</span>, then either <span class="math inline">\(a = \zero\)</span> or <span class="math inline">\(b = \next(\zero)\)</span>.</li>
 <li>If <span class="math inline">\(\mult(a,b) = b\)</span>, then either <span class="math inline">\(a = \next(\zero)\)</span> or <span class="math inline">\(b = \zero\)</span>.</li>
@@ -315,7 +315,7 @@ f(\next(a),b) = \plus(f(a,b),b).
 <p>As we did with <span class="math inline">\(\plus\)</span>, we can solve some simple equations involving <span class="math inline">\(\plus\)</span> over the natural numbers. Eventually we'll have some tools to make proofs of these solutions simpler, but it is instructive to try to prove them bare-handed.</p>
 <p>First: <span class="math inline">\(ab = 1\)</span>.</p>
 <div class="example">
-<p><a name='crossref-2'></a> If <span class="math inline">\(a,b \in \nats\)</span> such that <span class="math display">\[\mult(a,b) = \next(\zero),\]</span> then <span class="math inline">\(a = b = \next(\zero)\)</span>.</p>
+<p><a name='crossref-3'></a> If <span class="math inline">\(a,b \in \nats\)</span> such that <span class="math display">\[\mult(a,b) = \next(\zero),\]</span> then <span class="math inline">\(a = b = \next(\zero)\)</span>.</p>
 <div class="proof">
 <p>If <span class="math inline">\(a = \zero\)</span> then <span class="math display">\[\mult(a,b) = \zero \neq \next(\zero),\]</span> so we must have <span class="math inline">\(a = \next(n)\)</span> for some <span class="math inline">\(n\)</span>. Now <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \next(\zero) \\
@@ -349,12 +349,12 @@ f(\next(a),b) = \plus(f(a,b),b).
  &amp; = &amp; \mult(\next(n),b) \\
  &amp; = &amp; \plus(\mult(n,b),b).
 \end{eqnarray*}\]</span> As we've <a href="addition.html#crossref-6">shown</a>, there are now three possibilities for <span class="math inline">\(b\)</span>; either <span class="math inline">\(b = \zero\)</span>, <span class="math inline">\(b = \next(\zero)\)</span>, or <span class="math inline">\(b = \next(\next(\zero))\)</span>. However if <span class="math inline">\(b = \zero\)</span> we have <span class="math display">\[\zero = \mult(a,\zero) = \mult(a,b) = \next(\next(\zero)),\]</span> which is absurd. So there are only two possible cases.</p>
-<p>First suppose <span class="math inline">\(b = \next(\zero)\)</span> and <span class="math inline">\(\mult(n,b) = \next(\zero)\)</span>. As we showed <a href="multiplication.html#crossref-2">previously</a>, <span class="math inline">\(n = \next(\zero)\)</span>, and so <span class="math inline">\(a = \next(\next(\zero))\)</span> and <span class="math inline">\(b = \next(\zero)\)</span> as claimed.</p>
+<p>First suppose <span class="math inline">\(b = \next(\zero)\)</span> and <span class="math inline">\(\mult(n,b) = \next(\zero)\)</span>. As we showed <a href="multiplication.html#crossref-3">previously</a>, <span class="math inline">\(n = \next(\zero)\)</span>, and so <span class="math inline">\(a = \next(\next(\zero))\)</span> and <span class="math inline">\(b = \next(\zero)\)</span> as claimed.</p>
 <p>Suppose instead that <span class="math inline">\(b = \next(\next(\zero))\)</span>. Then <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; b \\
  &amp; = &amp; \next(\next(\zero)) \\
  &amp; = &amp; \mult(a,b).
-\end{eqnarray*}\]</span> As we've <a href="multiplication.html#crossref-1">shown</a>, either <span class="math inline">\(b = \zero\)</span> (which is absurd) or <span class="math inline">\(a = \next(\zero)\)</span>, as claimed.</p>
+\end{eqnarray*}\]</span> As we've <a href="multiplication.html#crossref-2">shown</a>, either <span class="math inline">\(b = \zero\)</span> (which is absurd) or <span class="math inline">\(a = \next(\zero)\)</span>, as claimed.</p>
 </div>
 </div>
 </section>

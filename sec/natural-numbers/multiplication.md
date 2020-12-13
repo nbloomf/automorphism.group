@@ -258,6 +258,7 @@ By induction, the conclusion holds for all $a,b,c \in \nats$.
 Finally, $\mult$ is almost cancellative.
 
 ::: theorem :::
+[@thm-mult-cancellative]()
 For all $a,b,c \in \nats$ we have the following.
 
 1. If $\mult(\next(a),b) = \mult(\next(a),c)$, then $b = c$.
