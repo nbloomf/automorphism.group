@@ -241,6 +241,25 @@
 \end{eqnarray*}\]</span> so <span class="math inline">\(a \leq c\)</span>.</p>
 </div>
 </div>
+<p>We can also solve some inequalities.</p>
+<div class="example">
+<p>If <span class="math inline">\(m \in \nats\)</span> such that <span class="math inline">\(m \leq \zero\)</span>, then <span class="math inline">\(m = \zero\)</span>.</p>
+<div class="proof">
+<p>Suppose <span class="math inline">\(m \leq \zero\)</span>. There are two possibilities for <span class="math inline">\(m\)</span>; either <span class="math inline">\(m = \zero\)</span> or <span class="math inline">\(m = \next(n)\)</span> for some <span class="math inline">\(n\)</span>. We've shown that <span class="math inline">\(\next(n) \not\lt \zero\)</span>, and also that <span class="math inline">\(\zero \not\lt \zero\)</span>; in either case we have <span class="math inline">\(m \not\lt \zero\)</span>. So it must be that <span class="math inline">\(m = \zero\)</span>.</p>
+</div>
+</div>
+<p>We can split a <span class="math inline">\(\leq\)</span> inequality with a <span class="math inline">\(\next\)</span> into an <span class="math inline">\(=\)</span> part and a <span class="math inline">\(&lt;\)</span> part with no <span class="math inline">\(\next\)</span>; this is handy for induction proofs.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(k,n \in \nats\)</span>. If <span class="math inline">\(k \leq \next(n)\)</span>, then either <span class="math inline">\(k \leq n\)</span> or <span class="math inline">\(k = \next(n)\)</span>.</p>
+<div class="proof">
+<p>Suppose <span class="math inline">\(k \leq \next(n)\)</span>; then we have <span class="math inline">\(m\)</span> such that <span class="math inline">\(\plus(k,m) = \next(n)\)</span>. There are two possibilities for <span class="math inline">\(m\)</span>. If <span class="math inline">\(m = \zero\)</span>, then <span class="math display">\[k = \plus(k,\zero) = \plus(k,m) = \next(n).\]</span> Suppose instead that <span class="math inline">\(m = \next(u)\)</span> for some <span class="math inline">\(u\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(n) \\
+ &amp; = &amp; \plus(k,m) \\
+ &amp; = &amp; \plus(k,\next(u)) \\
+ &amp; = &amp; \next(\plus(k,u)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is injective, we have <span class="math inline">\(\plus(k,u) = n\)</span>, and so <span class="math inline">\(k \leq n\)</span> as needed.</p>
+</div>
+</div>
 </section>
 <section class="level2">
 <h2>Greater Than</h2>
@@ -317,6 +336,45 @@
 <p>In all cases, either <span class="math inline">\(\next(a) &lt; b\)</span>, <span class="math inline">\(\next(a) = b\)</span>, or <span class="math inline">\(\next(a) &gt; b\)</span>, as needed. By induction the claim holds for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
 <p>We still need to check the "only one" part of this claim. If <span class="math inline">\(a = b\)</span>, we've shown we cannot also have <span class="math inline">\(a &lt; b\)</span>, and similarly cannot have <span class="math inline">\(a &gt; b\)</span>. If <span class="math inline">\(a &lt; b\)</span>, then (by definition) <span class="math inline">\(b &gt; a\)</span> and we cannot also have <span class="math inline">\(a &gt; b\)</span>.</p>
 <p>And so <em>at least</em> one of <span class="math inline">\(a &lt; b\)</span>, <span class="math inline">\(a = b\)</span>, or <span class="math inline">\(a &gt; b\)</span> holds, but also <em>at most</em> one holds.</p>
+</div>
+</div>
+<p>The order relations also allow us to express an alternative form of the induction principle. Recall that with ordinary induction, a property holds for all natural numbers if it holds for <span class="math inline">\(\zero\)</span> and also for <span class="math inline">\(\next(n)\)</span> when it holds for <span class="math inline">\(n\)</span>. It turns out we can "weaken" the inductive hypothesis a bit to all <span class="math inline">\(k\)</span> such that <span class="math inline">\(k \leq n\)</span>. This form of induction is not actually stronger in deductive power than normal induction, but it is sometimes easier to use, and we call it <em>strong</em> induction to distinguish it from normal induction.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(A\)</span> be a set and suppose we have a function <span class="math inline">\(f : \nats \rightarrow A\)</span>. Suppose now that we have a subset <span class="math inline">\(B \subseteq A\)</span> satisfying the following:</p>
+<ol>
+<li><span class="math inline">\(f(\zero) \in B\)</span>.</li>
+<li>If <span class="math inline">\(n \in \nats\)</span> and <span class="math inline">\(f(k) \in B\)</span> for all <span class="math inline">\(k \leq n\)</span>, then <span class="math inline">\(f(\next(n)) \in B\)</span>.</li>
+</ol>
+<p>Then we have <span class="math inline">\(f(n) \in B\)</span> for all <span class="math inline">\(n \in \nats\)</span>. When using this theorem we say we are proceeding by <em>strong induction</em>; (1) is called the <em>base case</em> and (2) is called the <em>inductive step</em>.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(B\)</span> be such a subset. We define an auxiliary subset <span class="math inline">\(T \subseteq \nats\)</span> as follows: <span class="math display">\[T = \{ n \mid \mathrm{if}\ k \leq n\ \mathrm{then}\ f(k) \in B\ \mathrm{for\ all}\ k \}.\]</span> We first will show that <span class="math inline">\(T = \nats\)</span> by induction.</p>
+<p>For the base case, consider <span class="math inline">\(n = \zero\)</span>. If <span class="math inline">\(k \leq \zero\)</span>, then <span class="math inline">\(k = \zero\)</span>. We have <span class="math inline">\(f(k) = f(\zero) \in B\)</span> by definition, and thus <span class="math inline">\(\zero \in T\)</span> as needed.</p>
+<p>For the inductive step, suppose we have <span class="math inline">\(n \in T\)</span>. Now suppose <span class="math inline">\(k \leq \next(n)\)</span>. We need to show that <span class="math inline">\(f(k) \in B\)</span>. There are two possibilities: either <span class="math inline">\(k \leq n\)</span> or <span class="math inline">\(k = \next(n)\)</span>. Suppose first that <span class="math inline">\(k \leq n\)</span>; since <span class="math inline">\(n \in T\)</span>, we have <span class="math inline">\(f(k) \in B\)</span>. Now suppose <span class="math inline">\(k = \next(n)\)</span>. Again we have <span class="math inline">\(n \in T\)</span>, and note that the condition for membership in <span class="math inline">\(T\)</span> is precisely the hypothesis of (2). So we have <span class="math inline">\(f(\next(n)) \in B\)</span>. In either case we have <span class="math inline">\(f(k) \in B\)</span>, and so <span class="math inline">\(\next(n) \in T\)</span>. By induction we thus have <span class="math inline">\(T = \nats\)</span>.</p>
+<p>Finally we can show that <span class="math inline">\(f(n) \in B\)</span> for all <span class="math inline">\(n\)</span>. To this end let <span class="math inline">\(n \in \nats\)</span>. We have <span class="math inline">\(n \in T\)</span>, and in particular, since <span class="math inline">\(n \leq n\)</span>, we have <span class="math inline">\(f(n) \in B\)</span>. Since <span class="math inline">\(n\)</span> was arbitrary the theorem is proved.</p>
+</div>
+</div>
+<p>The most common variant of strong induction is that having <span class="math inline">\(A = \nats\)</span> and <span class="math inline">\(f = \id\)</span>.</p>
+<div class="corollary">
+<p>Suppose we have a subset <span class="math inline">\(B \subseteq \nats\)</span> satisfying the following properties.</p>
+<ol>
+<li><span class="math inline">\(\zero \in B\)</span>.</li>
+<li>For all <span class="math inline">\(n \in \nats\)</span>, if <span class="math inline">\(k \in B\)</span> whenever <span class="math inline">\(k \leq n\)</span>, then <span class="math inline">\(\next(n) \in B\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\(B = \nats\)</span>.</p>
+</div>
+<p>Strong induction also has an analogous "measure" variety.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(f : A \rightarrow \nats\)</span> be a function. Suppose we have <span class="math inline">\(B \subseteq A\)</span> satisfying the following.</p>
+<ol>
+<li><span class="math inline">\(f(a) = \zero\)</span> implies <span class="math inline">\(a \in B\)</span> for all <span class="math inline">\(a \in A\)</span>.</li>
+<li>For all <span class="math inline">\(n \in \nats\)</span>, if <span class="math inline">\(f(a) = k\)</span> and <span class="math inline">\(k \leq n\)</span> imply <span class="math inline">\(a \in B\)</span> for all <span class="math inline">\(k \in \nats\)</span> and <span class="math inline">\(a \in A\)</span>, then <span class="math inline">\(f(a) = \next(n)\)</span> implies <span class="math inline">\(a \in B\)</span> for all <span class="math inline">\(a \in A\)</span>.</li>
+</ol>
+<p>Then we have <span class="math inline">\(B = A\)</span>. When using this theorem we say we are proceeding by <em>strong induction on</em> <span class="math inline">\(f\)</span>; (1) is called the <em>base case</em>, and (2) the <em>inductive step</em>.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(B\)</span> be such a subset. We define an auxiliary subset <span class="math inline">\(T \subseteq \nats\)</span> by <span class="math display">\[T = \{ n \mid \mathrm{if}\ f(a) = n\ \mathrm{then}\ a \in B\ \mathrm{for\ all}\ a \in A \}.\]</span> We first will show that <span class="math inline">\(T = \nats\)</span> by strong induction.</p>
+<p>For the base case <span class="math inline">\(n = \zero\)</span>, note that for all <span class="math inline">\(a \in A\)</span>, if <span class="math inline">\(f(a) = \zero\)</span> then <span class="math inline">\(a \in b\)</span> by (1). So we have <span class="math inline">\(\zero \in T\)</span>.</p>
+<p>For the inductive step, let <span class="math inline">\(n \in \nats\)</span> and suppose we have <span class="math inline">\(k \in T\)</span> for all <span class="math inline">\(k \leq n\)</span>. We want to show that <span class="math inline">\(\next(n) \in T\)</span>. First note the following: if <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(k \leq n\)</span>, since <span class="math inline">\(k \in T\)</span>, we have that if <span class="math inline">\(f(a) = k\)</span> then <span class="math inline">\(a \in B\)</span>. This is precisely the hypothesis of (2). And so, whenever <span class="math inline">\(f(a) = \next(n)\)</span>, we have <span class="math inline">\(a \in B\)</span>. Thus <span class="math inline">\(\next(n) \in T\)</span>, and by induction we have <span class="math inline">\(T = \nats\)</span>.</p>
+<p>Finally, let <span class="math inline">\(a \in A\)</span>. Now <span class="math inline">\(f(a) \in \nats \subseteq T\)</span>, so we have <span class="math inline">\(a \in B\)</span>. Thus <span class="math inline">\(B = A\)</span> as claimed.</p>
 </div>
 </div>
 </section>

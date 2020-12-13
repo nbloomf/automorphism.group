@@ -281,6 +281,33 @@ so $a \leq c$.
 :::::::::::::
 :::::::::::::::
 
+We can also solve some inequalities.
+
+::: example :::
+If $m \in \nats$ such that $m \leq \zero$, then $m = \zero$.
+
+::: proof :::
+Suppose $m \leq \zero$. There are two possibilities for $m$; either $m = \zero$ or $m = \next(n)$ for some $n$. We've shown that $\next(n) \not\lt \zero$, and also that $\zero \not\lt \zero$; in either case we have $m \not\lt \zero$. So it must be that $m = \zero$.
+:::::::::::::
+:::::::::::::::
+
+We can split a $\leq$ inequality with a $\next$ into an $=$ part and a $<$ part with no $\next$; this is handy for induction proofs.
+
+::: theorem :::
+Let $k,n \in \nats$. If $k \leq \next(n)$, then either $k \leq n$ or $k = \next(n)$.
+
+::: proof :::
+Suppose $k \leq \next(n)$; then we have $m$ such that $\plus(k,m) = \next(n)$. There are two possibilities for $m$. If $m = \zero$, then $$k = \plus(k,\zero) = \plus(k,m) = \next(n).$$ Suppose instead that $m = \next(u)$ for some $u$. Then
+$$\begin{eqnarray*}
+ &   & \next(n) \\
+ & = & \plus(k,m) \\
+ & = & \plus(k,\next(u)) \\
+ & = & \next(\plus(k,u)).
+\end{eqnarray*}$$
+Since $\next$ is injective, we have $\plus(k,u) = n$, and so $k \leq n$ as needed.
+:::::::::::::
+:::::::::::::::
+
 
 
 Greater Than
@@ -379,5 +406,58 @@ In all cases, either $\next(a) < b$, $\next(a) = b$, or $\next(a) > b$, as neede
 We still need to check the "only one" part of this claim. If $a = b$, we've shown we cannot also have $a < b$, and similarly cannot have $a > b$. If $a < b$, then (by definition) $b > a$ and we cannot also have $a > b$.
 
 And so _at least_ one of $a < b$, $a = b$, or $a > b$ holds, but also _at most_ one holds.
+:::::::::::::
+:::::::::::::::
+
+The order relations also allow us to express an alternative form of the induction principle. Recall that with ordinary induction, a property holds for all natural numbers if it holds for $\zero$ and also for $\next(n)$ when it holds for $n$. It turns out we can "weaken" the inductive hypothesis a bit to all $k$ such that $k \leq n$. This form of induction is not actually stronger in deductive power than normal induction, but it is sometimes easier to use, and we call it _strong_ induction to distinguish it from normal induction.
+
+::: theorem :::
+Let $A$ be a set and suppose we have a function $f : \nats \rightarrow A$. Suppose now that we have a subset $B \subseteq A$ satisfying the following:
+
+1. $f(\zero) \in B$.
+2. If $n \in \nats$ and $f(k) \in B$ for all $k \leq n$, then $f(\next(n)) \in B$.
+
+Then we have $f(n) \in B$ for all $n \in \nats$. When using this theorem we say we are proceeding by _strong induction_; (1) is called the _base case_ and (2) is called the _inductive step_.
+
+::: proof :::
+Let $B$ be such a subset. We define an auxiliary subset $T \subseteq \nats$ as follows: $$T = \{ n \mid \mathrm{if}\ k \leq n\ \mathrm{then}\ f(k) \in B\ \mathrm{for\ all}\ k \}.$$ We first will show that $T = \nats$ by induction.
+
+For the base case, consider $n = \zero$. If $k \leq \zero$, then $k = \zero$. We have $f(k) = f(\zero) \in B$ by definition, and thus $\zero \in T$ as needed.
+
+For the inductive step, suppose we have $n \in T$. Now suppose $k \leq \next(n)$. We need to show that $f(k) \in B$. There are two possibilities: either $k \leq n$ or $k = \next(n)$. Suppose first that $k \leq n$; since $n \in T$, we have $f(k) \in B$. Now suppose $k = \next(n)$. Again we have $n \in T$, and note that the condition for membership in $T$ is precisely the hypothesis of (2). So we have $f(\next(n)) \in B$. In either case we have $f(k) \in B$, and so $\next(n) \in T$. By induction we thus have $T = \nats$.
+
+Finally we can show that $f(n) \in B$ for all $n$. To this end let $n \in \nats$. We have $n \in T$, and in particular, since $n \leq n$, we have $f(n) \in B$. Since $n$ was arbitrary the theorem is proved.
+:::::::::::::
+:::::::::::::::
+
+The most common variant of strong induction is that having $A = \nats$ and $f = \id$.
+
+::: corollary :::
+Suppose we have a subset $B \subseteq \nats$ satisfying the following properties.
+
+1. $\zero \in B$.
+2. For all $n \in \nats$, if $k \in B$ whenever $k \leq n$, then $\next(n) \in B$.
+
+Then $B = \nats$.
+:::::::::::::::::
+
+Strong induction also has an analogous "measure" variety.
+
+::: theorem :::
+Let $f : A \rightarrow \nats$ be a function. Suppose we have $B \subseteq A$ satisfying the following.
+
+1. $f(a) = \zero$ implies $a \in B$ for all $a \in A$.
+2. For all $n \in \nats$, if $f(a) = k$ and $k \leq n$ imply $a \in B$ for all $k \in \nats$ and $a \in A$, then $f(a) = \next(n)$ implies $a \in B$ for all $a \in A$.
+
+Then we have $B = A$. When using this theorem we say we are proceeding by _strong induction on_ $f$; (1) is called the _base case_, and (2) the _inductive step_.
+
+::: proof :::
+Let $B$ be such a subset. We define an auxiliary subset $T \subseteq \nats$ by $$T = \{ n \mid \mathrm{if}\ f(a) = n\ \mathrm{then}\ a \in B\ \mathrm{for\ all}\ a \in A \}.$$ We first will show that $T = \nats$ by strong induction.
+
+For the base case $n = \zero$, note that for all $a \in A$, if $f(a) = \zero$ then $a \in b$ by (1). So we have $\zero \in T$.
+
+For the inductive step, let $n \in \nats$ and suppose we have $k \in T$ for all $k \leq n$. We want to show that $\next(n) \in T$. First note the following: if $a \in A$ and $k \leq n$, since $k \in T$, we have that if $f(a) = k$ then $a \in B$. This is precisely the hypothesis of (2). And so, whenever $f(a) = \next(n)$, we have $a \in B$. Thus $\next(n) \in T$, and by induction we have $T = \nats$.
+
+Finally, let $a \in A$. Now $f(a) \in \nats \subseteq T$, so we have $a \in B$. Thus $B = A$ as claimed.
 :::::::::::::
 :::::::::::::::
