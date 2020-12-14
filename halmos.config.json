@@ -11,6 +11,7 @@
     , "sec/natural-numbers/addition.md"
     , "sec/natural-numbers/multiplication.md"
     , "sec/natural-numbers/ordering.md"
+    , "sec/natural-numbers/max-and-min.md"
     , "sec/group-basics.md"
     ]
 }

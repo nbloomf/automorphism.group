@@ -11,3 +11,4 @@ title: automorphism.group
   - [Addition](html/sec/natural-numbers/addition.html)
   - [Multiplication](html/sec/natural-numbers/multiplication.html)
   - [Ordering](html/sec/natural-numbers/ordering.html)
+  - [Max and Min](html/sec/natural-numbers/max-and-min.html)
