@@ -461,3 +461,22 @@ For the inductive step, let $n \in \nats$ and suppose we have $k \in T$ for all 
 Finally, let $a \in A$. Now $f(a) \in \nats \subseteq T$, so we have $a \in B$. Thus $B = A$ as claimed.
 :::::::::::::
 :::::::::::::::
+
+We can also show that there are no natural numbers between $m$ and $\next(m)$ for any $m$.
+
+::: theorem :::
+Let $m \in \nats$. There does not exist $n \in \nats$ such that $m < n$ and $n < \next(m)$.
+
+::: proof :::
+Suppose we have $m < n$ and $n < \next(m)$. Then we have $u,v \in \nats$ such that $\plus(m,\next(u)) = n$ and $\plus(n,\next(v)) = \next(m)$. Now
+$$\begin{eqnarray*}
+ &   & \next(m) \\
+ & = & \plus(n,\next(v)) \\
+ & = & \plus(\plus(m,\next(u)),\next(v)) \\
+ & = & \next(\plus(\plus(m,\next(u)),v)) \\
+ & = & \next(\plus(m,\plus(\next(u),v))) \\
+ & = & \next(\plus(m,\next(\plus(u,v)))).
+\end{eqnarray*}$$
+Since $\next$ is injective, $m = \plus(m,\next(\plus(u,v)))$, and so $\next(\plus(u,v)) = \zero$, which is absurd. So no such $m$ exists.
+:::::::::::::
+:::::::::::::::

@@ -379,6 +379,20 @@
 <p>Finally, let <span class="math inline">\(a \in A\)</span>. Now <span class="math inline">\(f(a) \in \nats \subseteq T\)</span>, so we have <span class="math inline">\(a \in B\)</span>. Thus <span class="math inline">\(B = A\)</span> as claimed.</p>
 </div>
 </div>
+<p>We can also show that there are no natural numbers between <span class="math inline">\(m\)</span> and <span class="math inline">\(\next(m)\)</span> for any <span class="math inline">\(m\)</span>.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(m \in \nats\)</span>. There does not exist <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(m &lt; n\)</span> and <span class="math inline">\(n &lt; \next(m)\)</span>.</p>
+<div class="proof">
+<p>Suppose we have <span class="math inline">\(m &lt; n\)</span> and <span class="math inline">\(n &lt; \next(m)\)</span>. Then we have <span class="math inline">\(u,v \in \nats\)</span> such that <span class="math inline">\(\plus(m,\next(u)) = n\)</span> and <span class="math inline">\(\plus(n,\next(v)) = \next(m)\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \next(m) \\
+ &amp; = &amp; \plus(n,\next(v)) \\
+ &amp; = &amp; \plus(\plus(m,\next(u)),\next(v)) \\
+ &amp; = &amp; \next(\plus(\plus(m,\next(u)),v)) \\
+ &amp; = &amp; \next(\plus(m,\plus(\next(u),v))) \\
+ &amp; = &amp; \next(\plus(m,\next(\plus(u,v)))).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is injective, <span class="math inline">\(m = \plus(m,\next(\plus(u,v)))\)</span>, and so <span class="math inline">\(\next(\plus(u,v)) = \zero\)</span>, which is absurd. So no such <span class="math inline">\(m\)</span> exists.</p>
+</div>
+</div>
 </section>
 </article>
 </body>

@@ -100,3 +100,17 @@ $$\begin{eqnarray*}
 so that $a \leq b$.
 :::::::::::::
 :::::::::::::::
+
+We'll eventually be able to say a lot more interesting stuff using divisibility, but we need some more tools first.
+
+With our order relations, an interesting problem is how to demonstrate that they are or are not satisfied. To show that $a < b$, for instance, it's enough to exhibit a specific $c$ such that $\plus(a,\next(c)) = b$. Thanks to the trichotomy theorem, we can similarly show that $a \not\lt b$ by exhibiting a specific $c$ such that $\plus(b,c) = a$. In these problems, we might call $c$ a _witness_ to the ordering of $a$ and $b$.
+
+The divides relation is similarly easy to prove in the positive; to show that $a|b$ it's enough to find $c$ such that $\mult(a,c) = b$. There is no analog of the trichotomy property for divisibility, however we can still prove a "witness theorem" giving a shortcut for showing that one number _doesn't_ divide another.
+
+::: theorem :::
+Let $a,b \in \nats$ with $b \neq \zero$. If there exists an $m \in \nats$ such that $\mult(a,m) < b$ and $b < \mult(a,\next(m))$, then $a \not| b$.
+
+::: proof :::
+Suppose we have $n \in \nats$ such that $\mult(a,n) = b$. In particular, we must have $a \neq \zero$ since $b \neq \zero$. Now $$\mult(a,m) < \mult(a,n),$$ and since $a \neq \zero$ we have $m < n$. Similarly, $$\mult(a,n) < \mult(a,\next(m))$$ so that $n < \next(m)$. However, we've shown that this is not possible, so no such $n$ exists. Thus $a \not| b$.
+:::::::::::::
+:::::::::::::::
