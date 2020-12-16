@@ -35,6 +35,11 @@
           mult: "\\mathsf{times}",
           max: "\\mathsf{max}",
           min: "\\mathsf{min}",
+          divalg: "\\mathsf{divalg}",
+          quo: "\\mathsf{quo}",
+          rem: "\\mathsf{rem}",
+          gcd: "\\mathsf{gcd}",
+          lcm: "\\mathsf{lcm}",
         }
       }
     };
@@ -123,9 +128,9 @@
 <p>With our order relations, an interesting problem is how to demonstrate that they are or are not satisfied. To show that <span class="math inline">\(a &lt; b\)</span>, for instance, it's enough to exhibit a specific <span class="math inline">\(c\)</span> such that <span class="math inline">\(\plus(a,\next(c)) = b\)</span>. Thanks to the trichotomy theorem, we can similarly show that <span class="math inline">\(a \not\lt b\)</span> by exhibiting a specific <span class="math inline">\(c\)</span> such that <span class="math inline">\(\plus(b,c) = a\)</span>. In these problems, we might call <span class="math inline">\(c\)</span> a <em>witness</em> to the ordering of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
 <p>The divides relation is similarly easy to prove in the positive; to show that <span class="math inline">\(a|b\)</span> it's enough to find <span class="math inline">\(c\)</span> such that <span class="math inline">\(\mult(a,c) = b\)</span>. There is no analog of the trichotomy property for divisibility, however we can still prove a "witness theorem" giving a shortcut for showing that one number <em>doesn't</em> divide another.</p>
 <div class="theorem">
-<p>Let <span class="math inline">\(a,b \in \nats\)</span> with <span class="math inline">\(b \neq \zero\)</span>. If there exists an <span class="math inline">\(m \in \nats\)</span> such that <span class="math inline">\(\mult(a,m) &lt; b\)</span> and <span class="math inline">\(b &lt; \mult(a,\next(m))\)</span>, then <span class="math inline">\(a \not| b\)</span>.</p>
+<p>Let <span class="math inline">\(a,b \in \nats\)</span> with <span class="math inline">\(b \neq \zero\)</span>. If there exists an <span class="math inline">\(m \in \nats\)</span> such that <span class="math inline">\(\mult(a,m) &lt; b\)</span> and <span class="math inline">\(b &lt; \mult(a,\next(m))\)</span>, then <span class="math inline">\(a \not\vert b\)</span>.</p>
 <div class="proof">
-<p>Suppose we have <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(\mult(a,n) = b\)</span>. In particular, we must have <span class="math inline">\(a \neq \zero\)</span> since <span class="math inline">\(b \neq \zero\)</span>. Now <span class="math display">\[\mult(a,m) &lt; \mult(a,n),\]</span> and since <span class="math inline">\(a \neq \zero\)</span> we have <span class="math inline">\(m &lt; n\)</span>. Similarly, <span class="math display">\[\mult(a,n) &lt; \mult(a,\next(m))\]</span> so that <span class="math inline">\(n &lt; \next(m)\)</span>. However, we've shown that this is not possible, so no such <span class="math inline">\(n\)</span> exists. Thus <span class="math inline">\(a \not| b\)</span>.</p>
+<p>Suppose we have <span class="math inline">\(n \in \nats\)</span> such that <span class="math inline">\(\mult(a,n) = b\)</span>. In particular, we must have <span class="math inline">\(a \neq \zero\)</span> since <span class="math inline">\(b \neq \zero\)</span>. Now <span class="math display">\[\mult(a,m) &lt; \mult(a,n),\]</span> and since <span class="math inline">\(a \neq \zero\)</span> we have <span class="math inline">\(m &lt; n\)</span>. Similarly, <span class="math display">\[\mult(a,n) &lt; \mult(a,\next(m))\]</span> so that <span class="math inline">\(n &lt; \next(m)\)</span>. However, we've shown that this is not possible, so no such <span class="math inline">\(n\)</span> exists. Thus <span class="math inline">\(a \not\vert b\)</span>.</p>
 </div>
 </div>
 </section>

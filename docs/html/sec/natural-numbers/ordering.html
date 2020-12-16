@@ -35,6 +35,11 @@
           mult: "\\mathsf{times}",
           max: "\\mathsf{max}",
           min: "\\mathsf{min}",
+          divalg: "\\mathsf{divalg}",
+          quo: "\\mathsf{quo}",
+          rem: "\\mathsf{rem}",
+          gcd: "\\mathsf{gcd}",
+          lcm: "\\mathsf{lcm}",
         }
       }
     };
@@ -391,6 +396,48 @@
  &amp; = &amp; \next(\plus(m,\plus(\next(u),v))) \\
  &amp; = &amp; \next(\plus(m,\next(\plus(u,v)))).
 \end{eqnarray*}\]</span> Since <span class="math inline">\(\next\)</span> is injective, <span class="math inline">\(m = \plus(m,\next(\plus(u,v)))\)</span>, and so <span class="math inline">\(\next(\plus(u,v)) = \zero\)</span>, which is absurd. So no such <span class="math inline">\(m\)</span> exists.</p>
+</div>
+</div>
+<p>The following utility theorem tells us something about gaps between multiples of a nonzero number.</p>
+<div class="theorem">
+<p>Suppose <span class="math inline">\(a_1,a_2,b,k \in \nats\)</span> such that the following hold.</p>
+<ol>
+<li><span class="math inline">\(\mult(a_1,\next(b)) = \plus(\mult(a_2,\next(b)),k)\)</span>.</li>
+<li><span class="math inline">\(k &lt; \next(b)\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\(k = \zero\)</span>.</p>
+<div class="proof">
+<p>For bookkeeping purposes, let <span class="math inline">\(A \subseteq \nats \times \nats\)</span> be the set of all pairs <span class="math inline">\((a_1,a_2)\)</span> such that conditions (1) and (2) simultaneously imply <span class="math inline">\(k = \zero\)</span> for all <span class="math inline">\(b,k \in \nats\)</span>. We need to show that if <span class="math inline">\((a_1,a_2) \in \nats \times \nats\)</span> then <span class="math inline">\((a_1,a_2) \in A\)</span>; we will show this by induction first on <span class="math inline">\(a_1\)</span> and then on <span class="math inline">\(a_2\)</span>.</p>
+<p>For the base case, we need to show that <span class="math inline">\((\zero,a_2) \in A\)</span> for all <span class="math inline">\(a_2\)</span>. To this end, suppose we have <span class="math inline">\(b\)</span> and <span class="math inline">\(k\)</span> such that <span class="math inline">\(a_1 = \zero\)</span>, <span class="math inline">\(a_2\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(k\)</span> satisfy (1) and (2). Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \zero \\
+ &amp; = &amp; \mult(\zero,\next(b)) \\
+ &amp; = &amp; \mult(a_1,\next(b)) \\
+ &amp; = &amp; \plus(\mult(a_2,\next(b)),k). \\
+\end{eqnarray*}\]</span> As we've shown, we must have <span class="math inline">\(k = \zero\)</span>. Thus we have <span class="math inline">\((\zero,a_2) \in A\)</span> for all <span class="math inline">\(a_2\)</span>.</p>
+<p>For the inductive step, suppose we have <span class="math inline">\(a_1\)</span> such that <span class="math inline">\((a_1,a_2) \in A\)</span> for all <span class="math inline">\(a_2\)</span>. We need to show that <span class="math inline">\((\next(a_1),a_2) \in A\)</span> for all <span class="math inline">\(a_2\)</span>, and will proceed by considering two possibilities for <span class="math inline">\(a_2\)</span>.</p>
+<p>First suppose <span class="math inline">\(a_2 = \zero\)</span>, and suppose we have <span class="math inline">\(b\)</span> and <span class="math inline">\(k\)</span> such that <span class="math inline">\(\next(a_1)\)</span>, <span class="math inline">\(a_2 = \zero\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(k\)</span> satisfy (1) and (2). Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(a_1,\next(b)),\next(b)) \\
+ &amp; = &amp; \mult(\next(a_1),\next(b)) \\
+ &amp; = &amp; \plus(\mult(a_2,\next(b)),k) \\
+ &amp; = &amp; \plus(\mult(\zero,\next(b)),k) \\
+ &amp; = &amp; \plus(\zero,k) \\
+ &amp; = &amp; k.
+\end{eqnarray*}\]</span> In particular, <span class="math inline">\(\next(b) \leq k\)</span>; but by the trichotomy property this is absurd since <span class="math inline">\(k &lt; \next(b)\)</span>. So (1) and (2) cannot hold simultaneously for <span class="math inline">\(a_2 = \zero\)</span>, and thus <span class="math inline">\((\next(a_1),a_2) \in A\)</span> vacuously.</p>
+<p>Now suppose we have <span class="math inline">\(a_2 = \next(m)\)</span> for some <span class="math inline">\(m\)</span>. We need to show that <span class="math inline">\((\next(a_1),a_2) \in A\)</span>. To this end, suppose we have <span class="math inline">\(b\)</span> and <span class="math inline">\(k\)</span> such that <span class="math inline">\(\next(a_1)\)</span>, <span class="math inline">\(a_2 = \next(m)\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(k\)</span> satisfy (1) and (2). Specifically, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\next(a_1),\next(b)) \\
+ &amp; = &amp; \plus(\mult(a_2,\next(b)),k) \\
+ &amp; = &amp; \plus(\mult(\next(m),\next(b)),k).
+\end{eqnarray*}\]</span> Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(a_1,\next(b)),\next(b)) \\
+ &amp; = &amp; \mult(\next(a_1),\next(b)) \\
+ &amp; = &amp; \plus(\mult(a_2,\next(b)),k) \\
+ &amp; = &amp; \plus(\mult(\next(m),\next(b)),k) \\
+ &amp; = &amp; \plus(\plus(\mult(m,\next(b)),\next(b)),k) \\
+ &amp; = &amp; \plus(\mult(m,\next(b)),\plus(\next(b),k)) \\
+ &amp; = &amp; \plus(\mult(m,\next(b)),\plus(k,\next(b))) \\
+ &amp; = &amp; \plus(\plus(\mult(m,\next(b)),k),\next(b)), \\
+\end{eqnarray*}\]</span> and because <span class="math inline">\(\plus\)</span> is cancellative, we have <span class="math display">\[\mult(a_1,\next(b)) = \plus(\mult(m,\next(b)),k).\]</span> Because we also have <span class="math inline">\(k &lt; \next(b)\)</span> and <span class="math inline">\((a_1,m) \in A\)</span> by the inductive hypothesis, <span class="math inline">\(k = \zero\)</span>. So <span class="math inline">\((\next(a_1),a_2) \in A\)</span>.</p>
+<p>So we have <span class="math inline">\((\next(a_1),a_2) \in A\)</span> for all <span class="math inline">\(a_2\)</span>. By induction, <span class="math inline">\(A = \nats \times \nats\)</span> as claimed.</p>
 </div>
 </div>
 </section>

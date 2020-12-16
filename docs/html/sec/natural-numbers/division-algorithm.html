@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>The Division Algorithm</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        macros: {
+          dom: "\\mathsf{dom}",
+          cod: "\\mathsf{cod}",
+          id:  "\\mathsf{id}",
+          const: "\\mathsf{const}",
+          Sem: "\\mathsf{Sem}",
+          Map: "\\mathsf{Map}",
+          End: "\\mathsf{End}",
+          Aut: "\\mathsf{Aut}",
+          Hom: "\\mathsf{Hom}",
+          Act: "\\mathsf{Act}",
+          nats: "\\mathbb{N}",
+          zero: "\\mathsf{0}",
+          next: "\\mathsf{next}",
+          natrec: "\\mathsf{natrec}",
+          simprec: "\\mathsf{simprec}",
+          plus: "\\mathsf{plus}",
+          mult: "\\mathsf{times}",
+          max: "\\mathsf{max}",
+          min: "\\mathsf{min}",
+          divalg: "\\mathsf{divalg}",
+          quo: "\\mathsf{quo}",
+          rem: "\\mathsf{rem}",
+          gcd: "\\mathsf{gcd}",
+          lcm: "\\mathsf{lcm}",
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">The Division Algorithm</h1>
+
+</header>
+<section class="level2">
+<h2>The Division Algorithm</h2>
+<p>Finally we come to the first power tool for the natural numbers: the division algorithm. This theorem states that for any <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> with <span class="math inline">\(b\)</span> not zero, there exist <span class="math inline">\(q\)</span> and <span class="math inline">\(r\)</span> such that <span class="math inline">\(a = qb + r\)</span> and <span class="math inline">\(r\)</span> is not "too big". This <span class="math inline">\(q\)</span> is called the <em>quotient</em> and <span class="math inline">\(r\)</span> the <em>remainder</em>.</p>
+<p>The division algorithm ties together the three basic operations -- <span class="math inline">\(\next\)</span>, <span class="math inline">\(\plus\)</span>, and <span class="math inline">\(\mult\)</span> -- and has two conclusions, one equality and one inequality. It also has some really powerful applications, like computing the greatest common divisor of two numbers and constructing fixed radix representations.</p>
+<p>We'd like to define <span class="math inline">\(\divalg\)</span> recursively, and the basic recursion operator we've been using is <span class="math inline">\(\simprec\)</span>, so it would be nice to express the division algorithm in those terms. Let's see if we can make the function signatures work out.</p>
+<p>Note that the division algorithm will take two numbers and return two numbers, so its signature looks like <span class="math display">\[\divalg : \nats \times \nats \rightarrow \nats \times \nats.\]</span> The signature of <span class="math inline">\(\simprec\)</span>, on the other hand, is <span class="math display">\[\simprec_{\varphi,\mu} : \nats \times A \rightarrow B,\]</span> where <span class="math inline">\(\varphi : A \rightarrow B\)</span> and <span class="math inline">\(\mu : \nats \times A \times B \rightarrow B\)</span>. Letting <span class="math inline">\(A = \nats\)</span> and <span class="math inline">\(B = \nats \times \nats\)</span>, we're looking for <span class="math display">\[\varphi : \nats \rightarrow \nats \times \nats\]</span> and <span class="math display">\[\mu : \nats \times \nats \times (\nats \times \nats) \rightarrow \nats \times \nats\]</span> so that <span class="math inline">\(\simprec_{\varphi,\mu}\)</span> "behaves like" the division algorithm. But how does the division algorithm behave?</p>
+<p>Let's look at some specific cases. For instance, if <span class="math inline">\(a = \zero\)</span>, then we want <span class="math display">\[\varphi(b) = \simprec_{\varphi,\mu}(\zero,b) = (q,r)\]</span> such that <span class="math inline">\(\zero = \plus(\mult(q,b),r)\)</span>. Evidently <span class="math inline">\(q = r = \zero\)</span>.</p>
+<p>Now consider <span class="math inline">\(\divalg(\next(a),b)\)</span>. Switching to more familiar notation for a moment, suppose we've already found the quotient and remainder of <span class="math inline">\(a\)</span> by <span class="math inline">\(b\)</span> as <span class="math inline">\(a = qb+r\)</span>. Now <span class="math display">\[a+1 = qb+r+1;\]</span> so <span class="math inline">\(q\)</span> and <span class="math inline">\(r+1\)</span> satisfy the equality constraint, but possibly not the inequality constraint. If <span class="math inline">\(r+1 &lt; b\)</span> we're ok. And since <span class="math inline">\(r &lt; b\)</span>, the worst that the strict inequality <span class="math inline">\(r+1 &lt; b\)</span> can fail is when <span class="math inline">\(r+1 = b\)</span>; in this case we can simply "increment" <span class="math inline">\(q\)</span> and "reset" <span class="math inline">\(r\)</span> to zero.</p>
+<p>With these observations in mind, we define the division algorithm like so.</p>
+<div class="definition">
+<p>Define <span class="math inline">\(\varphi : \nats \rightarrow \nats \times \nats\)</span> by <span class="math inline">\(\varphi(n) = (\zero,\zero)\)</span>, and define <span class="math inline">\(\mu : \nats \times \nats \times (\nats \times \nats) \rightarrow \nats \times \nats\)</span> by <span class="math display">\[\mu(\ast,m,(q,r)) = \left\{\begin{array}{ll} (\next(q),\zero) &amp; \mathrm{if}\ \zero &lt; m \leq \next(r) \\ (q,\next(r)) &amp; \mathrm{otherwise}. \end{array}\right.\]</span> We then define the function <span class="math inline">\(\divalg : \nats \times \nats \rightarrow \nats \times \nats\)</span> by <span class="math display">\[\divalg = \simprec{\varphi,\mu},\]</span> pronounced the <em>division algorithm</em>. For convenience we also define <span class="math inline">\(\quo,\rem : \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\quo(a,b) = q\)</span> and <span class="math inline">\(\rem(a,b) = r\)</span> where <span class="math inline">\(\divalg(a,b) = (q,r)\)</span>.</p>
+</div>
+<p>First of all, we need to prove that <span class="math inline">\(\divalg\)</span> acts like the division algorithm.</p>
+<div class="theorem">
+<p><a name='crossref-0'></a> Let <span class="math inline">\(a,b \in \nats\)</span> and let <span class="math inline">\((q,r) = \divalg(a,\next(b))\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(a = \plus(\mult(q,\next(b)),r)\)</span>.</li>
+<li><span class="math inline">\(r &lt; \next(b)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>We proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \divalg(a,\next(b)) \\
+ &amp; = &amp; \divalg(\zero,\next(b)) \\
+ &amp; = &amp; \varphi(\next(b)) \\
+ &amp; = &amp; (\zero, \zero).
+\end{eqnarray*}\]</span> Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(q,\next(b)),r) \\
+ &amp; = &amp; \plus(\mult(\zero,\next(b)),\zero) \\
+ &amp; = &amp; \plus(\zero,\zero) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> and <span class="math inline">\(r = \zero &lt; \next(b)\)</span> as needed.</p>
+<p>For the inductive step, suppose both (1) and (2) hold for all <span class="math inline">\(b\)</span> for some <span class="math inline">\(a\)</span>, and let <span class="math inline">\((q_1,r_1) = \divalg(a,\next(b))\)</span>. Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \divalg(\next(a),\next(b)) \\
+ &amp; = &amp; \mu(a,\next(b),\divalg(a,\next(b))) \\
+ &amp; = &amp; \mu(a,\next(b),(q_1,r_1)) \\
+ &amp; = &amp; Q.
+\end{eqnarray*}\]</span> We have two possibilities to consider: either <span class="math inline">\(\next(r_1) \geq \next(b)\)</span> or <span class="math inline">\(\next(r_1) &lt; \next(b)\)</span>.</p>
+<p>Suppose first that <span class="math inline">\(\next(r_1) \geq \next(b)\)</span>. By our definition of <span class="math inline">\(\mu\)</span> we have <span class="math inline">\(Q = (\next(q_1),\zero)\)</span>. Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(\next(q_1),\next(b)),\zero) \\
+ &amp; = &amp; \mult(\next(q_1),\next(b)) \\
+ &amp; = &amp; \plus(\mult(q_1,\next(b)),\next(b)) \\
+ &amp; = &amp; \plus(\mult(q_1,\next(b)),\next(r_1)) \\
+ &amp; = &amp; \next(\plus(\mult(q_1,\next(b)),r_1)) \\
+ &amp; = &amp; \next(a)
+\end{eqnarray*}\]</span> as well as <span class="math inline">\(\zero &lt; \next(b)\)</span>. So <span class="math inline">\(\divalg(\next(a),\next(b))\)</span> satisfies (1) and (2) for all <span class="math inline">\(b\)</span>.</p>
+<p>Now suppose <span class="math inline">\(\next(r_1) &lt; \next(b)\)</span>. By our definition of <span class="math inline">\(\mu\)</span> we have <span class="math inline">\(Q = (q_1,\next(r_1))\)</span>. In this case we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(q_1,\next(b)),\next(r_1)) \\
+ &amp; = &amp; \next(\plus(\mult(q_1,\next(b)),r_1)) \\
+ &amp; = &amp; \next(a),
+\end{eqnarray*}\]</span> and of course <span class="math inline">\(\next(r_1) &lt; \next(b)\)</span>. So <span class="math inline">\(\divalg(\next(a),\next(b))\)</span> satisfies (1) and (2) for all <span class="math inline">\(b\)</span>.</p>
+<p>By induction, <span class="math inline">\(\divalg(a,\next(b))\)</span> satisfies (1) and (2) for all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+</div>
+</div>
+<p>It turns out that the previous theorem characterizes the division algorithm.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>, and suppose we have <span class="math inline">\(q,r \in \nats\)</span> such that the following hold:</p>
+<ol>
+<li><span class="math inline">\(a = \plus(\mult(q,\next(b)),r)\)</span>.</li>
+<li><span class="math inline">\(r &lt; \next(b)\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\((q,r) = \divalg(a,\next(b))\)</span>.</p>
+<div class="proof">
+<p>It suffices to show that if both <span class="math inline">\((q_1,r_1)\)</span> and <span class="math inline">\((q_2,r_2)\)</span> satisfy conditions (1) and (2), then <span class="math inline">\(q_1 = q_2\)</span> and <span class="math inline">\(r_1 = r_2\)</span>. To that end, suppose (1) and (2) are both satisfied. By the trichotomy property, we can assume without loss of generality that <span class="math inline">\(r_1 \leq r_2\)</span>; say <span class="math inline">\(r_1 = \plus(r_1,k)\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(q_1,\next(b)),r_1) \\
+ &amp; = &amp; a \\
+ &amp; = &amp; \plus(\mult(q_2,\next(b)),r_2) \\
+ &amp; = &amp; \plus(\mult(q_2,\next(b)),\plus(r_1,k)) \\
+ &amp; = &amp; \plus(\mult(q_2,\next(b)),\plus(k,r_1)) \\
+ &amp; = &amp; \plus(\plus(\mult(q_2,\next(b)),k),r_1). \\
+\end{eqnarray*}\]</span> Because <span class="math inline">\(\plus\)</span> is cancellative, we have <span class="math display">\[\mult(q_1,\next(b)) = \plus(\mult(q_2,\next(b)),k).\]</span> Note also that <span class="math inline">\(k \leq r_2 &lt; \next(b)\)</span>, so that <span class="math inline">\(k &lt; \next(b)\)</span>. As we've shown, <span class="math inline">\(k = \zero\)</span>. Thus <span class="math display">\[\mult(q_1,\next(b)) = \mult(q_2,\next(b)),\]</span> and since <span class="math inline">\(\mult\)</span> is (almost) cancellative, <span class="math inline">\(q_1 = q_2\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\mult(q_1,\next(b)),r_1) \\
+ &amp; = &amp; \plus(\mult(q_2,\next(b)),r_2) \\
+ &amp; = &amp; \plus(\mult(q_1,\next(b)),r_2),
+\end{eqnarray*}\]</span> and since <span class="math inline">\(\plus\)</span> is cancellative, <span class="math inline">\(r_1 = r_2\)</span>.</p>
+</div>
+</div>
+<p>The last two theorems essentially say that the output of <span class="math inline">\(\divalg(a,b)\)</span> is the unique solution of a particular system of equations so long as <span class="math inline">\(b\)</span> is not zero. But what if <span class="math inline">\(b\)</span> is zero? We frankly won't usually be interested in this case, since in the <span class="math inline">\(b = \zero\)</span> case the system of equations does not have a unique solution and the particular one given by <span class="math inline">\(\divalg\)</span> is a quirk of our definition. However it does show up as the base case in some induction proofs. So we consider it along with some other special cases.</p>
+<div class="theorem">
+<p>If <span class="math inline">\(a \in \nats\)</span>, we have the following.</p>
+<ol>
+<li><span class="math inline">\(\divalg(a,\zero) = (\zero,a)\)</span>.</li>
+<li><span class="math inline">\(\divalg(a,\next(\zero)) = (a,\zero)\)</span>.</li>
+<li>If <span class="math inline">\(a &lt; \next(b)\)</span>, then <span class="math inline">\(\divalg(a,\next(b)) = (\zero,a)\)</span>.</li>
+<li><span class="math inline">\(\divalg(\next(a),\next(a)) = (\next(\zero),\zero)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \divalg(a,\zero) \\
+ &amp; = &amp; \divalg(\zero,\zero) \\
+ &amp; = &amp; \simprec_{\varphi,\mu}(\zero,\zero) \\
+ &amp; = &amp; \varphi(\zero) \\
+ &amp; = &amp; (\zero,\zero) \\
+ &amp; = &amp; (\zero,a)
+\end{eqnarray*}\]</span> as claimed. For the inductive step, suppose <span class="math inline">\(\divalg(a,\zero) = (\zero,a)\)</span> for some <span class="math inline">\(a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \divalg(\next(a),\zero) \\
+ &amp; = &amp; \simprec_{\varphi,\mu}(\next(a),\zero) \\
+ &amp; = &amp; \mu(a,\zero,\simprec_{\varphi,\mu}(a,\zero)) \\
+ &amp; = &amp; \mu(a,\zero,\divalg(a,\zero)) \\
+ &amp; = &amp; \mu(a,\zero,(\zero,a)) \\
+ &amp; = &amp; (\zero,\next(a))
+\end{eqnarray*}\]</span> as needed. By induction, <span class="math inline">\(\divalg(a,\zero) = (\zero,a)\)</span> for all <span class="math inline">\(a\)</span>.</p>
+<p>To see (2), note that <span class="math display">\[a = \plus(\mult(\next(\zero),a),\zero)\]</span> and <span class="math inline">\(\zero &lt; \next(\zero)\)</span>. By the uniqueness of quotients and divisors by a nonzero dividend, we have <span class="math inline">\(\divalg(a,\next(\zero)) = (\next(\zero),\zero)\)</span>.</p>
+<p>To see (3), note that <span class="math display">\[a = \plus(\mult(\zero,\next(b)),a)\]</span> and <span class="math inline">\(a &lt; \next(b)\)</span>. Again by the uniqueness of quotients and divisors by a nonzero dividend, we have <span class="math inline">\(\divalg(a,\next(b)) = (0,a)\)</span> as claimed.</p>
+<p>To see (4), note that <span class="math display">\[\next(a) = \plus(\mult(\next(\zero),\next(a)),\zero)\]</span> and <span class="math inline">\(\zero &lt; \next(a)\)</span>. Again by uniqueness we have <span class="math inline">\(\divalg(\next(a),\next(a)) = (\next(\zero),\zero)\)</span>.</p>
+</div>
+</div>
+<p>The previous theorem also demonstrates a handy witness property for the division algorithm. In order to demonstrate that <span class="math inline">\(\divalg(a,b) = (q,r)\)</span> when <span class="math inline">\(b \neq \zero\)</span>, it's enough to show that <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(q\)</span>, and <span class="math inline">\(r\)</span> satisfy the unique property of <span class="math inline">\(\divalg\)</span>. This also applies in the following result on products.</p>
+<div class="theorem">
+<p>If <span class="math inline">\(a,b\in \nats\)</span>, then <span class="math display">\[\divalg(\mult(a,\next(b)),\next(b)) = (a,\zero).\]</span></p>
+<div class="proof">
+<p>Note that <span class="math display">\[\mult(a,\next(b)) = \plus(\mult(a,\next(b)),\zero)\]</span> and <span class="math inline">\(\zero &lt; \next(b)\)</span>. By the uniqueness of quotients and divisors by a nonzero dividend, <span class="math display">\[\divalg(\mult(a,\next(b)),\next(b)) = (a,\zero)\]</span> as claimed.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

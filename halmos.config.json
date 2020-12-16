@@ -13,6 +13,7 @@
     , "sec/natural-numbers/ordering.md"
     , "sec/natural-numbers/max-and-min.md"
     , "sec/natural-numbers/divides.md"
+    , "sec/natural-numbers/division-algorithm.md"
     , "sec/group-basics.md"
     ]
 }

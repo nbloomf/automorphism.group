@@ -108,9 +108,9 @@ With our order relations, an interesting problem is how to demonstrate that they
 The divides relation is similarly easy to prove in the positive; to show that $a|b$ it's enough to find $c$ such that $\mult(a,c) = b$. There is no analog of the trichotomy property for divisibility, however we can still prove a "witness theorem" giving a shortcut for showing that one number _doesn't_ divide another.
 
 ::: theorem :::
-Let $a,b \in \nats$ with $b \neq \zero$. If there exists an $m \in \nats$ such that $\mult(a,m) < b$ and $b < \mult(a,\next(m))$, then $a \not| b$.
+Let $a,b \in \nats$ with $b \neq \zero$. If there exists an $m \in \nats$ such that $\mult(a,m) < b$ and $b < \mult(a,\next(m))$, then $a \not\vert b$.
 
 ::: proof :::
-Suppose we have $n \in \nats$ such that $\mult(a,n) = b$. In particular, we must have $a \neq \zero$ since $b \neq \zero$. Now $$\mult(a,m) < \mult(a,n),$$ and since $a \neq \zero$ we have $m < n$. Similarly, $$\mult(a,n) < \mult(a,\next(m))$$ so that $n < \next(m)$. However, we've shown that this is not possible, so no such $n$ exists. Thus $a \not| b$.
+Suppose we have $n \in \nats$ such that $\mult(a,n) = b$. In particular, we must have $a \neq \zero$ since $b \neq \zero$. Now $$\mult(a,m) < \mult(a,n),$$ and since $a \neq \zero$ we have $m < n$. Similarly, $$\mult(a,n) < \mult(a,\next(m))$$ so that $n < \next(m)$. However, we've shown that this is not possible, so no such $n$ exists. Thus $a \not\vert b$.
 :::::::::::::
 :::::::::::::::

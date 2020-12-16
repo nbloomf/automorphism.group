@@ -13,3 +13,4 @@ title: automorphism.group
   - [Ordering](html/sec/natural-numbers/ordering.html)
   - [Max and Min](html/sec/natural-numbers/max-and-min.html)
   - [Divisibility](html/sec/natural-numbers/divides.html)
+  - [The Division Algorithm](html/sec/natural-numbers/division-algorithm.html)

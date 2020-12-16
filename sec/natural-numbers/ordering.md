@@ -480,3 +480,61 @@ $$\begin{eqnarray*}
 Since $\next$ is injective, $m = \plus(m,\next(\plus(u,v)))$, and so $\next(\plus(u,v)) = \zero$, which is absurd. So no such $m$ exists.
 :::::::::::::
 :::::::::::::::
+
+The following utility theorem tells us something about gaps between multiples of a nonzero number.
+
+::: theorem :::
+Suppose $a_1,a_2,b,k \in \nats$ such that the following hold.
+
+1. $\mult(a_1,\next(b)) = \plus(\mult(a_2,\next(b)),k)$.
+2. $k < \next(b)$.
+
+Then $k = \zero$.
+
+::: proof :::
+For bookkeeping purposes, let $A \subseteq \nats \times \nats$ be the set of all pairs $(a_1,a_2)$ such that conditions (1) and (2) simultaneously imply $k = \zero$ for all $b,k \in \nats$. We need to show that if $(a_1,a_2) \in \nats \times \nats$ then $(a_1,a_2) \in A$; we will show this by induction first on $a_1$ and then on $a_2$.
+
+For the base case, we need to show that $(\zero,a_2) \in A$ for all $a_2$. To this end, suppose we have $b$ and $k$ such that $a_1 = \zero$, $a_2$, $b$, and $k$ satisfy (1) and (2). Now
+$$\begin{eqnarray*}
+ &   & \zero \\
+ & = & \mult(\zero,\next(b)) \\
+ & = & \mult(a_1,\next(b)) \\
+ & = & \plus(\mult(a_2,\next(b)),k). \\
+\end{eqnarray*}$$
+As we've shown, we must have $k = \zero$. Thus we have $(\zero,a_2) \in A$ for all $a_2$.
+
+For the inductive step, suppose we have $a_1$ such that $(a_1,a_2) \in A$ for all $a_2$. We need to show that $(\next(a_1),a_2) \in A$ for all $a_2$, and will proceed by considering two possibilities for $a_2$.
+
+First suppose $a_2 = \zero$, and suppose we have $b$ and $k$ such that $\next(a_1)$, $a_2 = \zero$, $b$, and $k$ satisfy (1) and (2). Now
+$$\begin{eqnarray*}
+ &   & \plus(\mult(a_1,\next(b)),\next(b)) \\
+ & = & \mult(\next(a_1),\next(b)) \\
+ & = & \plus(\mult(a_2,\next(b)),k) \\
+ & = & \plus(\mult(\zero,\next(b)),k) \\
+ & = & \plus(\zero,k) \\
+ & = & k.
+\end{eqnarray*}$$
+In particular, $\next(b) \leq k$; but by the trichotomy property this is absurd since $k < \next(b)$. So (1) and (2) cannot hold simultaneously for $a_2 = \zero$, and thus $(\next(a_1),a_2) \in A$ vacuously.
+
+Now suppose we have $a_2 = \next(m)$ for some $m$. We need to show that $(\next(a_1),a_2) \in A$. To this end, suppose we have $b$ and $k$ such that $\next(a_1)$, $a_2 = \next(m)$, $b$, and $k$ satisfy (1) and (2). Specifically, we have
+$$\begin{eqnarray*}
+ &   & \mult(\next(a_1),\next(b)) \\
+ & = & \plus(\mult(a_2,\next(b)),k) \\
+ & = & \plus(\mult(\next(m),\next(b)),k).
+\end{eqnarray*}$$
+Now we have
+$$\begin{eqnarray*}
+ &   & \plus(\mult(a_1,\next(b)),\next(b)) \\
+ & = & \mult(\next(a_1),\next(b)) \\
+ & = & \plus(\mult(a_2,\next(b)),k) \\
+ & = & \plus(\mult(\next(m),\next(b)),k) \\
+ & = & \plus(\plus(\mult(m,\next(b)),\next(b)),k) \\
+ & = & \plus(\mult(m,\next(b)),\plus(\next(b),k)) \\
+ & = & \plus(\mult(m,\next(b)),\plus(k,\next(b))) \\
+ & = & \plus(\plus(\mult(m,\next(b)),k),\next(b)), \\
+\end{eqnarray*}$$
+and because $\plus$ is cancellative, we have $$\mult(a_1,\next(b)) = \plus(\mult(m,\next(b)),k).$$ Because we also have $k < \next(b)$ and $(a_1,m) \in A$ by the inductive hypothesis, $k = \zero$. So $(\next(a_1),a_2) \in A$.
+
+So we have $(\next(a_1),a_2) \in A$ for all $a_2$. By induction, $A = \nats \times \nats$ as claimed.
+:::::::::::::
+:::::::::::::::
