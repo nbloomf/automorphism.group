@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Iterative Norms</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script src="../../../js/macros.js" type="text/javascript"></script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Iterative Norms</h1>
+
+</header>
+<section class="level2">
+<h2>Another Recursion Operator</h2>
+<p>The recursion operators <span class="math inline">\(\natrec\)</span> and <span class="math inline">\(\simprec\)</span> act like <em>program skeletons</em>: we can fill in the "slots" with any functions having the right signatures and get a computable function out. In this post we'll define another recursion operator called <em>bailout recursion</em>.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets, and let <span class="math inline">\(\bool = \{\true,\false\}\)</span>. Suppose we have functions with the following signatures. <span class="math display">\[\begin{array}{l}
+\beta : \nats \times A \rightarrow \bool \\
+\omega : \nats \times A \rightarrow A \\
+\psi : \nats \times A \rightarrow B
+\end{array}\]</span> Then there is a unique function <span class="math inline">\(\Theta : \nats \times A \rightarrow B\)</span> satisfying the following:</p>
+<ol>
+<li><span class="math inline">\(\Theta(\zero,a) = \psi(\zero,a)\)</span> for all <span class="math inline">\(a \in A\)</span>.</li>
+<li>For all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(n \in \nats\)</span>,</li>
+</ol>
+<p><span class="math display">\[\begin{array}{l} \Theta(\next(n),a) \\ \ = \left\{\begin{array}{ll} \psi(\next(n),a) &amp; \mathrm{if}\ \beta(\next(n),a) = \true \\ \Theta(n,\omega(\next(n),a)) &amp; \mathrm{otherwise}. \end{array}\right. \end{array}\]</span> This function <span class="math inline">\(\Theta\)</span> will be denoted <span class="math inline">\(\bailrec_{\beta,\omega,\psi}\)</span>, called <em>bailout recursion</em>.</p>
+<div class="proof">
+<p>This is a "there exists a unique" theorem, so we have two things to show: that such a <span class="math inline">\(\Theta\)</span> exists, and that it is unique. As usual for the recursion operators on <span class="math inline">\(\nats\)</span>, we'll define this in terms of natural recursion on an appropriate iterative set.</p>
+<p>To this end, define <span class="math inline">\(\chi : (\nats \times A)^{\nats \times A} \rightarrow (\nats \times A)^{\nats \times A}\)</span> by <span class="math display">\[\chi(h)(n,a) = \left\{\begin{array}{l} (n,a) &amp; \mathrm{if}\ \beta(n,a) = \true \\ h(\prev(n),\omega(n,a)) &amp; \mathrm{otherwise}. \end{array}\right.\]</span></p>
+<p>Now <span class="math inline">\(\langle (\nats \times A)^{\nats \times A}, \id, \chi \rangle\)</span> is an iterative set. We define <span class="math inline">\(\Theta : \nats \times A \rightarrow B\)</span> by <span class="math display">\[\Theta(n,a) = \psi(\natrec_{\id,\chi}(n)(n,a)).\]</span></p>
+<p>First, note that if <span class="math inline">\(a \in A\)</span> we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(\zero,a) \\
+ &amp; = &amp; \psi(\natrec_{\id,\chi}(\zero)(\zero,a)) \\
+ &amp; = &amp; \psi(\id(\zero,a)) \\
+ &amp; = &amp; \psi(\zero,a)
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>Now suppose <span class="math inline">\(\beta(\next(n),a) = \true\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(\next(n),a) \\
+ &amp; = &amp; \psi(\natrec_{\id,\chi}(\next(n))(\next(n),a)) \\
+ &amp; = &amp; \psi(\chi(\natrec_{\id_chi}(n))(\next(n),a)) \\
+ &amp; = &amp; \psi(\next(n),a)
+\end{eqnarray*}\]</span> as claimed. Suppose instead that <span class="math inline">\(\beta(\next(n),a) = \false\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(\next(n),a) \\
+ &amp; = &amp; \psi(\natrec_{\id,\chi}(\next(n))(\next(n),a)) \\
+ &amp; = &amp; \psi(\chi(\natrec_{\id_chi}(n))(\next(n),a)) \\
+ &amp; = &amp; \psi(\natrec_{\id,\chi}(n)(\prev(\next(n)),\omega(\next(n),a))) \\
+ &amp; = &amp; \psi(\natrec_{\id,\chi}(n)(n,\omega(\next(n),a))) \\
+ &amp; = &amp; \Theta(n,\omega(\next(n),a))
+\end{eqnarray*}\]</span> as claimed. So such a function exists.</p>
+<p>Finally we show that <span class="math inline">\(\Theta\)</span> exists. To this end, suppose we have another function <span class="math inline">\(\Omega\)</span> satisfying conditions (1) and (2); we need to show that <span class="math inline">\(\Theta(n,a) = \Omega(n,a)\)</span> for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(n \in \nats\)</span>. We proceed by induction on <span class="math inline">\(n\)</span>.</p>
+<p>For the base case <span class="math inline">\(n = \zero\)</span>. If <span class="math inline">\(a \in A\)</span> we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(n,a) \\
+ &amp; = &amp; \Theta(\zero,a) \\
+ &amp; = &amp; \psi(\zero,a) \\
+ &amp; = &amp; \Omega(\zero,a) \\
+ &amp; = &amp; \Omega(n,a).
+\end{eqnarray*}\]</span> Now suppose we have <span class="math inline">\(\Theta(n,a) = \Omega(n,a)\)</span> for all <span class="math inline">\(a \in A\)</span> for some <span class="math inline">\(n \in \nats\)</span>. We consider two possibilities. First suppose <span class="math inline">\(\beta(\next(n),a) = \true\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(\next(n),a) \\
+ &amp; = &amp; \psi(\next(n),a) \\
+ &amp; = &amp; \Omega(\next(n),a).
+\end{eqnarray*}\]</span> Suppose instead that <span class="math inline">\(\beta(\next(n),a) = \false\)</span>. Then, using the induction hypothesis, <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(\next(n),a) \\
+ &amp; = &amp; \Theta(n,\omega(\next(n),a)) \\
+ &amp; = &amp; \Omega(n,\omega(\next(n),a)) \\
+ &amp; = &amp; \Omega(\next(n),a).
+\end{eqnarray*}\]</span> So we have <span class="math inline">\(\Theta(n,a) = \Omega(n,a)\)</span> for all <span class="math inline">\(a\)</span> and <span class="math inline">\(n\)</span>, <span class="math inline">\(\Omega = \Theta\)</span>, and thus <span class="math inline">\(\Theta\)</span> is unique.</p>
+</div>
+</div>
+<p>Bailout recursion does some cool things that simple recursion does not: the <span class="math inline">\(\omega\)</span> map lets us "mutate" the initial parameter <span class="math inline">\(a\)</span> at each step in the recursion, and the boolean function <span class="math inline">\(\beta\)</span> lets us short-circuit the evaluation. Compare this to <span class="math inline">\(\simprec\)</span>, which uses the same <span class="math inline">\(a\)</span> at each step and <em>must</em> count its natural number argument all the way to zero.</p>
+<p>Simple and bailout recursion do share an important property, though. Both are carefully chosen to have tail recursive evaluation strategies. Intuitively, a recursive function -- one defined in terms of itself -- is called <em>tail recursive</em> if there is "nothing left to do" after the recursive call. For example, suppose we tried to define a recursive function on <span class="math inline">\(\nats\)</span> like <span class="math display">\[f(n+1) = 1 + f(n).\]</span> This is a recursive equation in <span class="math inline">\(f\)</span>, but it is not <em>tail</em> recursive, because on the right hand side there is something waiting for the result of the recursive call; namely, the <span class="math inline">\(1+\)</span>.<span><label for="sn-0" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-0" class="margin-toggle"/><span class="sidenote">I think it's helpful to compare the difference between arbitrary recursion and tail recursion to that between arbitrary <code>GOTO</code>s and structured loops. In both cases we take a simple but dangerous primitive and hide it behind a safer and more semantic interface.<br />
+<br />
+</span></span></p>
+<p>Arbitrary recursion can be dangerous and tricky to reason about if each recursive call leaves a mess to be cleaned up. In contrast, tail recursive functions do not leave anything to be cleaned up and so can be evaluated using only a constant amount of space. Our recursion operators, <span class="math inline">\(\simprec\)</span> and <span class="math inline">\(\bailrec\)</span>, are designed to be tail recursive.</p>
+</section>
+<section class="level2">
+<h2>Iterative Norms</h2>
+<p>The essence of recursion is to solve problems by combining solutions to smaller instances of the same problem. The recursion patterns we've defined so far take a very specific and limited view of what "smaller instance" means; the instance smaller than <span class="math inline">\(\next(n)\)</span> is just <span class="math inline">\(n\)</span>. We can think of this as the recursion pattern embodied by the induction principle.</p>
+<p>We have another (equivalent in power, but sometimes easier to use) induction principle, called the <em>strong</em> induction principle.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\langle A, \varepsilon, \varphi \rangle\)</span> be an iterative set, and <span class="math inline">\(\eta : A \rightarrow \nats\)</span> a function. We say <span class="math inline">\(\eta\)</span> is an <em>iterative norm</em> if the following hold for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(n \in \nats\)</span>.</p>
+<ol>
+<li>If <span class="math inline">\(\eta(a) = \zero\)</span>, then <span class="math inline">\(\eta(\varphi(a)) = \zero\)</span>.</li>
+<li>If <span class="math inline">\(\eta(a) = \next(n)\)</span>, then <span class="math inline">\(\eta(\varphi(a)) \leq n\)</span>.</li>
+</ol>
+</div>
+<p>We can think of an iterative norm as a kind of <em>measurement</em> on the elements of the iterative set with the property that the measure of successive iterates is shrinking.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(\langle A, \varepsilon, \varphi \rangle\)</span> be an iterative set and <span class="math inline">\(\eta : A \rightarrow \nats\)</span> an iterative norm. Let <span class="math inline">\(B\)</span> be a set and <span class="math inline">\(\chi : A \rightarrow B\)</span> a function. There is a unique function <span class="math inline">\(\Theta : A \rightarrow B\)</span> such that, for all <span class="math inline">\(a \in A\)</span>, we have <span class="math display">\[\Theta(a) = \left\{\begin{array}{ll} \chi(a) &amp; \mathrm{if}\ \eta(a) = \zero \\ \Theta(\varphi(a)) &amp; \mathrm{otherwise}. \end{array}\right.\]</span> This <span class="math inline">\(\Theta\)</span> is denoted <span class="math inline">\(\normrec_{\varphi,\eta,\chi}\)</span>, pronounced <em>norm recursion</em>.</p>
+<div class="proof">
+<p>This is a "there exists a unique" theorem, so we'll need to show that such a <span class="math inline">\(\Theta\)</span> exists and then show it is unique. First define <span class="math inline">\(\beta : \nats \times A \rightarrow \bool\)</span> by <span class="math display">\[\beta(-,a) = \left\{\begin{array}{ll} \true &amp; \mathrm{if}\ \eta(a) = \zero \\ \false &amp; \mathrm{otherwise}, \end{array}\right.\]</span> define <span class="math inline">\(\omega : \nats \times A \rightarrow A\)</span> by <span class="math display">\[\omega(-,a) = \varphi(a),\]</span> and define <span class="math inline">\(\psi : \nats \times A \rightarrow B\)</span> by <span class="math display">\[\psi(-,a) = \chi(a).\]</span> We define a helper function <span class="math inline">\(\Omega : \nats \times A \rightarrow B\)</span> by <span class="math display">\[\Omega = \bailrec_{\beta,\omega,\psi}.\]</span></p>
+<p>As a lemma, we need the following intermediate result about <span class="math inline">\(\Omega\)</span>: for all <span class="math inline">\(a \in A\)</span> and <span class="math inline">\(k \in \nats\)</span>, we have <span class="math display">\[\Omega(\plus(\eta(\varphi(a)),k),\varphi(a)) = \Omega(\eta(\varphi(a)),\varphi(a)).\]</span> We prove this by strong induction on <span class="math inline">\(\eta(\varphi(a))\)</span>. For the base case <span class="math inline">\(\eta(\varphi(a)) = \zero\)</span>, we proceed by induction on <span class="math inline">\(k\)</span>. For the base case <span class="math inline">\(k = \zero\)</span>, note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Omega(\plus(\eta(\varphi(a)),k),\varphi(a)) \\
+ &amp; = &amp; \Omega(\plus(\eta(\varphi(a)),\zero),\varphi(a)) \\
+ &amp; = &amp; \Omega(\eta(\varphi(a)),\varphi(a))
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose the equality holds for some <span class="math inline">\(k\)</span>. Now, because <span class="math inline">\(\eta(\varphi(a)) = \zero\)</span>, we have <span class="math display">\[\beta(-,\varphi(a)) = \true.\]</span> Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Omega(\plus(\eta(\varphi(a)),\next(k)),\varphi(a)) \\
+ &amp; = &amp; \Omega(\next(\plus(\eta(\varphi(a)),k)),\varphi(a)) \\
+ &amp; = &amp; \psi(\next(\plus(\eta(\varphi(a)),k)),\varphi(a)) \\
+ &amp; = &amp; \chi(\varphi(a)) \\
+ &amp; = &amp; \psi(\eta(\varphi(a)),\varphi(a)) \\
+ &amp; = &amp; \Omega(\eta(\varphi(a)),\varphi(a)).
+\end{eqnarray*}\]</span> By induction (on <span class="math inline">\(k\)</span>), when <span class="math inline">\(\eta(\varphi(a)) = \zero\)</span>, for all <span class="math inline">\(k\)</span> we have <span class="math display">\[\Omega(\plus(\eta(\varphi(a)),k),\varphi(a)) = \Omega(\eta(\varphi(a)),\varphi(a)).\]</span> Now for the strong inductive step (on <span class="math inline">\(\eta(\varphi(a))\)</span>, suppose we have <span class="math inline">\(m \in \nats\)</span> such that for all <span class="math inline">\(k \in \nats\)</span> and <span class="math inline">\(a \in A\)</span> such that <span class="math inline">\(\eta(\varphi(a)) \leq m\)</span>, we have <span class="math display">\[\Omega(\plus(\eta(\varphi(a)),k),\varphi(a)) = \Omega(\eta(\varphi(a)),\varphi(a)).\]</span> We need to show that this equality also for all <span class="math inline">\(k\)</span> and all <span class="math inline">\(a\)</span> such that <span class="math inline">\(\eta(\varphi(a)) = \next(m)\)</span>. We proceed by induction on <span class="math inline">\(k\)</span>.</p>
+<p>For the base case <span class="math inline">\(k = \zero\)</span>, note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Omega(\plus(\eta(\varphi(a)),k),\varphi(a)) \\
+ &amp; = &amp; \Omega(\plus(\eta(\varphi(a)),\zero),\varphi(a)) \\
+ &amp; = &amp; \Omega(\eta(\varphi(a)),\varphi(a))
+\end{eqnarray*}\]</span> as needed. For the inductive step, suppose the equality holds for some <span class="math inline">\(k\)</span>. Recall that <span class="math inline">\(\eta(\varphi(a)) = \next(m)\)</span>, so that <span class="math display">\[\beta(-,\varphi(a)) = \false.\]</span> Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Omega(\plus(\eta(\varphi(a)),\next(k)),\varphi(a)) \\
+ &amp; = &amp; \Omega(\next(\plus(\eta(\varphi(a)),k)),\varphi(a)) \\
+ &amp; = &amp; \Omega(\plus(\eta(\varphi(a)),k),\varphi(\varphi(a))) \\
+ &amp; = &amp; Q.
+\end{eqnarray*}\]</span> Note that since <span class="math inline">\(\eta\)</span> is an iterative norm, we have <span class="math inline">\(\eta(\varphi(\varphi(a))) \leq m\)</span>; in particular <span class="math inline">\(\plus(\eta(\varphi(\varphi(a))),u) = m\)</span> for some <span class="math inline">\(u\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(\eta(\varphi(a)),k) \\
+ &amp; = &amp; \plus(\next(m),k) \\
+ &amp; = &amp; \plus(m,\next(k)) \\
+ &amp; = &amp; \plus(\plus(\eta(\varphi(\varphi(a))),u),\next(k)) \\
+ &amp; = &amp; \plus(\eta(\varphi(\varphi(a))),\plus(u,\next(k))).
+\end{eqnarray*}\]</span> Using the strong induction hypothesis on <span class="math inline">\(\eta(\varphi(\varphi(a)) \leq m\)</span>, and since <span class="math inline">\(\eta(\varphi(a)) = \next(m)\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; Q \\
+ &amp; = &amp; \Omega(\plus(\eta(\varphi(\varphi(a))),\plus(u,\next(k))),\varphi(\varphi(a))) \\
+ &amp; = &amp; \Omega(\eta(\varphi(\varphi(a))),\varphi(\varphi(a))) \\
+ &amp; = &amp; \Omega(\plus(\eta(\varphi(\varphi(a))),u),\varphi(\varphi(a))) \\
+ &amp; = &amp; \Omega(m,\varphi(\varphi(a))) \\
+ &amp; = &amp; \Omega(\next(m),\varphi(a)) \\
+ &amp; = &amp; \Omega(\eta(\varphi(a)),\varphi(a)).
+\end{eqnarray*}\]</span> So the equality holds for all <span class="math inline">\(k\)</span>. By strong induction, the lemma holds for all <span class="math inline">\(k\)</span> and all <span class="math inline">\(a\)</span>.</p>
+<p>We're finally prepared to define <span class="math inline">\(\Theta : A \rightarrow B\)</span> by <span class="math display">\[\Theta(a) = \Omega(\eta(a),a).\]</span> To see that <span class="math inline">\(\Theta\)</span> satisfies our claimed equation, consider two possibilities for <span class="math inline">\(\eta(a)\)</span>. If <span class="math inline">\(\eta(a) = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(a) \\
+ &amp; = &amp; \Omega(\eta(a),a) \\
+ &amp; = &amp; \Omega(\zero,a) \\
+ &amp; = &amp; \psi(\zero,a) \\
+ &amp; = &amp; \chi(a)
+\end{eqnarray*}\]</span> as claimed. Suppose instead that <span class="math inline">\(\eta(a) = \next(m)\)</span> for some <span class="math inline">\(m\)</span>. Since <span class="math inline">\(\eta\)</span> is an iterative norm, we have <span class="math inline">\(\eta(\varphi(a)) \leq m\)</span>; say we have <span class="math inline">\(u\)</span> such that <span class="math display">\[\plus(\eta(\varphi(a)),u) = m.\]</span> Using the lemma, we now have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \Theta(a) \\
+ &amp; = &amp; \Omega(\eta(a),a) \\
+ &amp; = &amp; \Omega(\next(m),a) \\
+ &amp; = &amp; \Omega(m,\varphi(a)) \\
+ &amp; = &amp; \Omega(\plus(\eta(\varphi(a)),u),\varphi(a)) \\
+ &amp; = &amp; \Omega(\eta(\varphi(a)),\varphi(a)) \\
+ &amp; = &amp; \Theta(\varphi(a))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>Finally, we show that <span class="math inline">\(\Theta\)</span> is unique; to do this we'll show that if <span class="math inline">\(\Pi : A \rightarrow B\)</span> also satisfies the equation then <span class="math inline">\(\Pi(a) = \Theta(a)\)</span> for all <span class="math inline">\(a\)</span>. We proceed by strong induction on <span class="math inline">\(\eta(a)\)</span>. For the base case <span class="math inline">\(\eta(a) = \zero\)</span>, we have <span class="math inline">\(\Pi(a) = \chi(a) = \Theta(a)\)</span> as needed. For the inductive step, suppose we have <span class="math inline">\(m \in \nats\)</span> such that <span class="math inline">\(\Pi(a) = \Theta(a)\)</span> whenever <span class="math inline">\(\eta(a) \leq m\)</span>, and suppose <span class="math inline">\(\eta(a) = \next(m)\)</span>. Since <span class="math inline">\(\eta\)</span> is an iterative norm we have <span class="math inline">\(\eta(\varphi(a)) \leq m\)</span>, and so <span class="math display">\[\Pi(a) = \Pi(\varphi(a)) = \Theta(\varphi(a)) = \Theta(a)\]</span> as needed.</p>
+</div>
+</div>
+<p>Norm recursion is interesting because it allows us to define recursive functions on any set which has an appropriate normed iterative structure. If we can measure the "size" of the elements in a set, and if we can step from one element to the next so that the size is decreasing, then we can define recursive functions.</p>
+</section>
+</article>
+</body>
+</html>

@@ -1,0 +1,36 @@
+window.MathJax = {
+  tex: {
+    macros: {
+      dom: "\\mathsf{dom}",
+      cod: "\\mathsf{cod}",
+      id:  "\\mathsf{id}",
+      const: "\\mathsf{const}",
+      Sem: "\\mathsf{Sem}",
+      Map: "\\mathsf{Map}",
+      End: "\\mathsf{End}",
+      Aut: "\\mathsf{Aut}",
+      Hom: "\\mathsf{Hom}",
+      Act: "\\mathsf{Act}",
+      nats: "\\mathbb{N}",
+      zero: "\\mathsf{0}",
+      next: "\\mathsf{next}",
+      natrec: "\\mathsf{natrec}",
+      prev: "\\mathsf{prev}",
+      simprec: "\\mathsf{simprec}",
+      plus: "\\mathsf{plus}",
+      mult: "\\mathsf{times}",
+      max: "\\mathsf{max}",
+      min: "\\mathsf{min}",
+      divalg: "\\mathsf{divalg}",
+      quo: "\\mathsf{quo}",
+      rem: "\\mathsf{rem}",
+      gcd: "\\mathsf{gcd}",
+      lcm: "\\mathsf{lcm}",
+      bool: "\\mathbb{B}",
+      true: "\\mathsf{true}",
+      false: "\\mathsf{false}",
+      bailrec: "\\mathsf{bailrec}",
+      normrec: "\\mathsf{normrec}",
+    }
+  }
+};

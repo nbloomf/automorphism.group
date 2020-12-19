@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Disjoint Sums</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script src="../../../js/macros.js" type="text/javascript"></script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Disjoint Sums</h1>
+
+</header>
+<section class="level2">
+<h2>Disjoint Sums of Sets</h2>
+<p>In this section we nail down the properties of a useful operation on sets, called <em>disjoint sum</em>.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets. Then we define a set <span class="math inline">\(A + B\)</span>, called the <em>disjoint sum</em> of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, by <span class="math display">\[A + B = (\{\star\} \times A) \cup (\{\bullet\} \times B).\]</span> We also define functions <span class="math inline">\(\iota_A : A \rightarrow A + B\)</span> and <span class="math inline">\(\iota_B : B \rightarrow A + B\)</span> by <span class="math display">\[\iota_A(a) = (\star,a)\ \mathrm{and}\ \iota_B(b) = (\bullet,b),\]</span> called the <em>canonical injections</em> into <span class="math inline">\(A + B\)</span>.</p>
+</div>
+<p>The canonical injections are injective.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be sets. The canonical injections <span class="math inline">\(\iota_A : A \rightarrow A + B\)</span> and <span class="math inline">\(\iota_B : B \rightarrow A + B\)</span> are injective.</p>
+<div class="proof">
+<p>To see that <span class="math inline">\(\iota_A\)</span> is injective, let <span class="math inline">\(a_1, a_2 \in A\)</span> and suppose <span class="math inline">\(\iota_A(a_1) = \iota_A(a_2)\)</span>. Then <span class="math inline">\((\star,a_1) = (\star,a_2)\)</span>, and so <span class="math inline">\(a_1 = a_2\)</span> as needed. <span class="math inline">\(\iota_B\)</span> is injective by a similar argument.</p>
+</div>
+</div>
+<p>We can think of <span class="math inline">\(A + B\)</span> together with the injections <span class="math inline">\(\iota_A\)</span> and <span class="math inline">\(\iota_B\)</span> as an example of a kind of (really boring!) structure: sets equipped with distinguished maps from <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Among such structures, <span class="math inline">\(A+B\)</span> is special, as in the following theorem.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(Z\)</span> be sets, and suppose we have functions <span class="math inline">\(\alpha : A \rightarrow Z\)</span> and <span class="math inline">\(\beta : B \rightarrow Z\)</span>. Then there is a unique function <span class="math inline">\(\theta : A + B \rightarrow Z\)</span> such that <span class="math inline">\(\alpha = \theta \circ \iota_A\)</span> and <span class="math inline">\(\beta = \theta \circ \iota_B\)</span>. That is, there is a unique <span class="math inline">\(\theta\)</span> such that the following diagram commutes.</p>
+<p><img src="../../../img/tikz/5373de72630b1dbef3e5e148ecfcbbe7/5373de72630b1dbef3e5e148ecfcbbe7.svg" class="tikz" /></p>
+<p>We denote this unique <span class="math inline">\(\theta\)</span> by <span class="math inline">\(\alpha + \beta\)</span>.</p>
+<div class="proof">
+<p>This is a "there exists a unique" theorem, so we need to show that (1) such a <span class="math inline">\(\theta\)</span> exists and (2) it is unique.</p>
+<p>We define <span class="math display">\[\theta = \{ ((\star,a),\alpha(a)) \mid a \in A \} \cup \{ ((\bullet,b),\beta(b)) \mid b \in B \}.\]</span> First we show that <span class="math inline">\(\theta\)</span> is a function.</p>
+<ul>
+<li>To see that <span class="math inline">\(\theta\)</span> is total, suppose <span class="math inline">\(x \in A + B\)</span>. By definition, either <span class="math inline">\(x = (\star,a)\)</span> for some <span class="math inline">\(a \in A\)</span> or <span class="math inline">\(x = (\bullet,b)\)</span> for some <span class="math inline">\(b \in B\)</span>; in the first case we have <span class="math inline">\((x,\alpha(a)) \in \theta\)</span> for some <span class="math inline">\(a \in A\)</span>, and in the second we have <span class="math inline">\((x,\beta(b)) \in \theta\)</span> for some <span class="math inline">\(b \in B\)</span>. So <span class="math inline">\(\theta\)</span> is total.</li>
+<li>To see that <span class="math inline">\(\theta\)</span> is well-defined, suppose we have <span class="math inline">\(x \in A+B\)</span> and <span class="math inline">\(z_1,z_2 \in Z\)</span> such that <span class="math inline">\((x,z_1),(x,z_2) \in \theta\)</span>. We have two possibilities for <span class="math inline">\(x\)</span>. If <span class="math inline">\(x = (\star,a)\)</span> with <span class="math inline">\(a \in A\)</span>, then <span class="math inline">\(z_1 = \alpha(a) = z_2\)</span>; similarly, if <span class="math inline">\(x = (\bullet,b)\)</span> with <span class="math inline">\(b \in B\)</span> then <span class="math inline">\(z_1 = \beta(b) = z_2\)</span>. So <span class="math inline">\(\theta\)</span> is well-defined.</li>
+</ul>
+<p>So <span class="math inline">\(\theta\)</span> is a function with signature <span class="math inline">\(A + B \rightarrow Z\)</span>. Next we show that <span class="math inline">\(\theta\)</span> factors through <span class="math inline">\(\iota_A\)</span> and <span class="math inline">\(\iota_B\)</span>. To this end, first suppose <span class="math inline">\(a \in A\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \alpha(a) \\
+ &amp; = &amp; \theta(\star,a) \\
+ &amp; = &amp; \theta(\iota_A(a)) \\
+ &amp; = &amp; (\theta \circ \iota_A)(a),
+\end{eqnarray*}\]</span> so that <span class="math inline">\(\alpha = \theta \circ \iota_A\)</span>. Similarly, if <span class="math inline">\(b \in B\)</span> then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \beta(b) \\
+ &amp; = &amp; \theta(\bullet,b) \\
+ &amp; = &amp; \theta(\iota_B(b)) \\
+ &amp; = &amp; (\theta \circ \iota_B)(b)
+\end{eqnarray*}\]</span> so that <span class="math inline">\(\beta = \theta \circ \iota_B\)</span>.</p>
+<p>Finally, we need to show that <span class="math inline">\(\theta\)</span> is unique. To this end, suppose we have <span class="math inline">\(\psi : A + B \rightarrow Z\)</span> which also factors through <span class="math inline">\(\iota_A\)</span> and <span class="math inline">\(\iota_B\)</span>; that is, <span class="math inline">\(\alpha = \psi \circ \iota_A\)</span> and <span class="math inline">\(\beta = \psi \circ \iota_B\)</span>. Now let <span class="math inline">\(x \in A + B\)</span>. We have two possibilities. If <span class="math inline">\(x = (\star,a)\)</span> with <span class="math inline">\(a \in A\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \psi(x) \\
+ &amp; = &amp; \psi(\star,a) \\
+ &amp; = &amp; \psi(\iota_A(a)) \\
+ &amp; = &amp; (\psi \circ \iota_A)(a) \\
+ &amp; = &amp; \alpha(a) \\
+ &amp; = &amp; (\theta \circ \iota_A)(a) \\
+ &amp; = &amp; \theta(\iota_A(a)) \\
+ &amp; = &amp; \theta(\star,a) \\
+ &amp; = &amp; \theta(x).
+\end{eqnarray*}\]</span> Similarly, if <span class="math inline">\(x = (\bullet,b)\)</span> with <span class="math inline">\(b \in B\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \psi(x) \\
+ &amp; = &amp; \psi(\bullet,b) \\
+ &amp; = &amp; \psi(\iota_B(b)) \\
+ &amp; = &amp; (\psi \circ \iota_B)(b) \\
+ &amp; = &amp; \beta(b) \\
+ &amp; = &amp; (\theta \circ \iota_B)(b) \\
+ &amp; = &amp; \theta(\iota_B(b)) \\
+ &amp; = &amp; \theta(\bullet,b) \\
+ &amp; = &amp; \theta(x).
+\end{eqnarray*}\]</span> Thus <span class="math inline">\(\psi = \theta\)</span>, and <span class="math inline">\(\theta\)</span> is unique.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

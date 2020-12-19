@@ -4,6 +4,7 @@
     [ "index.md"
     , "sec/functions/basics.md"
     , "sec/functions/jectivity.md"
+    , "sec/functions/disjoint-sums.md"
     , "sec/semigroups/basics.md"
     , "sec/semigroups/homomorphisms.md"
     , "sec/semigroups/transformations.md"
@@ -14,6 +15,7 @@
     , "sec/natural-numbers/max-and-min.md"
     , "sec/natural-numbers/divides.md"
     , "sec/natural-numbers/division-algorithm.md"
+    , "sec/natural-numbers/iterative-norms.md"
     , "sec/group-basics.md"
     ]
 }

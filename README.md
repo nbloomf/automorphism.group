@@ -1,6 +1,8 @@
 # automorphism.group
 
 todo:
+- edit natural-numbers/basics now that we have direct sums
+- edit semigroups/basics now that we have direct sums
 - put mathjax macros in a separate script file
 - can we migrate sniffs from nbloomf.md?
 - favicon

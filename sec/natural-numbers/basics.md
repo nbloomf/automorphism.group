@@ -293,16 +293,16 @@ We'll define a version of $\mathsf{unnext}$ with signature $\nats \rightarrow \n
 
 ::: theorem :::
 [@thm-next-injective]()
-Define $\psi : \nats \cup \{\star\} \rightarrow \nats$ by $$\psi(a) = \left\{ \begin{array}{ll} \zero & \mathrm{if}\ a = \star \\ a & \mathrm{if}\ a \in \nats, \end{array} \right.$$ and define $\mathsf{prev} : \nats \rightarrow \nats$ by $$\mathsf{prev} = \psi \circ \mathsf{unnext}.$$ Then we have the following:
+Define $\psi : \nats \cup \{\star\} \rightarrow \nats$ by $$\psi(a) = \left\{ \begin{array}{ll} \zero & \mathrm{if}\ a = \star \\ a & \mathrm{if}\ a \in \nats, \end{array} \right.$$ and define $\prev : \nats \rightarrow \nats$ by $$\prev = \psi \circ \mathsf{unnext}.$$ Then we have the following:
 
-1. $\mathsf{prev}(\zero) = \zero$.
-2. $\mathsf{prev} \circ \next = \nats$.
+1. $\prev(\zero) = \zero$.
+2. $\prev \circ \next = \id_\nats$.
 3. $\next$ is injective.
 
 ::: proof :::
 To see (1), note that
 $$\begin{eqnarray*}
-\mathsf{prev}(\zero)
+\prev(\zero)
  & = & (\psi \circ \mathsf{unnext})(\zero) \\
  & = & \psi(\mathsf{unnext}(\zero)) \\
  & = & \psi(\ast) \\
@@ -310,15 +310,15 @@ $$\begin{eqnarray*}
 \end{eqnarray*}$$
 as claimed. To see (2), note that if $n \in \nats$ we have
 $$\begin{eqnarray*}
-(\mathsf{prev} \circ \next)(n)
- & = & \mathsf{prev}(\next(n)) \\
+(\prev \circ \next)(n)
+ & = & \prev(\next(n)) \\
  & = & (\psi \circ \mathsf{unnext})(\next(n)) \\
  & = & \psi(\mathsf{unnext}(\next(n))) \\
  & = & \psi(n) \\
  & = & n \\
  & = & \mathsf{id}_\nats;
 \end{eqnarray*}$$
-since $n$ was arbitrary, $\mathsf{prev} \circ \next = \mathsf{id}$ as claimed. Now (3) [follows](@thm-injective-cancel) because $\mathsf{prev}$ is a left inverse of $\next$.
+since $n$ was arbitrary, $\prev \circ \next = \mathsf{id}$ as claimed. Now (3) [follows](@thm-injective-cancel) because $\prev$ is a left inverse of $\next$.
 :::::::::::::
 :::::::::::::::
 

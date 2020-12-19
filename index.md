@@ -4,6 +4,7 @@ title: automorphism.group
 
 - [Functions](html/sec/functions/basics.html)
   - [Jectivity](html/sec/functions/jectivity.html)
+  - [Disjoint Sums](html/sec/functions/disjoint-sums.html)
 - [Semigroups](html/sec/semigroups/basics.html)
   - [Homomorphisms](html/sec/semigroups/homomorphisms.html)
   - [Transformations](html/sec/semigroups/transformations.html)
@@ -14,3 +15,4 @@ title: automorphism.group
   - [Max and Min](html/sec/natural-numbers/max-and-min.html)
   - [Divisibility](html/sec/natural-numbers/divides.html)
   - [The Division Algorithm](html/sec/natural-numbers/division-algorithm.html)
+  - [Iterative Norms](html/sec/natural-numbers/iterative-norms.html)

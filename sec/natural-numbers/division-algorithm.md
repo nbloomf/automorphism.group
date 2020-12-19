@@ -22,7 +22,7 @@ Now consider $\divalg(\next(a),b)$. Switching to more familiar notation for a mo
 With these observations in mind, we define the division algorithm like so.
 
 ::: definition :::
-Define $\varphi : \nats \rightarrow \nats \times \nats$ by $\varphi(n) = (\zero,\zero)$, and define $\mu : \nats \times \nats \times (\nats \times \nats) \rightarrow \nats \times \nats$ by $$\mu(\ast,m,(q,r)) = \left\{\begin{array}{ll} (\next(q),\zero) & \mathrm{if}\ \zero < m \leq \next(r) \\ (q,\next(r)) & \mathrm{otherwise}. \end{array}\right.$$ We then define the function $\divalg : \nats \times \nats \rightarrow \nats \times \nats$ by $$\divalg = \simprec{\varphi,\mu},$$ pronounced the _division algorithm_. For convenience we also define $\quo,\rem : \nats \times \nats \rightarrow \nats$ by $\quo(a,b) = q$ and $\rem(a,b) = r$ where $\divalg(a,b) = (q,r)$.
+Define $\varphi : \nats \rightarrow \nats \times \nats$ by $\varphi(n) = (\zero,\zero)$, and define $\mu : \nats \times \nats \times (\nats \times \nats) \rightarrow \nats \times \nats$ by $$\mu(\ast,m,(q,r)) = \left\{\begin{array}{ll} (\next(q),\zero) & \mathrm{if}\ \zero < m \leq \next(r) \\ (q,\next(r)) & \mathrm{otherwise}. \end{array}\right.$$ We then define the function $\divalg : \nats \times \nats \rightarrow \nats \times \nats$ by $$\divalg = \simprec_{\varphi,\mu},$$ pronounced the _division algorithm_. For convenience we also define $\quo,\rem : \nats \times \nats \rightarrow \nats$ by $\quo(a,b) = q$ and $\rem(a,b) = r$ where $\divalg(a,b) = (q,r)$.
 ::::::::::::::::::
 
 First of all, we need to prove that $\divalg$ acts like the division algorithm.
