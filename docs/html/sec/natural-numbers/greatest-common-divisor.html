@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Greatest Common Divisor</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script src="../../../js/macros.js" type="text/javascript"></script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Greatest Common Divisor</h1>
+
+</header>
+<section class="level2">
+<h2>Divisors and Common Divisors</h2>
+<p>We've defined two <em>arithmetic</em> orders on natural numbers, which have very similar characterizations: <span class="math inline">\(\leq\)</span> and <span class="math inline">\(|\)</span>. We were also able to turn <span class="math inline">\(\leq\)</span> into two <em>operations</em> on <span class="math inline">\(\nats\)</span>, specifically, <span class="math inline">\(\min\)</span> and <span class="math inline">\(\max\)</span>. There's an analogous way to turn divisibility into an operator, which we'll explore in this section. We need a definition first.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> be natural numbers. We say <span class="math inline">\(c\)</span> is a <em>common divisor</em> of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> if it is simultaneously a divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>; that is, both <span class="math inline">\(c | a\)</span> and <span class="math inline">\(c | b\)</span>.</p>
+</div>
+<p>Given two numbers <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, there is always at least one common divisor because <span class="math inline">\(\next(\zero) |a\)</span> and <span class="math inline">\(\next(\zero) | b\)</span>. In some sense <span class="math inline">\(\next(\zero)\)</span> is the "least" common divisor of any two natural numbers because, given any other common divisor <span class="math inline">\(c\)</span>, we have <span class="math inline">\(\next(\zero) | c\)</span>. Turning this around, we can define greatest common divisors as follows.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> be natural numbers. Suppose we have <span class="math inline">\(d \in \nats\)</span> satisfying the following.</p>
+<ol>
+<li><span class="math inline">\(d\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</li>
+<li>If <span class="math inline">\(c\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, then <span class="math inline">\(c | d\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\(d\)</span> is called a <em>greatest common divisor</em> of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+</div>
+<p>Note that this definition doesn't say anything about whether such a <span class="math inline">\(d\)</span> <em>exists</em>; a priori it could be that two specific numbers don't have a greatest common divisor. (We will see that they do.) However, from the definition we can show that <em>if</em> a greatest common divisor exists, then it is unique.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. If we have <span class="math inline">\(u,v \in \nats\)</span> such that both <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are greatest common divisors of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, then <span class="math inline">\(u = v\)</span>.</p>
+<div class="proof">
+<p>Because <span class="math inline">\(u\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and <span class="math inline">\(v\)</span> is a greatest common divisor, we have <span class="math inline">\(u | v\)</span>. Similarly, because <span class="math inline">\(v\)</span> is a common divisor and <span class="math inline">\(u\)</span> a greatest common divisor, <span class="math inline">\(v | u\)</span>. As we've <a href="divides.html#crossref-1">shown</a>, we then have <span class="math inline">\(u = v\)</span> as claimed.</p>
+</div>
+</div>
+<p>It's not obvious from the definition (to me anyway) that any two given natural numbers should have a greatest common divisor; but as we'll show, they do.</p>
+</section>
+<section class="level2">
+<h2>Greatest Common Divisors</h2>
+<p>We're going to define a function <span class="math inline">\(f : \nats \times \nats \rightarrow \nats\)</span> with the property that <span class="math inline">\(f(a,b)\)</span> is a greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>; we'll define this <span class="math inline">\(f\)</span> by iterative norm recursion. With that in mind, we need an iterative norm.</p>
+<div class="theorem">
+<p>Define <span class="math inline">\(\varphi : \nats \times \nats \rightarrow \nats \times \nats\)</span> by <span class="math display">\[\varphi(a,b) = \left\{\begin{array}{ll} (a,\zero) &amp; \mathrm{if}\ b = \zero \\ (b,\rem(a,b)) &amp; \mathrm{otherwise}, \end{array}\right.\]</span> and <span class="math inline">\(\eta : \nats \times \nats \rightarrow \nats\)</span> given by <span class="math inline">\(\eta(a,b) = b\)</span>. Then <span class="math inline">\(\eta\)</span> is an iterative norm on <span class="math inline">\(\langle \nats \times \nats, (\zero,\zero), \varphi \rangle\)</span>.</p>
+<div class="proof">
+<p>Suppose <span class="math inline">\(\eta(a,b) = \zero\)</span>; we need to show that <span class="math inline">\(\eta(\varphi(a,b)) = \zero\)</span>. Note that <span class="math inline">\(b = \eta(a,b) = \zero\)</span>, and we have <span class="math display">\[\eta(\varphi(a,b)) = \eta(\varphi(a,\zero)) = \eta(a,\zero) = \zero\]</span> as needed.</p>
+<p>Now suppose <span class="math inline">\(\eta(a,b) = \next(m)\)</span> for some <span class="math inline">\(m\)</span>; we thus have <span class="math inline">\(b = \eta(a,b) = \next(m)\)</span>. In particular <span class="math inline">\(b \neq \zero\)</span>, so that <span class="math inline">\(\varphi(a,b) = (b,\rem(a,b))\)</span> and <span class="math inline">\(\rem(a,b) &lt; b\)</span>. We now have two possibilities for <span class="math inline">\(\rem(a,b)\)</span>. If <span class="math inline">\(\rem(a,b) = \zero\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;      &amp; \eta(\varphi(a,b)) \\
+ &amp; =    &amp; \eta(b,\rem(a,b)) \\
+ &amp; =    &amp; \eta(b,\zero) \\
+ &amp; =    &amp; \zero \\
+ &amp; \leq &amp; m.
+\end{eqnarray*}\]</span> Suppose <span class="math inline">\(\rem(a,b) = \next(u)\)</span> for some <span class="math inline">\(u\)</span>. Becuase <span class="math display">\[\rem(a,b) &lt; b = \next(m),\]</span> we have <span class="math inline">\(\rem(a,b) \leq m\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;      &amp; \eta(\varphi(a,b)) \\
+ &amp; =    &amp; \eta(b,\rem(a,b)) \\
+ &amp; =    &amp; \rem(a,b) \\
+ &amp; \leq &amp; m.
+\end{eqnarray*}\]</span> In either case, if <span class="math inline">\(\eta(a,b) = \next(m)\)</span> then <span class="math inline">\(\eta(\varphi(a,b)) \leq m\)</span>. So <span class="math inline">\(\eta\)</span> is an iterative norm.</p>
+</div>
+</div>
+<p>We can now define the <span class="math inline">\(\gcd\)</span> function.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(\varphi\)</span> and <span class="math inline">\(\eta\)</span> be as defined in the previous theorem. Define a map <span class="math inline">\(\gcd : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\gcd = \normrec_{\varphi,\eta,\pi_1},\]</span> where <span class="math inline">\(\pi_1 : \nats \times \nats \rightarrow \nats\)</span> is the first coordinate projection.</p>
+</div>
+<p>First, we compute some special cases.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b \in \nats\)</span> we have the following.</p>
+<ol>
+<li><span class="math inline">\(\gcd(a,\zero) = a\)</span>.</li>
+<li><span class="math inline">\(\gcd(\zero,a) = a\)</span>.</li>
+<li><span class="math inline">\(\gcd(a,\next(b)) = \gcd(\next(b),\rem(a,\next(b)))\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), note that <span class="math inline">\(\eta(a,\zero) = \zero\)</span>, so that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(a,\zero) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(a,\zero) \\
+ &amp; = &amp; \pi_1(a,\zero) \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed. To see (2) we consider two possibilities. If <span class="math inline">\(a = \zero\)</span>, then <span class="math display">\[\gcd(\zero,a) = \gcd(\zero,\zero) = \zero = a\]</span> by (1). Suppose instead that <span class="math inline">\(a = \next(m)\)</span> for some <span class="math inline">\(m\)</span>. Note that <span class="math inline">\(\eta(\zero,a) = a \neq \zero\)</span> and <span class="math inline">\(\rem(\zero,a) = \zero\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(\zero,a) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(\zero,a) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(a,\rem(\zero,a)) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(a,\zero) \\
+ &amp; = &amp; \pi_1(a,\zero) \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see (3), note that <span class="math inline">\(\eta(a,\next(b)) = \next(b) \neq \zero\)</span>. So we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(a,\next(b)) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(a,\next(b)) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(\varphi(a,\next(b))) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(\next(b),\rem(a,\next(b))) \\
+ &amp; = &amp; \gcd(\next(b),\rem(a,\next(b)))
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
+<p>Of course defining <span class="math inline">\(\gcd\)</span> is one thing, but showing that it yields greatest common divisors is another. We'll do that now.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b \in \nats\)</span>, <span class="math inline">\(\gcd(a,b)\)</span> is a greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. That is, we have the following.</p>
+<ol>
+<li><span class="math inline">\(\gcd(a,b) | a\)</span> and <span class="math inline">\(\gcd(a,b) | b\)</span>.</li>
+<li>If <span class="math inline">\(c \in \nats\)</span> such that <span class="math inline">\(c | a\)</span> and <span class="math inline">\(c | b\)</span>, then <span class="math inline">\(c | \gcd(a,b)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1), proceeding by strong induction on <span class="math inline">\(b\)</span>. For the base case <span class="math inline">\(b = \zero\)</span>, note that <span class="math display">\[\gcd(a,b) = \gcd(a,\zero) = a,\]</span> and we have <span class="math inline">\(a | a\)</span> and <span class="math inline">\(a | \zero\)</span>. So if <span class="math inline">\(b = \zero\)</span> then <span class="math inline">\(\gcd(a,b)\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>For the inductive step, suppose that for some <span class="math inline">\(m\)</span>, whenever <span class="math inline">\(b \leq m\)</span>, <span class="math inline">\(\gcd(a,b)\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. We now consider <span class="math inline">\(\gcd(a,\next(m))\)</span>. In this case we have <span class="math inline">\(\eta(a,\next(m)) \neq \zero\)</span>, so that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(a,\next(m)) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(a,\next(m)) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(\varphi(a,\next(m))) \\
+ &amp; = &amp; \normrec_{\varphi,\eta,\pi_1}(\next(m),\rem(a,\next(m))) \\
+ &amp; = &amp; \gcd(\next(m),\rem(a,\next(m))).
+\end{eqnarray*}\]</span> By the strong induction hypothesis, since <span class="math inline">\(\rem(a,\next(m)) \leq m\)</span>, <span class="math inline">\(\gcd(a,\next(m))\)</span> is a common divisor of <span class="math inline">\(\next(m)\)</span> and <span class="math inline">\(\rem(a,\next(m))\)</span>. Since divisibility is transitive, <span class="math inline">\(\gcd(a,\next(m))\)</span> also divides <span class="math inline">\(\mult(\quo(a,\next(m)),\next(m))\)</span>, and so as we've <a href="divides.html#crossref-3">shown</a>, <span class="math inline">\(\gcd(a,\next(m))\)</span> must also divide <span class="math display">\[\plus(\mult(\quo(a,\next(m)),\next(m)),\rem(a,\next(m))) = a.\]</span> So <span class="math inline">\(\gcd(a,\next(m))\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(\next(m)\)</span>, as needed. By strong induction <span class="math inline">\(\gcd(a,b)\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Now we show (2), again proceeding by strong induction on <span class="math inline">\(b\)</span>. For the base case <span class="math inline">\(b = \zero\)</span>, suppose we have <span class="math inline">\(c\)</span> a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. Now <span class="math display">\[\gcd(a,b) = \gcd(a,\zero) = a\]</span> and <span class="math inline">\(c | a = \gcd(a,b)\)</span> as needed. For the inductive step, suppose that for some <span class="math inline">\(m\)</span>, if <span class="math inline">\(b \leq m\)</span> then <span class="math inline">\(\gcd(a,b)\)</span> is a greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for all <span class="math inline">\(a\)</span>. We now consider <span class="math inline">\(b = \next(m)\)</span>. Suppose <span class="math inline">\(c\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(\next(m)\)</span>. Now <span class="math display">\[a = \plus(\mult(\quo(a,\next(m)),\next(m)),\rem(a,\next(m))),\]</span> so that, as we've <a href="division-algorithm.html#crossref-1">shown</a>, <span class="math inline">\(c\)</span> divides <span class="math inline">\(\rem(a,\next(m))\)</span>. Note that <span class="math inline">\(\gcd(a,\next(m)) = \gcd(\next(m),\rem(a,\next(m)))\)</span>. Using the strong induction hypothesis, <span class="math display">\[c | \gcd(\next(m),\rem(a,\next(m))),\]</span> and so <span class="math inline">\(c | \gcd(a,b)\)</span> as needed. By strong induction, (2) holds for all <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Combining (1) and (2), <span class="math inline">\(\gcd(a,b)\)</span> is a greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for all <span class="math inline">\(a,b \in \nats\)</span> as claimed.</p>
+</div>
+</div>
+<p>The uniqueness property of greatest common divisors makes it possible to prove things about <span class="math inline">\(\gcd\)</span> without digging into the definition.</p>
+<div class="theorem">
+<p>We have the following for all <span class="math inline">\(a,b \in \nats\)</span>.</p>
+<ol>
+<li><span class="math inline">\(\gcd(a,a) = a\)</span>.</li>
+<li><span class="math inline">\(\gcd(a,b) = \gcd(b,a)\)</span>.</li>
+<li><span class="math inline">\(\gcd(a,\next(\zero)) = \next(\zero)\)</span>.</li>
+<li>If <span class="math inline">\(\gcd(a,b) = \zero\)</span>, then <span class="math inline">\(a = b = \zero\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), suppose <span class="math inline">\(c\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(a\)</span> (just go with it). Then <span class="math inline">\(c\)</span> divides <span class="math inline">\(a\)</span>. Since <span class="math inline">\(a|a\)</span>, <span class="math inline">\(a\)</span> is a greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(a\)</span>, and $since greatest common divisors are unique, <span class="math inline">\(\gcd(a,a) = a\)</span>.</p>
+<p>To see (2), note that since <span class="math inline">\(\gcd(a,b)\)</span> is a common divisor of <span class="math inline">\(b\)</span> and <span class="math inline">\(a\)</span>, we have <span class="math inline">\(\gcd(a,b) | \gcd(b,a)\)</span>; similarly <span class="math inline">\(\gcd(b,a) | \gcd(a,b)\)</span>, and so <span class="math inline">\(\gcd(a,b) = \gcd(b,a)\)</span>.</p>
+<p>To see (3), suppose <span class="math inline">\(c\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(\next(\zero)\)</span>. We've <a href="multiplication.html#crossref-3">seen</a> that the only divisor of <span class="math inline">\(\next(\zero)\)</span> is <span class="math inline">\(\next(\zero)\)</span>, so <span class="math inline">\(c = \next(\zero)\)</span>. Of course <span class="math inline">\(\next(\zero)\)</span> is itself a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(\next(\zero)\)</span>, so <span class="math inline">\(\gcd(a,\next(\zero)) = \next(\zero)\)</span> by the uniqueness property of greatest common divisors.</p>
+<p>To see (4), note that if <span class="math inline">\(\zero | a\)</span> then <span class="math inline">\(a = \zero\)</span>; similarly <span class="math inline">\(b = \zero\)</span>.</p>
+</div>
+</div>
+<p>Greatest common divisors detect divisibility.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. Then <span class="math inline">\(\gcd(a,b) = a\)</span> if and only if <span class="math inline">\(a|b\)</span>.</p>
+<div class="proof">
+<p>If <span class="math inline">\(\gcd(a,b) = a\)</span>, then as a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> we have <span class="math inline">\(a|b\)</span>. Conversely, suppose <span class="math inline">\(a|b\)</span>. Now <span class="math inline">\(a|a\)</span> and <span class="math inline">\(a|b\)</span>, so <span class="math inline">\(a|\gcd(a,b)\)</span>, and again as a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> we have <span class="math inline">\(\gcd(a,b)|a\)</span>. So <span class="math inline">\(\gcd(a,b) = a\)</span>.</p>
+</div>
+</div>
+<p>As an operation, <span class="math inline">\(\gcd\)</span> is associative.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b,c \in \nats\)</span>, we have <span class="math display">\[\gcd(a,\gcd(b,c)) = \gcd(\gcd(a,b),c).\]</span></p>
+<div class="proof">
+<p>For brevity, let <span class="math inline">\(u = \gcd(a,\gcd(b,c))\)</span> and <span class="math inline">\(v = \gcd(\gcd(a,b),c)\)</span>. Note that <span class="math inline">\(u | a\)</span> and <span class="math inline">\(u | \gcd(b,c)\)</span>, and since <span class="math inline">\(\gcd(b,c)\)</span> is a common divisor of <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span>, <span class="math inline">\(u | b\)</span> and <span class="math inline">\(u | c\)</span>. Now <span class="math inline">\(u | \gcd(a,b)\)</span> and <span class="math inline">\(u | c\)</span>, so <span class="math inline">\(u | v\)</span>. Similarly, <span class="math inline">\(v | \gcd(a,b)\)</span> and <span class="math inline">\(v | c\)</span>, and since <span class="math inline">\(\gcd(a,b)\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, <span class="math inline">\(v | a\)</span> and <span class="math inline">\(v | b\)</span>. So <span class="math inline">\(v | \gcd(b,c)\)</span>, and then <span class="math inline">\(v | u\)</span>. So <span class="math inline">\(u = v\)</span> as claimed.</p>
+</div>
+</div>
+<p>As an operation, <span class="math inline">\(\gcd\)</span> distributes over <span class="math inline">\(\mult\)</span> in both directions.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b,c \in \nats\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(\gcd(\mult(a,c),\mult(b,c)) = \mult(\gcd(a,b),c)\)</span>.</li>
+<li><span class="math inline">\(\gcd(\mult(c,a),\mult(c,b)) = \mult(c,\gcd(a,b))\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). We consider two possibilities. If <span class="math inline">\(c = \zero\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\gcd(a,b),c) \\
+ &amp; = &amp; \mult(\gcd(a,b),\zero) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \gcd(\zero,\zero) \\
+ &amp; = &amp; \gcd(\mult(a,\zero),\mult(b,\zero)) \\
+ &amp; = &amp; \gcd(\mult(a,c),\mult(b,c))
+\end{eqnarray*}\]</span> as claimed. Suppose instead that <span class="math inline">\(c \neq \zero\)</span>. Because <span class="math inline">\(\gcd(a,b) | a\)</span>, we have <span class="math display">\[\mult(\gcd(a,b),c) | \mult(a,c).\]</span> Similarly, as <span class="math inline">\(\gcd(a,b) | b\)</span>, we have <span class="math display">\[\mult(\gcd(a,b),c) | \mult(b,c).\]</span> Thus <span class="math display">\[\mult(\gcd(a,c),\gcd(b,c)) | \gcd(\mult(a,c),\mult(b,c)).\]</span></p>
+<p>Now note that <span class="math inline">\(c | \mult(a,c)\)</span> and <span class="math inline">\(c | \mult(b,c)\)</span>, so that <span class="math display">\[c | \gcd(\mult(a,c),\mult(b,c)).\]</span> Let <span class="math inline">\(u\)</span> be such that <span class="math display">\[\mult(c,u) = \gcd(\mult(a,c),\mult(b,c)).\]</span> Then <span class="math inline">\(\mult(u,c) | \mult(a,c)\)</span>, and (because <span class="math inline">\(c \neq \zero\)</span>) <span class="math inline">\(u | a\)</span>. Likewise we have <span class="math inline">\(\mult(u,c) | \mult(b,c)\)</span> and so <span class="math inline">\(u | b\)</span>. Thus <span class="math inline">\(u | \gcd(a,b)\)</span>, and we have <span class="math display">\[\mult(u,c) | \mult(\gcd(a,b),c).\]</span> Thus <span class="math display">\[\gcd(\mult(a,c),\mult(b,c)) | \mult(\gcd(a,b),c).\]</span> Since divisibility on natural numbers is antisymmetric, we have <span class="math display">\[\gcd(\mult(a,c),\mult(b,c)) = \mult(\gcd(a,b),c)\]</span> for <span class="math inline">\(c \neq \zero\)</span>, and thus for all <span class="math inline">\(c\)</span>.</p>
+<p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(\mult(c,a),\mult(c,b)) \\
+ &amp; = &amp; \gcd(\mult(a,c),\mult(b,c)) \\
+ &amp; = &amp; \mult(\gcd(a,b),c) \\
+ &amp; = &amp; \mult(c,\gcd(a,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
+<p>As an operation, <span class="math inline">\(\gcd\)</span> is compatible with divisibility.</p>
+<div class="theorem">
+<p>For all <span class="math inline">\(a,b,c \in \nats\)</span>, if <span class="math inline">\(a|b\)</span> then <span class="math inline">\(\gcd(a,c) | \gcd(b,c)\)</span>.</p>
+<div class="proof">
+<p>Since <span class="math inline">\(a | b\)</span>, we have <span class="math inline">\(\gcd(a,b) = a\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(\gcd(a,c),\gcd(b,c)) \\
+ &amp; = &amp; \gcd(\gcd(\gcd(a,c),b),c) \\
+ &amp; = &amp; \gcd(\gcd(a,\gcd(c,b)),c) \\
+ &amp; = &amp; \gcd(\gcd(a,\gcd(b,c)),c) \\
+ &amp; = &amp; \gcd(\gcd(\gcd(a,b),c),c) \\
+ &amp; = &amp; \gcd(\gcd(a,b),\gcd(c,c)) \\
+ &amp; = &amp; \gcd(a,c),
+\end{eqnarray*}\]</span> and thus <span class="math inline">\(\gcd(a,c) | \gcd(b,c)\)</span> as claimed.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

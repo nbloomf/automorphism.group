@@ -31,6 +31,7 @@
 <p>With these observations in mind, we define the division algorithm like so.</p>
 <div class="definition">
 <p>Define <span class="math inline">\(\varphi : \nats \rightarrow \nats \times \nats\)</span> by <span class="math inline">\(\varphi(n) = (\zero,\zero)\)</span>, and define <span class="math inline">\(\mu : \nats \times \nats \times (\nats \times \nats) \rightarrow \nats \times \nats\)</span> by <span class="math display">\[\mu(\ast,m,(q,r)) = \left\{\begin{array}{ll} (\next(q),\zero) &amp; \mathrm{if}\ \zero &lt; m \leq \next(r) \\ (q,\next(r)) &amp; \mathrm{otherwise}. \end{array}\right.\]</span> We then define the function <span class="math inline">\(\divalg : \nats \times \nats \rightarrow \nats \times \nats\)</span> by <span class="math display">\[\divalg = \simprec_{\varphi,\mu},\]</span> pronounced the <em>division algorithm</em>. For convenience we also define <span class="math inline">\(\quo,\rem : \nats \times \nats \rightarrow \nats\)</span> by <span class="math inline">\(\quo(a,b) = q\)</span> and <span class="math inline">\(\rem(a,b) = r\)</span> where <span class="math inline">\(\divalg(a,b) = (q,r)\)</span>.</p>
+<p><span class="math inline">\(a\)</span> is called the <em>dividend</em>, <span class="math inline">\(b\)</span> the <em>divisor</em>, <span class="math inline">\(q\)</span> the <em>quotient</em>, and <span class="math inline">\(r\)</span> the <em>remainder</em>.</p>
 </div>
 <p>First of all, we need to prove that <span class="math inline">\(\divalg\)</span> acts like the division algorithm.</p>
 <div class="theorem">
@@ -99,12 +100,13 @@
 </div>
 <p>The last two theorems essentially say that the output of <span class="math inline">\(\divalg(a,b)\)</span> is the unique solution of a particular system of equations so long as <span class="math inline">\(b\)</span> is not zero. But what if <span class="math inline">\(b\)</span> is zero? We frankly won't usually be interested in this case, since in the <span class="math inline">\(b = \zero\)</span> case the system of equations does not have a unique solution and the particular one given by <span class="math inline">\(\divalg\)</span> is a quirk of our definition. However it does show up as the base case in some induction proofs. So we consider it along with some other special cases.</p>
 <div class="theorem">
-<p>If <span class="math inline">\(a \in \nats\)</span>, we have the following.</p>
+<p>If <span class="math inline">\(a,b \in \nats\)</span>, we have the following.</p>
 <ol>
 <li><span class="math inline">\(\divalg(a,\zero) = (\zero,a)\)</span>.</li>
 <li><span class="math inline">\(\divalg(a,\next(\zero)) = (a,\zero)\)</span>.</li>
 <li>If <span class="math inline">\(a &lt; \next(b)\)</span>, then <span class="math inline">\(\divalg(a,\next(b)) = (\zero,a)\)</span>.</li>
 <li><span class="math inline">\(\divalg(\next(a),\next(a)) = (\next(\zero),\zero)\)</span>.</li>
+<li><span class="math inline">\(\next(a)|b\)</span> if and only if <span class="math inline">\(\rem(b,\next(a)) = \zero\)</span>.</li>
 </ol>
 <div class="proof">
 <p>To see (1), we proceed by induction on <span class="math inline">\(a\)</span>. For the base case <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
@@ -125,6 +127,7 @@
 <p>To see (2), note that <span class="math display">\[a = \plus(\mult(\next(\zero),a),\zero)\]</span> and <span class="math inline">\(\zero &lt; \next(\zero)\)</span>. By the uniqueness of quotients and divisors by a nonzero dividend, we have <span class="math inline">\(\divalg(a,\next(\zero)) = (\next(\zero),\zero)\)</span>.</p>
 <p>To see (3), note that <span class="math display">\[a = \plus(\mult(\zero,\next(b)),a)\]</span> and <span class="math inline">\(a &lt; \next(b)\)</span>. Again by the uniqueness of quotients and divisors by a nonzero dividend, we have <span class="math inline">\(\divalg(a,\next(b)) = (0,a)\)</span> as claimed.</p>
 <p>To see (4), note that <span class="math display">\[\next(a) = \plus(\mult(\next(\zero),\next(a)),\zero)\]</span> and <span class="math inline">\(\zero &lt; \next(a)\)</span>. Again by uniqueness we have <span class="math inline">\(\divalg(\next(a),\next(a)) = (\next(\zero),\zero)\)</span>.</p>
+<p>Next we show (5). This is an "if and only if statement". First suppose <span class="math inline">\(\rem(b,\next(a)) = \zero\)</span>; by the uniqueness property of the division algorithm we have <span class="math inline">\(b = \mult(\quo(b,\next(a)),\next(a))\)</span> and so <span class="math inline">\(\next(a) | b\)</span>. Conversely, suppose <span class="math inline">\(\next(a) | b\)</span>; say <span class="math inline">\(b = \mult(q,\next(a))\)</span>. Note that <span class="math display">\[b = \plus(\mult(q,\next(a)),\zero)\]</span> and <span class="math inline">\(\zero \leq a\)</span>, so again by the uniqueness property of the division algorithm we have <span class="math inline">\(\rem(b,\next(a)) = \zero\)</span> as needed.</p>
 </div>
 </div>
 <p>The previous theorem also demonstrates a handy witness property for the division algorithm. In order to demonstrate that <span class="math inline">\(\divalg(a,b) = (q,r)\)</span> when <span class="math inline">\(b \neq \zero\)</span>, it's enough to show that <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(q\)</span>, and <span class="math inline">\(r\)</span> satisfy the unique property of <span class="math inline">\(\divalg\)</span>. This also applies in the following result on products.</p>
@@ -132,6 +135,26 @@
 <p>If <span class="math inline">\(a,b\in \nats\)</span>, then <span class="math display">\[\divalg(\mult(a,\next(b)),\next(b)) = (a,\zero).\]</span></p>
 <div class="proof">
 <p>Note that <span class="math display">\[\mult(a,\next(b)) = \plus(\mult(a,\next(b)),\zero)\]</span> and <span class="math inline">\(\zero &lt; \next(b)\)</span>. By the uniqueness of quotients and divisors by a nonzero dividend, <span class="math display">\[\divalg(\mult(a,\next(b)),\next(b)) = (a,\zero)\]</span> as claimed.</p>
+</div>
+</div>
+<p>If the dividend is not zero, the remainder of two natural numbers cannot be larger than the dividend.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. Then <span class="math inline">\(\rem(a,\next(b)) \leq a\)</span>.</p>
+<div class="proof">
+<p>We consider two possibilities. If <span class="math inline">\(\next(b) \leq a\)</span>, note that <span class="math display">\[\rem(a,\next(b)) &lt; \next(b) \leq a.\]</span> If <span class="math inline">\(a &lt; \next(b)\)</span>, then <span class="math display">\[\rem(a,b) = a \leq a.\]</span></p>
+</div>
+</div>
+<p>If <span class="math inline">\(c\)</span> divides <span class="math inline">\(a\)</span> and <span class="math inline">\(a+b\)</span>, then <span class="math inline">\(c\)</span> divides <span class="math inline">\(b\)</span>.</p>
+<div class="theorem">
+<p><a name='crossref-1'></a> Let <span class="math inline">\(a,b,c \in \nats\)</span>. If <span class="math inline">\(c | a\)</span> and <span class="math inline">\(c | \plus(a,b)\)</span>, then <span class="math inline">\(c | b\)</span>.</p>
+<div class="proof">
+<p>If <span class="math inline">\(c = \zero\)</span>, we have <span class="math inline">\(a = \zero\)</span>; then <span class="math display">\[\zero = c | \plus(a,b) = \plus(\zero,b) = b\]</span> so that <span class="math inline">\(b = \zero\)</span> and thus <span class="math inline">\(c|b\)</span> as claimed.</p>
+<p>Suppose instead that <span class="math inline">\(c = \next(m)\)</span> for some <span class="math inline">\(m\)</span>. For brevity we write <span class="math inline">\(q_a = \quo(a,c)\)</span> and <span class="math inline">\(q_b = \quo(b,c)\)</span>. Using the division algorithm we have <span class="math display">\[a = \plus(\mult(q_a,c),\zero) = \mult(q_a,c)\]</span> and <span class="math display">\[b = \plus(\mult(q_b,c),\rem(b,c)).\]</span> Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \plus(a,b) \\
+ &amp; = &amp; \plus(\mult(q_a,c),\plus(\mult(q_b,c),\rem(b,c))) \\
+ &amp; = &amp; \plus(\plus(\mult(q_a,c),\mult(q_b,c)),\rem(b,c)) \\
+ &amp; = &amp; \plus(\mult(\plus(q_a,q_b),c),\rem(b,c)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(c | \plus(a,b)\)</span> and <span class="math inline">\(c \neq \zero\)</span>, and using the uniqueness property of the division algorithm, we have <span class="math display">\[\rem(b,c) = \rem(\plus(a,b),c) = \zero\]</span> and thus <span class="math inline">\(b | c\)</span> as claimed.</p>
 </div>
 </div>
 </section>

@@ -16,6 +16,7 @@
     , "sec/natural-numbers/divides.md"
     , "sec/natural-numbers/division-algorithm.md"
     , "sec/natural-numbers/iterative-norms.md"
+    , "sec/natural-numbers/greatest-common-divisor.md"
     , "sec/group-basics.md"
     ]
 }

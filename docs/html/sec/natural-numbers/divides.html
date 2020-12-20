@@ -24,7 +24,7 @@
 <h2>Divisibility</h2>
 <p>Recall that we said <span class="math inline">\(&lt;\)</span> is an <em>additive</em> order relation on natural numbers because it is defined in terms of <span class="math inline">\(\plus\)</span>. There is an analogous relation defined in terms of <span class="math inline">\(\mult\)</span> called <em>divisibility</em>.</p>
 <div class="definition">
-<p>Given <span class="math inline">\(a,b \in \nats\)</span>, we say <span class="math inline">\(a | b\)</span>, pronounced <span class="math inline">\(a\)</span> <em>divides</em> <span class="math inline">\(b\)</span>, if there exists a <span class="math inline">\(c \in \nats\)</span> such that <span class="math inline">\(\mult(a,c) = b\)</span>.</p>
+<p>Given <span class="math inline">\(a,b \in \nats\)</span>, we say <span class="math inline">\(a | b\)</span>, pronounced <span class="math inline">\(a\)</span> <em>divides</em> <span class="math inline">\(b\)</span>, if there exists a <span class="math inline">\(c \in \nats\)</span> such that <span class="math inline">\(\mult(a,c) = b\)</span>. If <span class="math inline">\(a\)</span> divides <span class="math inline">\(b\)</span> we say <span class="math inline">\(a\)</span> is a <em>divisor</em> of <span class="math inline">\(b\)</span>.</p>
 </div>
 <p>We start with some basic examples.</p>
 <div class="theorem">
@@ -41,7 +41,7 @@
 </div>
 <p>Divisibility on natural numbers is reflexive, antisymmetric, and transitive.</p>
 <div class="theorem">
-<p>Let <span class="math inline">\(a,b,c \in \nats\)</span>. Then we have the following.</p>
+<p><a name='crossref-0'></a><a name='crossref-1'></a><a name='crossref-2'></a> Let <span class="math inline">\(a,b,c \in \nats\)</span>. Then we have the following.</p>
 <ol>
 <li><span class="math inline">\(a | a\)</span>.</li>
 <li>If <span class="math inline">\(a | b\)</span> and <span class="math inline">\(b | a\)</span>, then <span class="math inline">\(a = b\)</span>.</li>
@@ -65,7 +65,7 @@
 </div>
 <p>The next theorem is a grab bag of results linking divisibility with the rest of our arithmetic so far.</p>
 <div class="theorem">
-<p>Let <span class="math inline">\(a,b,c,d \in \nats\)</span>. Then we have the following.</p>
+<p><a name='crossref-3'></a> Let <span class="math inline">\(a,b,c,d \in \nats\)</span>. Then we have the following.</p>
 <ol>
 <li><span class="math inline">\(a | \mult(a,b)\)</span>.</li>
 <li>If <span class="math inline">\(c \neq \zero\)</span>, <span class="math inline">\(\mult(a,b) = \mult(c,d)\)</span>, and <span class="math inline">\(c|a\)</span>, then <span class="math inline">\(b|d\)</span>.</li>
@@ -73,7 +73,7 @@
 <li>If <span class="math inline">\(b \neq \zero\)</span> and <span class="math inline">\(a|b\)</span>, then <span class="math inline">\(a \leq b\)</span>.</li>
 </ol>
 <div class="proof">
-<p>To see (1), note that <span class="math inline">\(\mult(a,b) = \times(a,b)\)</span>.</p>
+<p>To see (1), note that <span class="math inline">\(\mult(a,b) = \mult(a,b)\)</span>.</p>
 <p>To see (2), say <span class="math inline">\(a = \mult(c,u)\)</span>. Now <span class="math display">\[\begin{eqnarray*}
  &amp;   &amp; \mult(c,d) \\
  &amp; = &amp; \mult(a,b) \\

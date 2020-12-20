@@ -10,7 +10,7 @@ Divisibility
 Recall that we said $<$ is an _additive_ order relation on natural numbers because it is defined in terms of $\plus$. There is an analogous relation defined in terms of $\mult$ called _divisibility_.
 
 ::: definition :::
-Given $a,b \in \nats$, we say $a | b$, pronounced $a$ _divides_ $b$, if there exists a $c \in \nats$ such that $\mult(a,c) = b$.
+Given $a,b \in \nats$, we say $a | b$, pronounced $a$ _divides_ $b$, if there exists a $c \in \nats$ such that $\mult(a,c) = b$. If $a$ divides $b$ we say $a$ is a _divisor_ of $b$.
 ::::::::::::::::::
 
 We start with some basic examples.
@@ -31,6 +31,7 @@ To see (1), note that $\mult(a,\zero) = \zero$. To see (2), note that if $\zero 
 Divisibility on natural numbers is reflexive, antisymmetric, and transitive.
 
 ::: theorem :::
+[@thm-nat-divides-reflexive]()[@thm-nat-divides-antisymmetric]()[@thm-nat-divides-transitive]()
 Let $a,b,c \in \nats$. Then we have the following.
 
 1. $a | a$.
@@ -63,6 +64,7 @@ so $a|c$, as claimed.
 The next theorem is a grab bag of results linking divisibility with the rest of our arithmetic so far.
 
 ::: theorem :::
+[@thm-nat-div-plus]()
 Let $a,b,c,d \in \nats$. Then we have the following.
 
 1. $a | \mult(a,b)$.
@@ -71,7 +73,7 @@ Let $a,b,c,d \in \nats$. Then we have the following.
 4. If $b \neq \zero$ and $a|b$, then $a \leq b$.
 
 ::: proof :::
-To see (1), note that $\mult(a,b) = \times(a,b)$.
+To see (1), note that $\mult(a,b) = \mult(a,b)$.
 
 To see (2), say $a = \mult(c,u)$. Now
 $$\begin{eqnarray*}

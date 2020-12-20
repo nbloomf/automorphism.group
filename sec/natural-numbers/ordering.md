@@ -308,6 +308,12 @@ Since $\next$ is injective, we have $\plus(k,u) = n$, and so $k \leq n$ as neede
 :::::::::::::
 :::::::::::::::
 
+We can state this in a slightly different way.
+
+::: corollary :::
+For all $a,b \in \nats$, if $a < \next(b)$ then $a \leq b$.
+:::::::::::::::::
+
 
 
 Greater Than
