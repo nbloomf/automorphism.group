@@ -17,3 +17,4 @@ title: automorphism.group
   - [The Division Algorithm](html/sec/natural-numbers/division-algorithm.html)
   - [Iterative Norms](html/sec/natural-numbers/iterative-norms.html)
   - [Greatest Common Divisor](html/sec/natural-numbers/greatest-common-divisor.html)
+  - [Coprime](html/sec/natural-numbers/coprime.html)

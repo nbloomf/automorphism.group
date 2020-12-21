@@ -190,6 +190,19 @@
 \end{eqnarray*}\]</span> and thus <span class="math inline">\(\gcd(a,c) | \gcd(b,c)\)</span> as claimed.</p>
 </div>
 </div>
+<p><span class="math inline">\(\gcd\)</span> interacts with quotients.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b,c \in \nats\)</span> with <span class="math inline">\(c|a\)</span>, <span class="math inline">\(c|b\)</span>, and <span class="math inline">\(c \neq \zero\)</span>. Then <span class="math display">\[\quo(\gcd(a,b),c) = \gcd(\quo(a,c),\quo(b,c)).\]</span></p>
+<div class="proof">
+<p>Write <span class="math inline">\(a = \mult(u,c)\)</span> and <span class="math inline">\(b = \mult(v,c)\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \quo(\gcd(a,b),c) \\
+ &amp; = &amp; \quo(\gcd(\mult(u,c),\mult(v,c)),c) \\
+ &amp; = &amp; \quo(\mult(\gcd(u,v),c),c) \\
+ &amp; = &amp; \gcd(u,v) \\
+ &amp; = &amp; \gcd(\quo(a,c),\quo(b,c))
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
 </section>
 </article>
 </body>

@@ -197,3 +197,56 @@ $$\begin{eqnarray*}
 Since $c | \plus(a,b)$ and $c \neq \zero$, and using the uniqueness property of the division algorithm, we have $$\rem(b,c) = \rem(\plus(a,b),c) = \zero$$ and thus $b | c$ as claimed.
 :::::::::::::
 :::::::::::::::
+
+Quotients interact with products.
+
+::: theorem :::
+Let $a,bc, \in \nats$. Then we have the following.
+
+1. If $b \neq \zero$, then $\quo(\mult(a,b),b) = a$.
+2. If $b | a$, then $\quo(\mult(c,a),b) = \mult(c,\quo(a,b))$.
+
+::: proof :::
+First we show (1). Say $b = \next(m)$. Note that $\zero \leq m$ and that $$\mult(a,b) = \plus(\mult(a,b),\zero).$$ By the uniqueness of quotients by nonzero divisors, we have $a = \quo(\mult(a,b),b)$ as claimed.
+
+Next we show (2). We consider two possibilities. If $b = \zero$, then
+$$\begin{eqnarray*}
+ &   & \quo(\mult(c,a),b) \\
+ & = & \quo(\mult(c,a),\zero) \\
+ & = & \zero \\
+ & = & \mult(c,\zero) \\
+ & = & \mult(c,\quo(a,\zero)) \\
+ & = & \mult(c,\quo(a,b))
+\end{eqnarray*}$$
+as claimed. Now suppose $b \neq \zero$. Since $b | a$, we have $\rem(a,b) = \zero$. Now
+$$\begin{eqnarray*}
+ &   & \mult(c,a) \\
+ & = & \mult(c,\plus(\mult(\quo(a,b),b),\rem(a,b))) \\
+ & = & \mult(c,\mult(\quo(a,b),b)) \\
+ & = & \mult(\mult(c,\quo(a,b)),b).
+\end{eqnarray*}$$
+By the uniqueness of quotients and remainders by a nonzero divisor, we have $\quo(\mult(c,a),b) = \mult(c,\quo(a,b))$ as claimed.
+:::::::::::::
+:::::::::::::::
+
+We can also relate products and quotients using the following result, which we'll call the Cross Multiplication Theorem.
+
+::: theorem :::
+[@thm-nat-cross-mult]()
+(Cross Multiplication.) Let $a,b,c,d \in \nats$ such that $b,d \neq \zero$, $b | a$, and $d | c$. Then the following are equivalent.
+
+1. $\mult(a,d) = \mult(b,c)$.
+2. $\quo(a,b) = \quo(c,d)$.
+
+::: proof :::
+Since $b$ and $d$ are not both zero, using the uniqueness of quotients by a nonzero divisor, we have $$\mult(a,d) = \mult(b,c)$$ if and only if
+$$\begin{eqnarray*}
+ &   & c \\
+ & = & \quo(\mult(a,d),b) \\
+ & = & \quo(\mult(d,a),b) \\
+ & = & \mult(d,\quo(a,b)) \\
+ & = & \mult(\quo(a,b),d)
+\end{eqnarray*}$$
+if and only if $$\quo(a,b) = \quo(c,d)$ as claimed.
+:::::::::::::
+:::::::::::::::

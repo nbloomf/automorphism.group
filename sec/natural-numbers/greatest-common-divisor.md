@@ -234,3 +234,21 @@ $$\begin{eqnarray*}
 and thus $\gcd(a,c) | \gcd(b,c)$ as claimed.
 :::::::::::::
 :::::::::::::::
+
+$\gcd$ interacts with quotients.
+
+::: theorem :::
+Let $a,b,c \in \nats$ with $c|a$, $c|b$, and $c \neq \zero$. Then $$\quo(\gcd(a,b),c) = \gcd(\quo(a,c),\quo(b,c)).$$
+
+::: proof :::
+Write $a = \mult(u,c)$ and $b = \mult(v,c)$. Now
+$$\begin{eqnarray*}
+ &   & \quo(\gcd(a,b),c) \\
+ & = & \quo(\gcd(\mult(u,c),\mult(v,c)),c) \\
+ & = & \quo(\mult(\gcd(u,v),c),c) \\
+ & = & \gcd(u,v) \\
+ & = & \gcd(\quo(a,c),\quo(b,c))
+\end{eqnarray*}$$
+as claimed.
+:::::::::::::
+:::::::::::::::

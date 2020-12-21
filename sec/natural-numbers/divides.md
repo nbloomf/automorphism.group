@@ -64,13 +64,14 @@ so $a|c$, as claimed.
 The next theorem is a grab bag of results linking divisibility with the rest of our arithmetic so far.
 
 ::: theorem :::
-[@thm-nat-div-plus]()
+[@thm-nat-div-plus]()[@thm-div-mult-cancel]()
 Let $a,b,c,d \in \nats$. Then we have the following.
 
 1. $a | \mult(a,b)$.
 2. If $c \neq \zero$, $\mult(a,b) = \mult(c,d)$, and $c|a$, then $b|d$.
 3. If $c|a$ and $c|b$, then $c | \plus(a,b)$.
 4. If $b \neq \zero$ and $a|b$, then $a \leq b$.
+5. If $c \neq \zero$ and $\mult(a,c) | \mult(b,c)$, then $a | b$.
 
 ::: proof :::
 To see (1), note that $\mult(a,b) = \mult(a,b)$.
@@ -100,6 +101,8 @@ $$\begin{eqnarray*}
  & = & \plus(\mult(m,a),a),
 \end{eqnarray*}$$
 so that $a \leq b$.
+
+To see (5), suppose $\mult(a,c) | \mult(b,c)$; say we have $u$ such that $$\mult(u,\mult(a,c)) = \mult(b,c).$$ Since $\mult$ is associative, we have $$\mult(\mult(u,a),c) = \mult(b,c),$$ and since $\mult$ is (almost) cancellative, $\mult(u,a) = b$. Thus $a | b$ as needed.
 :::::::::::::
 :::::::::::::::
 
@@ -110,9 +113,9 @@ With our order relations, an interesting problem is how to demonstrate that they
 The divides relation is similarly easy to prove in the positive; to show that $a|b$ it's enough to find $c$ such that $\mult(a,c) = b$. There is no analog of the trichotomy property for divisibility, however we can still prove a "witness theorem" giving a shortcut for showing that one number _doesn't_ divide another.
 
 ::: theorem :::
-Let $a,b \in \nats$ with $b \neq \zero$. If there exists an $m \in \nats$ such that $\mult(a,m) < b$ and $b < \mult(a,\next(m))$, then $a \not\vert b$.
+Let $a,b \in \nats$ with $b \neq \zero$. If there exists an $m \in \nats$ such that $\mult(a,m) < b$ and $b < \mult(a,\next(m))$, then $a \nmid b$.
 
 ::: proof :::
-Suppose we have $n \in \nats$ such that $\mult(a,n) = b$. In particular, we must have $a \neq \zero$ since $b \neq \zero$. Now $$\mult(a,m) < \mult(a,n),$$ and since $a \neq \zero$ we have $m < n$. Similarly, $$\mult(a,n) < \mult(a,\next(m))$$ so that $n < \next(m)$. However, we've shown that this is not possible, so no such $n$ exists. Thus $a \not\vert b$.
+Suppose we have $n \in \nats$ such that $\mult(a,n) = b$. In particular, we must have $a \neq \zero$ since $b \neq \zero$. Now $$\mult(a,m) < \mult(a,n),$$ and since $a \neq \zero$ we have $m < n$. Similarly, $$\mult(a,n) < \mult(a,\next(m))$$ so that $n < \next(m)$. However, we've shown that this is not possible, so no such $n$ exists. Thus $a \nmid b$.
 :::::::::::::
 :::::::::::::::

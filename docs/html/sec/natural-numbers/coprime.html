@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Coprimality</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles/style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script src="../../../js/macros.js" type="text/javascript"></script>
+</head>
+<body>
+<article>
+<header>
+<h1 class="title">Coprimality</h1>
+
+</header>
+<section class="level2">
+<h2>Coprimality</h2>
+<p><span class="math inline">\(\gcd(a,b)\)</span> is in some ways a measure of what <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> have in common. If <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> have "nothing" in common, we say they are <em>coprime</em> (or sometimes <em>relatively prime</em>).</p>
+<div class="definition">
+<p>We define a relation <span class="math inline">\(\perp\)</span> on <span class="math inline">\(\nats\)</span> as follows: <span class="math display">\[\perp \, = \{ (a,b) \mid \gcd(a,b) = \next(\zero) \}.\]</span> When <span class="math inline">\(a \perp b\)</span> we say <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are <em>coprime</em>.</p>
+</div>
+<p>Coprimality has some nice properties, of which we'll prove two for now. The first is a well known result called Euclid's Lemma.</p>
+<div class="theorem">
+<p>(Euclid's Lemma.) Let <span class="math inline">\(a,b,c \in \nats\)</span>. If <span class="math inline">\(a \perp b\)</span> and <span class="math inline">\(a | \mult(b,c)\)</span>, then <span class="math inline">\(a | c\)</span>.</p>
+<div class="proof">
+<p>Suppose <span class="math inline">\(\gcd(a,b) = \next(\zero)\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; c \\
+ &amp; = &amp; \mult(\next(\zero),c) \\
+ &amp; = &amp; \mult(\gcd(a,b),c) \\
+ &amp; = &amp; \gcd(\mult(a,c),\mult(b,c)).
+\end{eqnarray*}\]</span> Now <span class="math inline">\(a | \mult(a,c)\)</span>, and <span class="math inline">\(a | \mult(b,c)\)</span> by our hypothesis. So <span class="math display">\[a | \gcd(\mult(a,c),\mult(b,c)) = c\]</span> by the universal property of greatest common divisors.</p>
+</div>
+</div>
+<p>Next, we show that for any nonzero <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, the quotients obtained by dividing out the greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are coprime.</p>
+<div class="theorem">
+<p>Let a,b,u,v \in \nats$ such that the following hold:</p>
+<ol>
+<li><span class="math inline">\(a,b \neq \zero\)</span>.</li>
+<li><span class="math inline">\(a = \mult(u,\gcd(a,b))\)</span>.</li>
+<li><span class="math inline">\(b = \mult(v,\gcd(a,b))\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\(u \perp v\)</span>.</p>
+<div class="proof">
+<p>Let <span class="math inline">\(k = \gcd(u,v)\)</span>; say <span class="math inline">\(u = \mult(s,k)\)</span> and <span class="math inline">\(v = \mult(t,v)\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; a \\
+ &amp; = &amp; \mult(u,\gcd(a,b)) \\
+ &amp; = &amp; \mult(\mult(s,k),\gcd(a,b)) \\
+ &amp; = &amp; \mult(s,\mult(k,\gcd(a,b))),
+\end{eqnarray*}\]</span> and similarly, <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; b \\
+ &amp; = &amp; \mult(v,\gcd(a,b)) \\
+ &amp; = &amp; \mult(\mult(t,k),\gcd(a,b)) \\
+ &amp; = &amp; \mult(t,\mult(k,\gcd(a,b))).
+\end{eqnarray*}\]</span> In particular, <span class="math inline">\(\mult(k,\gcd(a,b))\)</span> is a common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, so we have <span class="math display">\[\mult(k,\gcd(a,b)) | \gcd(a,b) = \mult(\next(\zero),\gcd(a,b)).\]</span> As we've <a href="divides.html#crossref-4">shown</a>, this implies that <span class="math inline">\(k | \next(\zero)\)</span>, and so <span class="math inline">\(k = \next(\zero)\)</span> as needed.</p>
+</div>
+</div>
+</section>
+<section class="level2">
+<h2>Least Common Multiple</h2>
+<p>Recall that we defined the concept of greatest common divisor by analogy with <span class="math inline">\(\min\)</span>. We can draw a similar analogy to <span class="math inline">\(\max\)</span>.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> be natural numbers. We say <span class="math inline">\(c\)</span> is a <em>common multiple</em> of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> if it is simultaneously a multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>; that is, both <span class="math inline">\(b | c\)</span> and <span class="math inline">\(a | c\)</span>.</p>
+</div>
+<p>Any two numbers have at least one common multiple, since <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> both divide <span class="math inline">\(\mult(a,b)\)</span>.</p>
+<div class="definition">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. Suppose we have <span class="math inline">\(d \in \nats\)</span> satisfying the following.</p>
+<ol>
+<li><span class="math inline">\(d\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</li>
+<li>If <span class="math inline">\(c\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, then <span class="math inline">\(d | c\)</span>.</li>
+</ol>
+<p>Then <span class="math inline">\(d\)</span> is called a <em>least common multiple</em> of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+</div>
+<p>We haven't shown that least common multiples exist yet, but if they do, they are unique.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span>. If we have <span class="math inline">\(u,v \in \nats\)</span> such that both <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are least common multiples of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, then <span class="math inline">\(u = v\)</span>.</p>
+<div class="proof">
+<p>Because <span class="math inline">\(u\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and <span class="math inline">\(v\)</span> a least common multiple, we have <span class="math inline">\(v | u\)</span>. Similarly, because <span class="math inline">\(v\)</span> is a common multiple and <span class="math inline">\(u\)</span> a least common multiple, <span class="math inline">\(u | v\)</span>. Since divisibility is antisymmetric, <span class="math inline">\(u = v\)</span> as claimed.</p>
+</div>
+</div>
+<p>But of course least common multiples do exist, and moreover we can compute them.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b \in \nats\)</span> and define <span class="math inline">\(\lcm : \nats \times \nats \rightarrow \nats\)</span> by <span class="math display">\[\lcm(a,b) = \quo(\mult(a,b),\gcd(a,b)).\]</span> Then <span class="math inline">\(\lcm(a,b)\)</span> is a least common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<div class="proof">
+<p>First we show that <span class="math inline">\(\lcm(a,b)\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. We consider two possibilities. Suppose <span class="math inline">\(\gcd(a,b) = \zero\)</span>; then <span class="math inline">\(a = b = \zero\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,b) \\
+ &amp; = &amp; \lcm(\zero,\zero) \\
+ &amp; = &amp; \quo(\mult(\zero,\zero),\gcd(\zero,\zero)) \\
+ &amp; = &amp; \quo(\mult(\zero,\zero),\zero) \\
+ &amp; = &amp; \zero,
+\end{eqnarray*}\]</span> and we have <span class="math inline">\(a | \zero\)</span> and <span class="math inline">\(b | \zero\)</span> as needed. Suppose instead that <span class="math inline">\(\gcd(a,b) \neq \zero\)</span>. Say <span class="math inline">\(b = \mult(u,\gcd(a,b))\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,b) \\
+ &amp; = &amp; \quo(\mult(a,b),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(a,\mult(u,\gcd(a,b))),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(\mult(a,u),\gcd(a,b)),\gcd(a,b)) \\
+ &amp; = &amp; mult(a,u)
+\end{eqnarray*}\]</span> so that <span class="math inline">\(a | \lcm(a,b)\)</span>. Similarly, say <span class="math inline">\(a = \mult(v,\gcd(a,b))\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,b) \\
+ &amp; = &amp; \quo(\mult(a,b),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(\mult(v,\gcd(a,b)),b),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(v,\mult(\gcd(a,b),b)),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(v,\mult(b,\gcd(a,b))),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(\mult(v,b),\gcd(a,b)),\gcd(a,b)) \\
+ &amp; = &amp; \mult(v,b),
+\end{eqnarray*}\]</span> so that <span class="math inline">\(b | \lcm(a,b)\)</span>. Thus <span class="math inline">\(\lcm(a,b)\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Next we show that <span class="math inline">\(\lcm(a,b)\)</span> is a <em>least</em> common multiple. We again consider two possibilities. Suppose first that <span class="math inline">\(\gcd(a,b) = \zero\)</span>. Then <span class="math inline">\(a = b = \zero\)</span>, and if (for instance) <span class="math inline">\(a | c\)</span> then <span class="math inline">\(c = \zero\)</span> as well, and we have <span class="math inline">\(\lcm(a,b) | c = \zero\)</span>.</p>
+<p>Now suppose <span class="math inline">\(\gcd(a,b) \neq \zero\)</span>. Say we have <span class="math inline">\(c \in \nats\)</span> such that <span class="math inline">\(a | c\)</span> and <span class="math inline">\(b | c\)</span>; we need to show that <span class="math inline">\(\lcm(a,b) | c\)</span>. To this end, write <span class="math inline">\(c = \mult(a,u)\)</span> and <span class="math inline">\(c = \mult(b,v)\)</span>, and write <span class="math display">\[a = \mult(h,\gcd(a,b))\ \mathrm{and}\ b = \mult(k,\gcd(a,b))\]</span> with <span class="math inline">\(h \perp k\)</span>. Note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(\mult(h,u),\gcd(a,b)) \\
+ &amp; = &amp; \mult(h,\mult(u,\gcd(a,b))) \\
+ &amp; = &amp; \mult(h,\mult(\gcd(a,b),u)) \\
+ &amp; = &amp; \mult(\mult(h,\gcd(a,b)),u) \\
+ &amp; = &amp; \mult(a,u) \\
+ &amp; = &amp; c \\
+ &amp; = &amp; \mult(b,v) \\
+ &amp; = &amp; \mult(\mult(k,\gcd(a,b)),v) \\
+ &amp; = &amp; \mult(k,\mult(\gcd(a,b),v)) \\
+ &amp; = &amp; \mult(k,\mult(v,\gcd(a,b))) \\
+ &amp; = &amp; \mult(\mult(k,v),\gcd(a,b)).
+\end{eqnarray*}\]</span> Since <span class="math inline">\(\gcd(a,b) \neq \zero\)</span>, we have <span class="math inline">\(\mult(h,u) = \mult(k,v)\)</span>, and in particular <span class="math inline">\(k | mult(h,u)\)</span>. Since <span class="math inline">\(h \perp k\)</span>, by Euclid's Lemma we have <span class="math inline">\(k | u\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,b) \\
+ &amp; = &amp; \quo(\mult(a,b),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(a,\mult(k,\gcd(a,b))),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(\mult(a,k),\gcd(a,b)),\gcd(a,b)) \\
+ &amp; = &amp; \mult(a,k).
+\end{eqnarray*}\]</span> Because <span class="math inline">\(k | u\)</span> and <span class="math inline">\(\mult\)</span> is compatible with divisibility, we have <span class="math display">\[\lcm(a,b) = \mult(a,k) \, | \, \mult(a,u) = c\]</span> as needed.</p>
+<p>Thus <span class="math inline">\(\lcm(a,b)\)</span> is a least common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+</div>
+</div>
+<p>Now <span class="math inline">\(\lcm\)</span> satisfies lots of properties analogous to <span class="math inline">\(\gcd\)</span>.</p>
+<div class="theorem">
+<p>The following hold for all <span class="math inline">\(a,b,c \in \nats\)</span>.</p>
+<ol>
+<li><span class="math inline">\(\lcm(a,\zero) = \zero\)</span>.</li>
+<li><span class="math inline">\(\lcm(a,\next(\zero)) = a\)</span>.</li>
+<li><span class="math inline">\(\lcm(a,a) = a\)</span>.</li>
+<li><span class="math inline">\(\lcm(a,b) = \lcm(b,a)\)</span>.</li>
+<li><span class="math inline">\(\lcm(a,\lcm(b,c)) = \lcm(\lcm(a,b),c)\)</span>.</li>
+<li><span class="math inline">\(\lcm(a,b) = a\)</span> if and only if <span class="math inline">\(b | a\)</span>.</li>
+</ol>
+<div class="proof">
+<p>To see (1), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,\zero) \\
+ &amp; = &amp; \quo(\mult(a,\zero),\gcd(a,\zero)) \\
+ &amp; = &amp; \quo(\zero,a) \\
+ &amp; = &amp; \zero
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,\next(\zero)) \\
+ &amp; = &amp; \quo(\mult(a,\next(\zero)),\gcd(a,\next(\zero))) \\
+ &amp; = &amp; \quo(a,\next(\zero)) \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>Next we show (3). We consider two cases. If <span class="math inline">\(a = \zero\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,a) \\
+ &amp; = &amp; \lcm(\zero,\zero) \\
+ &amp; = &amp; \quo(\mult(\zero,\zero),\gcd(\zero,\zero)) \\
+ &amp; = &amp; \quo(\zero,\zero) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed. If <span class="math inline">\(a \neq \zero\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,a) \\
+ &amp; = &amp; \quo(\mult(a,a),\gcd(a,a)) \\
+ &amp; = &amp; \quo(\mult(a,a),a) \\
+ &amp; = &amp; a
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see (4), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(a,b) \\
+ &amp; = &amp; \quo(\mult(a,b),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(b,a),\gcd(b,a)) \\
+ &amp; = &amp; \lcm(b,a).
+\end{eqnarray*}\]</span></p>
+<p>Next we show (5). For brevity, let <span class="math inline">\(u = \lcm(a,\lcm(b,c))\)</span> and <span class="math inline">\(v = \lcm(\lcm(a,b),c)\)</span>. First note that <span class="math inline">\(a | u\)</span> and <span class="math inline">\(\lcm(b,c) | u\)</span>. Since <span class="math inline">\(b | \lcm(b,c)\)</span> and <span class="math inline">\(c | \lcm(b,c)\)</span>, we also have <span class="math inline">\(b | u\)</span> and <span class="math inline">\(c | u\)</span>. Since <span class="math inline">\(u\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, we have <span class="math inline">\(\lcm(a,b) | u\)</span>, and since <span class="math inline">\(u\)</span> is a common multiple of <span class="math inline">\(\lcm(a,b)\)</span> and <span class="math inline">\(c\)</span>, we have <span class="math inline">\(v | u\)</span>. Similarly, we have <span class="math inline">\(c | v\)</span> and <span class="math inline">\(\lcm(a,b) | b\)</span>, so that <span class="math inline">\(a | v\)</span> and <span class="math inline">\(b | v\)</span>, so that <span class="math inline">\(\lcm(b,c) | v\)</span> and thus <span class="math inline">\(u | v\)</span>. Now <span class="math inline">\(u = v\)</span> because divisibility is antisymmetric.</p>
+<p>Finally we show (6). First suppose <span class="math inline">\(b | a\)</span>. Certainly <span class="math inline">\(a\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. Suppose now that <span class="math inline">\(c\)</span> is a common multiple of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>; then <span class="math inline">\(a | c\)</span>. By the universal property of least common multiples, we have <span class="math inline">\(a = \lcm(a,b)\)</span>. Conversely, suppose we have <span class="math inline">\(\lcm(a,b) = a\)</span>; then <span class="math inline">\(a\)</span> is a multiple of <span class="math inline">\(b\)</span> as claimed.</p>
+</div>
+</div>
+<p>Multiplication distributes over <span class="math inline">\(\lcm\)</span>.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b,c \in \nats\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(\lcm(\mult(c,a),\mult(c,b)) = \mult(c,\lcm(a,b))\)</span>.</li>
+<li><span class="math inline">\(\lcm(\mult(a,c),\mult(b,c)) = \mult(\lcm(a,b),c)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). We consider two cases; first suppose <span class="math inline">\(c = \zero\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(\mult(c,a),\mult(c,b)) \\
+ &amp; = &amp; \lcm(\mult(\zero,a),\mult(\zero,b)) \\
+ &amp; = &amp; \lcm(\zero,\zero) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \mult(\zero,\lcm(a,b)) \\
+ &amp; = &amp; \mult(c,\lcm(a,b))
+\end{eqnarray*}\]</span> as claimed. Now suppose <span class="math inline">\(c \neq \zero\)</span>. Then, noting that <span class="math inline">\(\gcd(a,b) | \mult(a,b)\)</span>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(\mult(c,a),\mult(c,b)) \\
+ &amp; = &amp; \quo(\mult(\mult(c,a),\mult(c,b)), \\
+ &amp;   &amp; \quad \gcd(\mult(c,a),\mult(c,b))) \\
+ &amp; = &amp; \quo(\mult(c,\mult(a,\mult(c,b))),\mult(c,\gcd(a,b))) \\
+ &amp; = &amp; \quo(\mult(a,\mult(c,b)),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\mult(c,\mult(a,b)),\gcd(a,b)) \\
+ &amp; = &amp; \mult(c,\quo(\mult(a,b),\gcd(a,b))) \\
+ &amp; = &amp; \mult(c,\lcm(a,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>To see (2), note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(\mult(a,c),\mult(b,c)) \\
+ &amp; = &amp; \lcm(\mult(c,a),\mult(c,b)) \\
+ &amp; = &amp; \mult(c,\lcm(a,b)) \\
+ &amp; = &amp; \mult(\lcm(a,b),c)
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
+<p><span class="math inline">\(\lcm\)</span> is compatible with divisibility.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b,c \in \nats\)</span>. If <span class="math inline">\(a | b\)</span>, then <span class="math inline">\(\lcm(a,c) | \lcm(b,c)\)</span>.</p>
+<div class="proof">
+<p>Suppose <span class="math inline">\(a | b\)</span>. Then we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(\lcm(a,c),\lcm(b,c)) \\
+ &amp; = &amp; \lcm(a,\lcm(c,\lcm(b,c))) \\
+ &amp; = &amp; \lcm(a,\lcm(\lcm(c,b),c)) \\
+ &amp; = &amp; \lcm(a,\lcm(\lcm(b,c),c)) \\
+ &amp; = &amp; \lcm(a,\lcm(b,\lcm(c,c))) \\
+ &amp; = &amp; \lcm(\lcm(a,b),\lcm(c,c)) \\
+ &amp; = &amp; \lcm(b,c)
+\end{eqnarray*}\]</span> so that <span class="math inline">\(\lcm(a,c) | \lcm(b,c)\)</span> as claimed.</p>
+</div>
+</div>
+<p>Finally, <span class="math inline">\(\lcm\)</span> and <span class="math inline">\(\gcd\)</span> distribute over each other.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,b,c \in \nats\)</span>. Then we have the following.</p>
+<ol>
+<li><span class="math inline">\(\gcd(c,\lcm(a,b)) = \lcm(\gcd(c,a),\gcd(c,b))\)</span>.</li>
+<li><span class="math inline">\(\lcm(c,\gcd(a,b)) = \gcd(\lcm(c,a),\lcm(c,b))\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). First suppose <span class="math inline">\(c = \zero\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(c,\lcm(a,b)) \\
+ &amp; = &amp; \gcd(\zero,\lcm(a,b)) \\
+ &amp; = &amp; \lcm(a,b) \\
+ &amp; = &amp; \lcm(\gcd(\zero,a),\gcd(\zero,b)) \\
+ &amp; = &amp; \lcm(\gcd(c,a),\gcd(c,b)
+\end{eqnarray*}\]</span> as claimed. Now suppose <span class="math inline">\(a = \zero\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(c,\lcm(a,b)) \\
+ &amp; = &amp; \gcd(c,\lcm(\zero,b)) \\
+ &amp; = &amp; \gcd(c,\zero) \\
+ &amp; = &amp; c \\
+ &amp; = &amp; \lcm(c,\gcd(c,b)) \\
+ &amp; = &amp; \lcm(\gcd(c,\zero),\gcd(c,b)) \\
+ &amp; = &amp; \lcm(\gcd(c,a),\gcd(c,b))
+\end{eqnarray*}\]</span> as claimed. Now suppose <span class="math inline">\(b = \zero\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(c,\lcm(a,b)) \\
+ &amp; = &amp; \gcd(c,\lcm(a,\zero)) \\
+ &amp; = &amp; \gcd(c,\zero) \\
+ &amp; = &amp; c \\
+ &amp; = &amp; \lcm(\gcd(c,a),c) \\
+ &amp; = &amp; \lcm(\gcd(c,a),\gcd(c,\zero)) \\
+ &amp; = &amp; \lcm(\gcd(c,a),\gcd(c,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>We can now assume that <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are all nonzero. In the next equation chain, for the sake of readability we're going to make two concessions of notation. First, we write <span class="math inline">\(\mult(x,y)\)</span> by juxtaposition as <span class="math inline">\(xy\)</span>, which we're used to anyway but have been avoiding. Second, since both multiplication and <span class="math inline">\(\gcd\)</span> are associative we can write, for instance, <span class="math inline">\(xyz\)</span> rather than <span class="math inline">\((xy)z\)</span> without ambiguity. Using this notation, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(c \cdot \gcd(a,b), ab) \cdot \gcd(c,a,b) \\
+ &amp; = &amp; \gcd(\gcd(ca, cb), ab) \cdot \gcd(c,a,b) \\
+ &amp; = &amp; \gcd(ca, cb, ab) \cdot \gcd(c,a,b) \\
+ &amp; = &amp; \gcd(ca \cdot \gcd(c,a,b), cb \cdot \gcd(c,a,b), ab \cdot \gcd(c,a,b)) \\
+ &amp; = &amp; \gcd(cac, caa, cab, cbc, cba, cbb, abc, aba, abb) \\
+ &amp; = &amp; \gcd(cca, cba, aca, aba, ccb, cbb, acb, abb) \\
+ &amp; = &amp; \gcd(\gcd(cc, cb, ac, ab) \cdot a, \gcd(cc, cb, ac, ab) \cdot b) \\
+ &amp; = &amp; \gcd(cc, cb, ac, ab) \cdot \gcd(a,b) \\
+ &amp; = &amp; \gcd(c \cdot \gcd(c,b), a \cdot \gcd(c,b)) \cdot \gcd(a,b) \\
+ &amp; = &amp; \gcd(c,a) \cdot \gcd(c,b) \cdot \gcd(a,b).
+\end{eqnarray*}\]</span> Now <span class="math inline">\(\gcd(c,a,b) \neq \zero\)</span> and <span class="math inline">\(\gcd(a,b) \neq \zero\)</span>. By the <a href="division-algorithm.html#crossref-2">cross multiplication theorem</a>, we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \quo(\gcd(c \cdot \gcd(a,b), ab),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\gcd(c,a) \cdot \gcd(c,b),\gcd(a,b,c)).
+\end{eqnarray*}\]</span> Note also that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(a,b,c) \\
+ &amp; = &amp; \gcd(c,a,b) \\
+ &amp; = &amp; \gcd(c,a,c,b) \\
+ &amp; = &amp; \gcd(\gcd(c,a),\gcd(c,b)).
+\end{eqnarray*}\]</span> Now we have <span class="math display">\[\begin{eqnarray*}
+ &amp; = &amp; \gcd(c,\lcm(a,b)) \\
+ &amp; = &amp; \gcd(\quo(c \cdot \gcd(a,b),\gcd(a,b)),\quo(ab,\gcd(a,b))) \\
+ &amp; = &amp; \quo(\gcd(c \cdot \gcd(a,b), ab),\gcd(a,b)) \\
+ &amp; = &amp; \quo(\gcd(c,a) \cdot \gcd(c,b),\gcd(a,b,c)) \\
+ &amp; = &amp; \quo(\gcd(c,a), \cdot \gcd(c,b),\gcd(\gcd(c,a),\gcd(c,b))) \\
+ &amp; = &amp; \lcm(\gcd(c,a),\gcd(c,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>Next we show (2). First suppose <span class="math inline">\(c = \zero\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(c,\gcd(a,b)) \\
+ &amp; = &amp; \lcm(\zero,\gcd(a,b)) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \gcd(\zero,\zero) \\
+ &amp; = &amp; \gcd(\lcm(\zero,a),\lcm(\zero,b)) \\
+ &amp; = &amp; \gcd(\lcm(c,a),\lcm(c,b))
+\end{eqnarray*}\]</span> as claimed. Now suppose <span class="math inline">\(a = \zero\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(c,\gcd(a,b)) \\
+ &amp; = &amp; \lcm(c,\gcd(\zero,b)) \\
+ &amp; = &amp; \lcm(c,b) \\
+ &amp; = &amp; \gcd(\zero,\lcm(c,b)) \\
+ &amp; = &amp; \gcd(\lcm(c,\zero),\lcm(c,b)) \\
+ &amp; = &amp; \gcd(\lcm(a,c),\lcm(c,b))
+\end{eqnarray*}\]</span> as claimed. Now suppose <span class="math inline">\(b = \zero\)</span>. Then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(c,\gcd(a,b)) \\
+ &amp; = &amp; \lcm(c,\gcd(a,\zero)) \\
+ &amp; = &amp; \lcm(c,a) \\
+ &amp; = &amp; \gcd(\lcm(c,a),\zero) \\
+ &amp; = &amp; \gcd(\lcm(c,a),\lcm(c,\zero)) \\
+ &amp; = &amp; \gcd(\lcm(c,a),\lcm(c,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+<p>We can now assume that <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are all nonzero. Note that <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \gcd(ca,cb) \cdot \gcd(cc,cb,ac,ab) \\
+ &amp; = &amp; \gcd(ca \cdot \gcd(cc,cb,ac,ab), cb \cdot \gcd(cc,cb,ac,ab)) \\
+ &amp; = &amp; \gcd(cacc,cacb,caac,caab,cbcc,cbcb,cbac,cbab) \\
+ &amp; = &amp; \gcd(cacc,caca,cacb,cabc,caba,cabb, \\
+ &amp;   &amp; \quad cbcc,cbca,cbcb,cbac,cbaa,cbab) \\
+ &amp; = &amp; \gcd(cac \cdot \gcd(c,a,b), cab \cdot \gcd(c,a,b), \\
+ &amp;   &amp; \quad cbc \cdot \gcd(c,a,b), cba \cdot \gcd(c,a,b)) \\
+ &amp; = &amp; \gcd(cac,cab,cbc,cba) \cdot \gcd(c,a,b).
+\end{eqnarray*}\]</span> Then using the cross multiplication theorem again we have <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \lcm(c,\gcd(a,b)) \\
+ &amp; = &amp; \quo(c \cdot \gcd(a,b),\gcd(c,\gcd(a,b))) \\
+ &amp; = &amp; \quo(\gcd(ca,cb),\gcd(c,a,b)) \\
+ &amp; = &amp; \quo(\gcd(cac,cab,cbc,cba), \\
+ &amp;   &amp; \quad \gcd(cc,cb,ac,ab)) \\
+ &amp; = &amp; \quo(\gcd(gcd(cac,cab),\gcd(cbc,cba)), \\
+ &amp;   &amp; \quad \gcd(c \cdot \gcd(c,b), a \cdot \gcd(c,b))) \\
+ &amp; = &amp; \quo(\gcd(ca \cdot \gcd(c,b),cb \cdot \gcd(c,a)), \\
+ &amp;   &amp; \quad \gcd(c,a) \cdot \gcd(c,b)) \\
+ &amp; = &amp; \gcd(\quo(ca \cdot \gcd(c,b),\gcd(c,a) \cdot \gcd(c,b)), \\
+ &amp;   &amp; \quad \quo(cb \cdot \gcd(c,a),\gcd(c,a) \cdot \gcd(c,b))) \\
+ &amp; = &amp; \gcd(\quo(ca,\gcd(c,a)),\quo(cb,\gcd(c,b))) \\
+ &amp; = &amp; \gcd(\lcm(c,a),\lcm(c,b))
+\end{eqnarray*}\]</span> as claimed.</p>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>

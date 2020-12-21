@@ -157,6 +157,47 @@
 \end{eqnarray*}\]</span> Since <span class="math inline">\(c | \plus(a,b)\)</span> and <span class="math inline">\(c \neq \zero\)</span>, and using the uniqueness property of the division algorithm, we have <span class="math display">\[\rem(b,c) = \rem(\plus(a,b),c) = \zero\]</span> and thus <span class="math inline">\(b | c\)</span> as claimed.</p>
 </div>
 </div>
+<p>Quotients interact with products.</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(a,bc, \in \nats\)</span>. Then we have the following.</p>
+<ol>
+<li>If <span class="math inline">\(b \neq \zero\)</span>, then <span class="math inline">\(\quo(\mult(a,b),b) = a\)</span>.</li>
+<li>If <span class="math inline">\(b | a\)</span>, then <span class="math inline">\(\quo(\mult(c,a),b) = \mult(c,\quo(a,b))\)</span>.</li>
+</ol>
+<div class="proof">
+<p>First we show (1). Say <span class="math inline">\(b = \next(m)\)</span>. Note that <span class="math inline">\(\zero \leq m\)</span> and that <span class="math display">\[\mult(a,b) = \plus(\mult(a,b),\zero).\]</span> By the uniqueness of quotients by nonzero divisors, we have <span class="math inline">\(a = \quo(\mult(a,b),b)\)</span> as claimed.</p>
+<p>Next we show (2). We consider two possibilities. If <span class="math inline">\(b = \zero\)</span>, then <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \quo(\mult(c,a),b) \\
+ &amp; = &amp; \quo(\mult(c,a),\zero) \\
+ &amp; = &amp; \zero \\
+ &amp; = &amp; \mult(c,\zero) \\
+ &amp; = &amp; \mult(c,\quo(a,\zero)) \\
+ &amp; = &amp; \mult(c,\quo(a,b))
+\end{eqnarray*}\]</span> as claimed. Now suppose <span class="math inline">\(b \neq \zero\)</span>. Since <span class="math inline">\(b | a\)</span>, we have <span class="math inline">\(\rem(a,b) = \zero\)</span>. Now <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; \mult(c,a) \\
+ &amp; = &amp; \mult(c,\plus(\mult(\quo(a,b),b),\rem(a,b))) \\
+ &amp; = &amp; \mult(c,\mult(\quo(a,b),b)) \\
+ &amp; = &amp; \mult(\mult(c,\quo(a,b)),b).
+\end{eqnarray*}\]</span> By the uniqueness of quotients and remainders by a nonzero divisor, we have <span class="math inline">\(\quo(\mult(c,a),b) = \mult(c,\quo(a,b))\)</span> as claimed.</p>
+</div>
+</div>
+<p>We can also relate products and quotients using the following result, which we'll call the Cross Multiplication Theorem.</p>
+<div class="theorem">
+<p><a name='crossref-2'></a> (Cross Multiplication.) Let <span class="math inline">\(a,b,c,d \in \nats\)</span> such that <span class="math inline">\(b,d \neq \zero\)</span>, <span class="math inline">\(b | a\)</span>, and <span class="math inline">\(d | c\)</span>. Then the following are equivalent.</p>
+<ol>
+<li><span class="math inline">\(\mult(a,d) = \mult(b,c)\)</span>.</li>
+<li><span class="math inline">\(\quo(a,b) = \quo(c,d)\)</span>.</li>
+</ol>
+<div class="proof">
+<p>Since <span class="math inline">\(b\)</span> and <span class="math inline">\(d\)</span> are not both zero, using the uniqueness of quotients by a nonzero divisor, we have <span class="math display">\[\mult(a,d) = \mult(b,c)\]</span> if and only if <span class="math display">\[\begin{eqnarray*}
+ &amp;   &amp; c \\
+ &amp; = &amp; \quo(\mult(a,d),b) \\
+ &amp; = &amp; \quo(\mult(d,a),b) \\
+ &amp; = &amp; \mult(d,\quo(a,b)) \\
+ &amp; = &amp; \mult(\quo(a,b),d)
+\end{eqnarray*}\]</span> if and only if $<span class="math inline">\(\quo(a,b) = \quo(c,d)\)</span> as claimed.</p>
+</div>
+</div>
 </section>
 </article>
 </body>
